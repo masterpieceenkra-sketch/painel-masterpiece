@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Trash2, Plus } from "lucide-react";
+import { PdfUpload } from "./pdf-upload";
 
 export interface PlaybookFormValues {
   slug?: string;
@@ -119,11 +120,10 @@ export function PlaybookForm({
         defaultValue={initial?.video_url ?? ""}
       />
 
-      <Field
-        label="URL do PDF (opcional)"
-        name="pdf_url"
-        defaultValue={initial?.pdf_url ?? ""}
-      />
+      <div>
+        <Label>PDF (opcional)</Label>
+        <PdfUpload name="pdf_url" defaultValue={initial?.pdf_url ?? ""} />
+      </div>
 
       <Textarea
         label="Conteúdo (MDX)"
