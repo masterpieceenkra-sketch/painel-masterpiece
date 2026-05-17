@@ -61,5 +61,14 @@
     "drillType": "defense",
     "spotIds": ["def-bb-vs-btn-25bb-base"],
     "targetAttempts": 30
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-axx",
+    "slug": "postflop-srp-btn-vs-bb-axx",
+    "title": "Pós-flop SRP BTN vs BB — flops Ax",
+    "description": "Após open BTN 2.2BB + call BB. Você é BTN no flop com Ax na board. C-bet, check ou bet grande?",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
   }
 ]
