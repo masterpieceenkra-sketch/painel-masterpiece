@@ -18,8 +18,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <span className="text-xl font-semibold text-slate-100">Trainer</span>
               <span className="text-xs uppercase tracking-wider text-slate-500">MTT</span>
             </Link>
-            <nav className="text-sm text-slate-400">
-              <span className="opacity-60">v0.1 · MVP</span>
+            <nav className="flex items-center gap-5 text-sm text-slate-400">
+              <Link href="/ranges" className="hover:text-emerald-300">
+                Ranges
+              </Link>
+              <Link href="/progresso" className="hover:text-emerald-300">
+                Progresso
+              </Link>
             </nav>
           </div>
         </header>
