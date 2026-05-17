@@ -1,0 +1,17 @@
+[
+  {
+    "kind": "pushfold",
+    "id": "pf-sb-vs-bb-10bb-base",
+    "effectiveBB": 10,
+    "heroPos": "SB",
+    "villainPos": "BB",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-10bb-sb-jam",
+    "icmContext": "chipEV"
+  }
+]

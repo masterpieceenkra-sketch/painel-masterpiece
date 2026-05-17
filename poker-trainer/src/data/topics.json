@@ -1,0 +1,11 @@
+[
+  {
+    "id": "pf-sb-vs-bb-10bb",
+    "slug": "pf-sb-vs-bb-10bb",
+    "title": "Push/Fold 10BB SB vs BB",
+    "description": "Você está no Small Blind com 10BB effective. BTN, CO, HJ e UTG foldaram. Decida: jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-sb-vs-bb-10bb-base"],
+    "targetAttempts": 20
+  }
+]
