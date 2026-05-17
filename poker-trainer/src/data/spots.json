@@ -47,6 +47,114 @@
     "icmContext": "chipEV"
   },
   {
+    "kind": "pushfold",
+    "id": "pf-btn-7bb-base",
+    "effectiveBB": 7,
+    "heroPos": "BTN",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-7bb-btn-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-btn-10bb-base",
+    "effectiveBB": 10,
+    "heroPos": "BTN",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-10bb-btn-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-btn-15bb-base",
+    "effectiveBB": 15,
+    "heroPos": "BTN",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-15bb-btn-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-co-10bb-base",
+    "effectiveBB": 10,
+    "heroPos": "CO",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-10bb-co-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-sb-15bb-base",
+    "effectiveBB": 15,
+    "heroPos": "SB",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-15bb-sb-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-sb-20bb-base",
+    "effectiveBB": 20,
+    "heroPos": "SB",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-20bb-sb-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-bb-vs-btn-jam-10bb-base",
+    "effectiveBB": 10,
+    "heroPos": "BB",
+    "villainPos": "BTN",
+    "heroRole": "caller",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "jam" } },
+      { "position": "SB", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-10bb-bb-call-btn",
+    "icmContext": "chipEV"
+  },
+  {
     "kind": "open",
     "id": "open-btn-25bb-base",
     "effectiveBB": 25,
@@ -58,6 +166,42 @@
       { "position": "CO", "action": { "kind": "fold" } }
     ],
     "solutionRangeId": "open-btn-25bb"
+  },
+  {
+    "kind": "open",
+    "id": "open-btn-50bb-base",
+    "effectiveBB": 50,
+    "heroPos": "BTN",
+    "defaultOpenSizeBB": 2.0,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "open-btn-50bb"
+  },
+  {
+    "kind": "open",
+    "id": "open-co-25bb-base",
+    "effectiveBB": 25,
+    "heroPos": "CO",
+    "defaultOpenSizeBB": 2.2,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "open-co-25bb"
+  },
+  {
+    "kind": "open",
+    "id": "open-hj-25bb-base",
+    "effectiveBB": 25,
+    "heroPos": "HJ",
+    "defaultOpenSizeBB": 2.3,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "open-hj-25bb"
   },
   {
     "kind": "open",
@@ -95,5 +239,38 @@
       { "position": "SB", "action": { "kind": "fold" } }
     ],
     "solutionRangeId": "def-bb-vs-btn-25bb"
+  },
+  {
+    "kind": "defense",
+    "id": "3bet-bb-vs-co-50bb-base",
+    "effectiveBB": 50,
+    "heroPos": "BB",
+    "villainPos": "CO",
+    "villainAction": { "kind": "raise", "sizeBB": 2.3 },
+    "default3betSizeBB": 10,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "raise", "sizeBB": 2.3 } },
+      { "position": "BTN", "action": { "kind": "fold" } },
+      { "position": "SB", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "3bet-bb-vs-co-50bb"
+  },
+  {
+    "kind": "defense",
+    "id": "3bet-sb-vs-btn-25bb-base",
+    "effectiveBB": 25,
+    "heroPos": "SB",
+    "villainPos": "BTN",
+    "villainAction": { "kind": "raise", "sizeBB": 2.2 },
+    "default3betSizeBB": 8,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "raise", "sizeBB": 2.2 } }
+    ],
+    "solutionRangeId": "3bet-sb-vs-btn-25bb"
   }
 ]

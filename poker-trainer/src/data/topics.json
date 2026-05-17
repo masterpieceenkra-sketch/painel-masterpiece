@@ -27,12 +27,102 @@
     "targetAttempts": 20
   },
   {
+    "id": "pf-btn-7bb",
+    "slug": "pf-btn-7bb",
+    "title": "Push/Fold 7BB BTN",
+    "description": "BTN com 7BB, folded to BTN. Push jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-btn-7bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "pf-btn-10bb",
+    "slug": "pf-btn-10bb",
+    "title": "Push/Fold 10BB BTN",
+    "description": "BTN com 10BB, folded to BTN. Jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-btn-10bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "pf-btn-15bb",
+    "slug": "pf-btn-15bb",
+    "title": "Push/Fold 15BB BTN",
+    "description": "BTN com 15BB, folded to BTN. A 15BB open standard ainda é melhor — drill foca em quando jam é EV+.",
+    "drillType": "pushfold",
+    "spotIds": ["pf-btn-15bb-base"],
+    "targetAttempts": 15
+  },
+  {
+    "id": "pf-co-10bb",
+    "slug": "pf-co-10bb",
+    "title": "Push/Fold 10BB CO",
+    "description": "CO com 10BB, UTG/HJ foldaram. Jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-co-10bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "pf-sb-15bb",
+    "slug": "pf-sb-15bb",
+    "title": "Push/Fold 15BB SB",
+    "description": "SB com 15BB, folded to SB. Jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-sb-15bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "pf-sb-20bb",
+    "slug": "pf-sb-20bb",
+    "title": "Push/Fold 20BB SB",
+    "description": "SB com 20BB. A 20BB+ open 2.5x já é preferível, drill mostra quando jam ainda paga.",
+    "drillType": "pushfold",
+    "spotIds": ["pf-sb-20bb-base"],
+    "targetAttempts": 15
+  },
+  {
+    "id": "pf-bb-vs-btn-jam-10bb",
+    "slug": "pf-bb-vs-btn-jam-10bb",
+    "title": "BB call vs BTN jam 10BB",
+    "description": "BTN deu all-in com 10BB. Você na BB com odds excelentes. Call ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-bb-vs-btn-jam-10bb-base"],
+    "targetAttempts": 20
+  },
+  {
     "id": "open-btn-25bb",
     "slug": "open-btn-25bb",
     "title": "Abertura BTN 25BB",
     "description": "BTN com 25BB, todos foldaram. Open-raise (2.2BB) ou fold?",
     "drillType": "open",
     "spotIds": ["open-btn-25bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "open-btn-50bb",
+    "slug": "open-btn-50bb",
+    "title": "Abertura BTN 50BB",
+    "description": "BTN com 50BB, todos foldaram. Open-raise (2.0BB) ou fold?",
+    "drillType": "open",
+    "spotIds": ["open-btn-50bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "open-co-25bb",
+    "slug": "open-co-25bb",
+    "title": "Abertura CO 25BB",
+    "description": "CO com 25BB, UTG/HJ foldaram. Open-raise (2.2BB) ou fold?",
+    "drillType": "open",
+    "spotIds": ["open-co-25bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "open-hj-25bb",
+    "slug": "open-hj-25bb",
+    "title": "Abertura HJ 25BB",
+    "description": "HJ com 25BB, UTG foldou. Open-raise (2.3BB) ou fold?",
+    "drillType": "open",
+    "spotIds": ["open-hj-25bb-base"],
     "targetAttempts": 25
   },
   {
@@ -60,6 +150,24 @@
     "description": "BTN abriu para 2.2BB. Você na BB. 3-bet (9BB), call ou fold?",
     "drillType": "defense",
     "spotIds": ["def-bb-vs-btn-25bb-base"],
+    "targetAttempts": 30
+  },
+  {
+    "id": "3bet-bb-vs-co-50bb",
+    "slug": "3bet-bb-vs-co-50bb",
+    "title": "BB 3-bet vs CO open 50BB",
+    "description": "CO abriu 2.3BB. Você na BB com 50BB. 3-bet (10BB), call ou fold?",
+    "drillType": "defense",
+    "spotIds": ["3bet-bb-vs-co-50bb-base"],
+    "targetAttempts": 30
+  },
+  {
+    "id": "3bet-sb-vs-btn-25bb",
+    "slug": "3bet-sb-vs-btn-25bb",
+    "title": "SB 3-bet vs BTN open 25BB",
+    "description": "BTN abriu 2.2BB. Você no SB (OOP) com 25BB. 3-bet (8BB), call ou fold?",
+    "drillType": "defense",
+    "spotIds": ["3bet-sb-vs-btn-25bb-base"],
     "targetAttempts": 30
   },
   {

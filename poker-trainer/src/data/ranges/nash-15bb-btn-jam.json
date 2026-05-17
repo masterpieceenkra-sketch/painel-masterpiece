@@ -1,0 +1,11 @@
+{
+  "id": "nash-15bb-btn-jam",
+  "label": "BTN jam 15BB",
+  "description": "Folded to BTN com 15BB. Decide entre open jam e fold (open standard também é válido).",
+  "effectiveBB": 15,
+  "sourceNote": "Aproximação Nash chip-EV (~30% range). A 15BB+ open standard se torna preferível, mas jam ainda é EV+.",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "jam": "22+, A2s+, A7o+, K6s+, KTo+, Q8s+, QTo+, J8s+, JTo, T8s+, T9o, 98s, 87s, 76s, 65s"
+  }
+}

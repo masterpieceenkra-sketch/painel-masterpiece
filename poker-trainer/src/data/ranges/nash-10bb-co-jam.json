@@ -1,0 +1,11 @@
+{
+  "id": "nash-10bb-co-jam",
+  "label": "CO jam 10BB",
+  "description": "CO com 10BB, UTG e HJ foldaram. Push ou fold?",
+  "effectiveBB": 10,
+  "sourceNote": "Aproximação Nash chip-EV (~36% range).",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "jam": "22+, A2s+, A5o+, K7s+, K9o+, Q9s+, QTo+, J9s+, JTo, T9s, 98s, 87s"
+  }
+}

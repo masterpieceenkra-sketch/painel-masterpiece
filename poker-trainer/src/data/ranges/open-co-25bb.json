@@ -1,0 +1,11 @@
+{
+  "id": "open-co-25bb",
+  "label": "CO Open 25BB",
+  "description": "CO com 25BB, UTG e HJ foldaram. Open 2.2x ou fold.",
+  "effectiveBB": 25,
+  "sourceNote": "GTO aproximação (~24% range). Sizing padrão 2.2BB.",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "raise": "22+, A2s+, A7o+, K7s+, K9o+, Q8s+, QTo+, J8s+, JTo, T8s+, T9o, 97s+, 87s, 76s, 65s"
+  }
+}

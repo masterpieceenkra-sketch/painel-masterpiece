@@ -1,0 +1,16 @@
+{
+  "id": "3bet-sb-vs-btn-25bb",
+  "label": "SB 3-bet vs BTN open 25BB",
+  "description": "BTN abriu para 2.2BB, você no SB com 25BB. 3-bet (8BB), call ou fold? OOP é apertado.",
+  "effectiveBB": 25,
+  "sourceNote": "GTO aproximação. 3-bet alvo 8BB. SB defende muito menos que BB por ser OOP vs duas streets adicionais (BB pode entrar).",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "raise": "TT+, AJs+, AQo+, KQs",
+    "call": "22-99, A2s-ATs, ATo-AJo, K9s-KJs, KJo-KQo, QTs-QJs, QJo, JTs, T9s"
+  },
+  "cells": {
+    "A5s": { "raise": 0.5, "call": 0.5 },
+    "K9s": { "raise": 0.25, "call": 0.75 }
+  }
+}

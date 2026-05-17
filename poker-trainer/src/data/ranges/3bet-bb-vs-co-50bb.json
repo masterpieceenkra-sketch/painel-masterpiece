@@ -1,0 +1,17 @@
+{
+  "id": "3bet-bb-vs-co-50bb",
+  "label": "BB 3-bet vs CO open 50BB",
+  "description": "CO abriu para 2.3BB. Você na BB com 50BB effective. 3-bet (10BB), call ou fold?",
+  "effectiveBB": 50,
+  "sourceNote": "GTO aproximação. 3-bet alvo 10BB. Inclui mix de A4s/A5s como bluff (40% raise).",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "raise": "99+, AJs+, AQo+, KQs",
+    "call": "22-88, A6s-ATs, A8o-AJo, K2s-KJs, KTo-KQo, Q4s-QTs, QTo-QJo, J6s-JTs, JTo, T7s-T9s, T9o, 97s-98s, 87s, 76s, 65s, 54s"
+  },
+  "cells": {
+    "A5s": { "raise": 0.4, "call": 0.6 },
+    "A4s": { "raise": 0.4, "call": 0.6 },
+    "K7s": { "raise": 0.2, "call": 0.8 }
+  }
+}
