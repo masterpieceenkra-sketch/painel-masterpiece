@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ACTION_LABEL_PT } from "@/domain/cards";
 import type { EvBucket } from "@/domain/progress";
 import { formatBB } from "@/lib/format";
@@ -34,9 +35,15 @@ const BUCKET_STYLES: Record<EvBucket, { border: string; bg: string; label: strin
 
 export function FeedbackPanel({
   result,
+  rangeId,
+  rangeLabel,
+  hand,
   onNext,
 }: {
   result: ScoreResult;
+  rangeId?: string;
+  rangeLabel?: string;
+  hand?: string;
   onNext: () => void;
 }) {
   const style = BUCKET_STYLES[result.bucket];
@@ -65,6 +72,15 @@ export function FeedbackPanel({
           {result.bestRaiseSizeBB != null && ` ${result.bestRaiseSizeBB}BB`}
         </span>
       </div>
+
+      {rangeId && (
+        <Link
+          href={`/ranges/${rangeId}${hand ? `?hand=${encodeURIComponent(hand)}` : ""}`}
+          className="mb-3 inline-block text-sm text-emerald-400 hover:text-emerald-300"
+        >
+          Ver range completa{rangeLabel ? ` — ${rangeLabel}` : ""} →
+        </Link>
+      )}
 
       <button
         type="button"

@@ -11,6 +11,7 @@ export type PushFoldSpot = {
   effectiveBB: number;
   heroPos: Position;
   villainPos: Position;
+  heroRole?: "jammer" | "caller";
   prior: PriorAction[];
   solutionRangeId: string;
   icmContext: "chipEV";
@@ -33,6 +34,7 @@ export type DefenseSpot = {
   heroPos: "BB" | "SB";
   villainPos: Position;
   villainAction: Action;
+  default3betSizeBB: number;
   prior: PriorAction[];
   solutionRangeId: string;
 };

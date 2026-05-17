@@ -1,0 +1,11 @@
+{
+  "id": "open-hj-40bb",
+  "label": "HJ Open 40BB",
+  "description": "HJ com 40BB effective, UTG foldou. Open-raise para 2.3BB ou fold.",
+  "effectiveBB": 40,
+  "sourceNote": "GTO aproximação (~18% range). MTT chipEV.",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "raise": "44+, A8s+, ATo+, KTs+, KJo+, QTs+, QJo, JTs, J9s, T9s, 98s, 87s, 76s, 65s"
+  }
+}

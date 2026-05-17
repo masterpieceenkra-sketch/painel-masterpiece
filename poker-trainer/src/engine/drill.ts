@@ -21,13 +21,21 @@ export function newQuestion(
 
 export function evaluate(question: DrillQuestion, chosen: Action): ScoreResult {
   const hand = handCodeOf(question.heroCards[0], question.heroCards[1]);
-  const defaultRaiseSizeBB =
-    question.spot.kind === "open" ? question.spot.defaultOpenSizeBB : undefined;
+  const defaultRaiseSizeBB = defaultRaiseSize(question.spot);
   return scorePreflop(question.range, hand, chosen, defaultRaiseSizeBB);
+}
+
+export function defaultRaiseSize(spot: PreflopSpot): number | undefined {
+  if (spot.kind === "open") return spot.defaultOpenSizeBB;
+  if (spot.kind === "defense") return spot.default3betSizeBB;
+  return undefined;
 }
 
 export function legalActions(spot: PreflopSpot): Action[] {
   if (spot.kind === "pushfold") {
+    if (spot.heroRole === "caller") {
+      return [{ kind: "fold" }, { kind: "call" }];
+    }
     return [{ kind: "fold" }, { kind: "jam" }];
   }
   if (spot.kind === "open") {
@@ -40,6 +48,6 @@ export function legalActions(spot: PreflopSpot): Action[] {
   return [
     { kind: "fold" },
     { kind: "call" },
-    { kind: "raise", sizeBB: 9 },
+    { kind: "raise", sizeBB: spot.default3betSizeBB },
   ];
 }

@@ -12,16 +12,10 @@ export default async function TreinoPage({
   const topic = getTopic(topicSlug);
   if (!topic) notFound();
 
-  const spotId = topic.spotIds[0];
-  const spot = getSpot(spotId);
-  if (!spot || spot.kind === "open" || spot.kind === "defense") {
-    if (!spot) notFound();
-  }
+  const spot = getSpot(topic.spotIds[0]);
   if (!spot) notFound();
 
-  const range = spot.kind === "pushfold" || spot.kind === "open" || spot.kind === "defense"
-    ? getRange(spot.solutionRangeId)
-    : undefined;
+  const range = getRange(spot.solutionRangeId);
   if (!range) notFound();
 
   return (
@@ -34,7 +28,12 @@ export default async function TreinoPage({
         <p className="mt-1 text-sm text-slate-400">{topic.description}</p>
       </div>
 
-      <DrillRunner topicId={topic.id} spot={spot} range={range} targetAttempts={topic.targetAttempts} />
+      <DrillRunner
+        topicId={topic.id}
+        spot={spot}
+        range={range}
+        targetAttempts={topic.targetAttempts}
+      />
     </div>
   );
 }

@@ -12,6 +12,22 @@ export type PreflopRange = {
   cells: Record<HandCode, FrequencyMix>;
 };
 
+/**
+ * Formato de autoria compacta carregado dos JSONs.
+ * `compactCells` mapeia ação → string de tokens (ex.: "22+, A2s+, K5o+").
+ * `cells` permite sobrescrever células específicas com mix explícito.
+ */
+export type RangeSource = {
+  id: string;
+  label: string;
+  description: string;
+  effectiveBB: number;
+  sourceNote: string;
+  defaultFrequencies: FrequencyMix;
+  compactCells?: Partial<Record<keyof FrequencyMix, string>>;
+  cells?: Record<HandCode, FrequencyMix>;
+};
+
 export function normalizeMix(mix: FrequencyMix): FrequencyMix {
   const sum = Object.values(mix).reduce<number>((acc, v) => acc + (v ?? 0), 0);
   if (sum === 0) return { fold: 1 };

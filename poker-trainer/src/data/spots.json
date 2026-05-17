@@ -5,6 +5,7 @@
     "effectiveBB": 10,
     "heroPos": "SB",
     "villainPos": "BB",
+    "heroRole": "jammer",
     "prior": [
       { "position": "UTG", "action": { "kind": "fold" } },
       { "position": "HJ", "action": { "kind": "fold" } },
@@ -13,5 +14,86 @@
     ],
     "solutionRangeId": "nash-10bb-sb-jam",
     "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-co-15bb-base",
+    "effectiveBB": 15,
+    "heroPos": "CO",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-15bb-co-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-bb-vs-sb-jam-12bb-base",
+    "effectiveBB": 12,
+    "heroPos": "BB",
+    "villainPos": "SB",
+    "heroRole": "caller",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "fold" } },
+      { "position": "SB", "action": { "kind": "jam" } }
+    ],
+    "solutionRangeId": "nash-12bb-bb-call",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "open",
+    "id": "open-btn-25bb-base",
+    "effectiveBB": 25,
+    "heroPos": "BTN",
+    "defaultOpenSizeBB": 2.2,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "open-btn-25bb"
+  },
+  {
+    "kind": "open",
+    "id": "open-hj-40bb-base",
+    "effectiveBB": 40,
+    "heroPos": "HJ",
+    "defaultOpenSizeBB": 2.3,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "open-hj-40bb"
+  },
+  {
+    "kind": "open",
+    "id": "open-utg-30bb-base",
+    "effectiveBB": 30,
+    "heroPos": "UTG",
+    "defaultOpenSizeBB": 2.3,
+    "prior": [],
+    "solutionRangeId": "open-utg-30bb"
+  },
+  {
+    "kind": "defense",
+    "id": "def-bb-vs-btn-25bb-base",
+    "effectiveBB": 25,
+    "heroPos": "BB",
+    "villainPos": "BTN",
+    "villainAction": { "kind": "raise", "sizeBB": 2.2 },
+    "default3betSizeBB": 9,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "raise", "sizeBB": 2.2 } },
+      { "position": "SB", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "def-bb-vs-btn-25bb"
   }
 ]

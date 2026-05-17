@@ -3,9 +3,63 @@
     "id": "pf-sb-vs-bb-10bb",
     "slug": "pf-sb-vs-bb-10bb",
     "title": "Push/Fold 10BB SB vs BB",
-    "description": "Você está no Small Blind com 10BB effective. BTN, CO, HJ e UTG foldaram. Decida: jam ou fold?",
+    "description": "Small Blind com 10BB effective, todos foldaram até você. Decida: jam ou fold?",
     "drillType": "pushfold",
     "spotIds": ["pf-sb-vs-bb-10bb-base"],
     "targetAttempts": 20
+  },
+  {
+    "id": "pf-co-15bb",
+    "slug": "pf-co-15bb",
+    "title": "Push/Fold 15BB CO (open jam)",
+    "description": "CO com 15BB, UTG e HJ foldaram. Open-jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-co-15bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "pf-bb-vs-sb-jam-12bb",
+    "slug": "pf-bb-vs-sb-jam-12bb",
+    "title": "BB call vs SB jam 12BB",
+    "description": "SB deu all-in com 12BB effective. Você está na BB. Calling ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-bb-vs-sb-jam-12bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "open-btn-25bb",
+    "slug": "open-btn-25bb",
+    "title": "Abertura BTN 25BB",
+    "description": "BTN com 25BB, todos foldaram. Open-raise (2.2BB) ou fold?",
+    "drillType": "open",
+    "spotIds": ["open-btn-25bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "open-hj-40bb",
+    "slug": "open-hj-40bb",
+    "title": "Abertura HJ 40BB",
+    "description": "HJ com 40BB, UTG foldou. Open-raise (2.3BB) ou fold?",
+    "drillType": "open",
+    "spotIds": ["open-hj-40bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "open-utg-30bb",
+    "slug": "open-utg-30bb",
+    "title": "Abertura UTG 30BB",
+    "description": "UTG (primeira posição) com 30BB. Range tight: open ou fold?",
+    "drillType": "open",
+    "spotIds": ["open-utg-30bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "def-bb-vs-btn-25bb",
+    "slug": "def-bb-vs-btn-25bb",
+    "title": "Defesa BB vs BTN 25BB",
+    "description": "BTN abriu para 2.2BB. Você na BB. 3-bet (9BB), call ou fold?",
+    "drillType": "defense",
+    "spotIds": ["def-bb-vs-btn-25bb-base"],
+    "targetAttempts": 30
   }
 ]

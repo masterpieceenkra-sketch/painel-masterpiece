@@ -1,0 +1,11 @@
+{
+  "id": "nash-15bb-co-jam",
+  "label": "Nash 15BB CO open jam",
+  "description": "CO com 15BB effective após UTG e HJ foldarem. Decida jam ou fold.",
+  "effectiveBB": 15,
+  "sourceNote": "Aproximação Nash chip-EV (~23% range). MTT chipEV; ajustar com ICM.",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "jam": "33+, A2s+, A8o+, K6s+, KJo+, Q8s+, QJo, J9s+, T9s"
+  }
+}

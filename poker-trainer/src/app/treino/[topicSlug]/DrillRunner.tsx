@@ -6,7 +6,13 @@ import { POSITION_LABEL_PT } from "@/domain/cards";
 import { summarize } from "@/domain/progress";
 import type { PreflopRange } from "@/domain/range";
 import type { PreflopSpot } from "@/domain/spots";
-import { evaluate, legalActions, newQuestion, type DrillQuestion } from "@/engine/drill";
+import {
+  defaultRaiseSize,
+  evaluate,
+  legalActions,
+  newQuestion,
+  type DrillQuestion,
+} from "@/engine/drill";
 import { handCodeOf } from "@/engine/handCode";
 import type { ScoreResult } from "@/engine/scoring";
 import { loadProgress, saveAttempt } from "@/storage/localProgress";
@@ -15,6 +21,7 @@ import { ActionHistoryLine } from "@/components/ActionHistoryLine";
 import { FeedbackPanel } from "@/components/FeedbackPanel";
 import { HoleCards } from "@/components/HoleCards";
 import { ProgressBadge } from "@/components/ProgressBadge";
+import { SizingSlider } from "@/components/SizingSlider";
 import { formatBB, formatPct } from "@/lib/format";
 
 type Props = {
@@ -26,20 +33,31 @@ type Props = {
 
 type State =
   | { phase: "asking"; question: DrillQuestion }
-  | { phase: "feedback"; question: DrillQuestion; result: ScoreResult };
+  | { phase: "feedback"; question: DrillQuestion; result: ScoreResult; hand: string };
 
 export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
   const [state, setState] = useState<State | null>(null);
   const [stats, setStats] = useState({ total: 0, correctPct: 0, avgEvLossBB: 0 });
 
-  const actions = useMemo(() => legalActions(spot), [spot]);
+  const baseActions = useMemo(() => legalActions(spot), [spot]);
+  const baseRaiseSize = defaultRaiseSize(spot);
+  const [raiseSize, setRaiseSize] = useState<number>(baseRaiseSize ?? 0);
+
+  const actions: Action[] = useMemo(
+    () =>
+      baseActions.map((a) =>
+        a.kind === "raise" ? { kind: "raise", sizeBB: raiseSize } : a,
+      ),
+    [baseActions, raiseSize],
+  );
 
   useEffect(() => {
     setState({ phase: "asking", question: newQuestion(spot, range) });
     const p = loadProgress(topicId);
     const s = summarize(p);
     setStats({ total: s.total, correctPct: s.correctPct, avgEvLossBB: s.avgEvLossBB });
-  }, [topicId, spot, range]);
+    if (baseRaiseSize != null) setRaiseSize(baseRaiseSize);
+  }, [topicId, spot, range, baseRaiseSize]);
 
   function handleChoose(action: Action) {
     if (!state || state.phase !== "asking") return;
@@ -56,11 +74,12 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
     });
     const s = summarize(updated);
     setStats({ total: s.total, correctPct: s.correctPct, avgEvLossBB: s.avgEvLossBB });
-    setState({ phase: "feedback", question: state.question, result });
+    setState({ phase: "feedback", question: state.question, result, hand });
   }
 
   function handleNext() {
     setState({ phase: "asking", question: newQuestion(spot, range) });
+    if (baseRaiseSize != null) setRaiseSize(baseRaiseSize);
   }
 
   if (!state) {
@@ -68,6 +87,7 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
   }
 
   const { question } = state;
+  const hasRaise = baseActions.some((a) => a.kind === "raise");
 
   return (
     <div className="space-y-6">
@@ -89,7 +109,7 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
         <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2 text-sm">
           <div className="text-slate-300">
             <span className="font-semibold text-emerald-300">
-              {POSITION_LABEL_PT[spot.kind === "defense" ? spot.heroPos : spot.heroPos]}
+              {POSITION_LABEL_PT[spot.heroPos]}
             </span>{" "}
             · Stack effective:{" "}
             <span className="font-semibold text-white">{spot.effectiveBB} BB</span>
@@ -99,10 +119,7 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
           </div>
         </div>
 
-        <ActionHistoryLine
-          prior={spot.prior}
-          heroPos={spot.kind === "defense" ? spot.heroPos : spot.heroPos}
-        />
+        <ActionHistoryLine prior={spot.prior} heroPos={spot.heroPos} />
 
         <div className="mt-6 flex flex-col items-center gap-4">
           <HoleCards cards={question.heroCards} />
@@ -111,12 +128,27 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
       </section>
 
       {state.phase === "asking" ? (
-        <section className="space-y-3">
+        <section className="space-y-4">
+          {hasRaise && baseRaiseSize != null && (
+            <SizingSlider
+              minBB={Math.max(2, baseRaiseSize - 2)}
+              maxBB={Math.min(spot.effectiveBB, baseRaiseSize + 4)}
+              valueBB={raiseSize}
+              onChange={setRaiseSize}
+              label={spot.kind === "defense" ? "Tamanho 3-bet" : "Tamanho do raise"}
+            />
+          )}
           <div className="text-center text-sm text-slate-400">O que você faz?</div>
           <ActionButtons actions={actions} onChoose={handleChoose} />
         </section>
       ) : (
-        <FeedbackPanel result={state.result} onNext={handleNext} />
+        <FeedbackPanel
+          result={state.result}
+          rangeId={range.id}
+          rangeLabel={range.label}
+          hand={state.hand}
+          onNext={handleNext}
+        />
       )}
     </div>
   );
