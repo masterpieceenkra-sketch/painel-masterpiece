@@ -1,0 +1,11 @@
+{
+  "id": "icm-bubble-bb-call-sb-jam-15bb",
+  "label": "Bolha ICM — BB call vs SB jam 15BB",
+  "description": "10 jogadores, 9 pagam. SB jamou 15BB, você na BB. Calling range tightíssima.",
+  "effectiveBB": 15,
+  "sourceNote": "Ajuste ICM. Range de call ~9% vs chipEV ~28%. Pagar com hand fraca é catastrófico antes do dinheiro.",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "call": "88+, ATs+, AQo+, KQs"
+  }
+}

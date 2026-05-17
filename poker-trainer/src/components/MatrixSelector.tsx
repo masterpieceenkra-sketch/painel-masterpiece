@@ -15,6 +15,7 @@ const NODE_ORDER: ActionNode[] = [
   "push-fold-call",
   "open",
   "3bet",
+  "icm",
   "postflop",
 ];
 
@@ -44,6 +45,7 @@ export function MatrixSelector({ entries }: { entries: TopicMatrixEntry[] }) {
       open: [],
       "3bet": [],
       postflop: [],
+      icm: [],
     };
     for (const e of entries) byNode[e.node].push(e);
     return byNode;
@@ -90,7 +92,7 @@ export function MatrixSelector({ entries }: { entries: TopicMatrixEntry[] }) {
         })}
       </div>
 
-      {node === "postflop" ? (
+      {node === "postflop" || node === "icm" ? (
         <PostflopList entries={current} stats={statsByTopic} />
       ) : (
         <MatrixGrid

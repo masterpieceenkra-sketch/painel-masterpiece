@@ -5,6 +5,16 @@ export type PriorAction = {
   action: Action;
 };
 
+export type IcmContext = "chipEV" | "bubble" | "finalTable";
+
+export type IcmScenario = {
+  stage: IcmContext;
+  label: string;
+  description: string;
+  stacks: { label: string; stackBB: number; isHero?: boolean }[];
+  payoutsPct: number[];
+};
+
 export type PushFoldSpot = {
   kind: "pushfold";
   id: string;
@@ -14,7 +24,8 @@ export type PushFoldSpot = {
   heroRole?: "jammer" | "caller";
   prior: PriorAction[];
   solutionRangeId: string;
-  icmContext: "chipEV";
+  icmContext: IcmContext;
+  icmScenario?: IcmScenario;
 };
 
 export type OpenRaiseSpot = {

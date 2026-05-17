@@ -25,6 +25,9 @@ import openUtg30bb from "./ranges/open-utg-30bb.json";
 import defBbVsBtn25bb from "./ranges/def-bb-vs-btn-25bb.json";
 import threeBetBbVsCo50bb from "./ranges/3bet-bb-vs-co-50bb.json";
 import threeBetSbVsBtn25bb from "./ranges/3bet-sb-vs-btn-25bb.json";
+import icmBubbleSbJam15bb from "./ranges/icm-bubble-sb-jam-15bb.json";
+import icmBubbleBbCallSbJam15bb from "./ranges/icm-bubble-bb-call-sb-jam-15bb.json";
+import icmFtCoJam10bb from "./ranges/icm-ft-co-jam-10bb.json";
 import srpBtnVsBbAxx from "./postflop/srp-btn-vs-bb-axx.json";
 
 export const TOPICS: Topic[] = topicsJson as Topic[];
@@ -50,6 +53,9 @@ const RANGE_SOURCES: RangeSource[] = [
   defBbVsBtn25bb,
   threeBetBbVsCo50bb,
   threeBetSbVsBtn25bb,
+  icmBubbleSbJam15bb,
+  icmBubbleBbCallSbJam15bb,
+  icmFtCoJam10bb,
 ] as RangeSource[];
 
 function compile(source: RangeSource): PreflopRange {
@@ -157,7 +163,8 @@ export type ActionNode =
   | "push-fold-call"
   | "open"
   | "3bet"
-  | "postflop";
+  | "postflop"
+  | "icm";
 
 export const ACTION_NODE_LABEL: Record<ActionNode, string> = {
   "push-fold-jam": "Push/Fold — Jam",
@@ -165,6 +172,7 @@ export const ACTION_NODE_LABEL: Record<ActionNode, string> = {
   open: "Open RFI",
   "3bet": "3-bet vs Open",
   postflop: "Pós-flop",
+  icm: "ICM (bolha + FT)",
 };
 
 export type TopicMatrixEntry = {
@@ -181,6 +189,9 @@ export function topicMatrixEntry(topic: Topic): TopicMatrixEntry | null {
   const spot = getSpot(topic.spotIds[0]);
   if (!spot) return null;
   if (spot.kind === "pushfold") {
+    if (spot.icmContext !== "chipEV") {
+      return { topic, node: "icm", heroPos: spot.heroPos, effectiveBB: spot.effectiveBB };
+    }
     return {
       topic,
       node: spot.heroRole === "caller" ? "push-fold-call" : "push-fold-jam",

@@ -178,5 +178,32 @@
     "drillType": "postflop",
     "spotIds": [],
     "targetAttempts": 20
+  },
+  {
+    "id": "icm-bubble-sb-jam-15bb",
+    "slug": "icm-bubble-sb-jam-15bb",
+    "title": "Bolha — SB jam 15BB",
+    "description": "Bolha (10 left, 9 pagam). SB com 15BB. Range tighter por ICM. Jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["icm-bubble-sb-jam-15bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "icm-bubble-bb-call-sb-jam-15bb",
+    "slug": "icm-bubble-bb-call-sb-jam-15bb",
+    "title": "Bolha — BB call vs SB jam 15BB",
+    "description": "Bolha. SB jamou. Você na BB defendendo com ICM tight call range.",
+    "drillType": "pushfold",
+    "spotIds": ["icm-bubble-bb-call-sb-jam-15bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "icm-ft-co-jam-10bb",
+    "slug": "icm-ft-co-jam-10bb",
+    "title": "Final Table — CO jam 10BB",
+    "description": "FT 5-handed, payouts skewed. CO com 10BB enfrenta saltos de payout grandes.",
+    "drillType": "pushfold",
+    "spotIds": ["icm-ft-co-jam-10bb-base"],
+    "targetAttempts": 25
   }
 ]

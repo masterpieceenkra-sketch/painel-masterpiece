@@ -1,0 +1,11 @@
+{
+  "id": "icm-bubble-sb-jam-15bb",
+  "label": "Bolha ICM — SB jam 15BB",
+  "description": "10 jogadores, 9 pagam. Você no SB com 15BB, BB cobre. Range tighter por pressão ICM.",
+  "effectiveBB": 15,
+  "sourceNote": "Ajuste ICM Malmuth-Harville. Range tighter (~16%) vs chipEV (~40%) porque bust = $0 e fold preserva $X.",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "jam": "66+, A8s+, A9o+, K9s+, KQo, QTs+, JTs"
+  }
+}

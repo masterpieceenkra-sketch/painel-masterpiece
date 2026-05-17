@@ -6,20 +6,16 @@ import { POSITION_LABEL_PT } from "@/domain/cards";
 import { summarize } from "@/domain/progress";
 import type { PreflopRange } from "@/domain/range";
 import type { PreflopSpot } from "@/domain/spots";
-import {
-  defaultRaiseSize,
-  evaluate,
-  legalActions,
-  newQuestion,
-  type DrillQuestion,
-} from "@/engine/drill";
+import { evaluate, legalActions, newQuestion, defaultRaiseSize, type DrillQuestion } from "@/engine/drill";
 import { handCodeOf } from "@/engine/handCode";
 import type { ScoreResult } from "@/engine/scoring";
+import { eventKey } from "@/lib/keyboardShortcuts";
 import { loadProgress, saveAttempt } from "@/storage/localProgress";
 import { ActionButtons } from "@/components/ActionButtons";
 import { ActionHistoryLine } from "@/components/ActionHistoryLine";
 import { FeedbackPanel } from "@/components/FeedbackPanel";
 import { HoleCards } from "@/components/HoleCards";
+import { IcmBanner } from "@/components/IcmBanner";
 import { ProgressBadge } from "@/components/ProgressBadge";
 import { SizingSlider } from "@/components/SizingSlider";
 import { formatBB, formatPct } from "@/lib/format";
@@ -82,6 +78,35 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
     if (baseRaiseSize != null) setRaiseSize(baseRaiseSize);
   }
 
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const key = eventKey(e);
+      if (!key) return;
+      if (!state) return;
+      if (state.phase === "feedback") {
+        if (key === "SPACE" || key === "ENTER") {
+          e.preventDefault();
+          handleNext();
+        }
+        return;
+      }
+      const match = actions.find((a) => {
+        if (key === "F") return a.kind === "fold";
+        if (key === "C") return a.kind === "call" || a.kind === "check";
+        if (key === "R") return a.kind === "raise";
+        if (key === "J") return a.kind === "jam";
+        return false;
+      });
+      if (match) {
+        e.preventDefault();
+        handleChoose(match);
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state, actions]);
+
   if (!state) {
     return <div className="text-slate-400">Carregando…</div>;
   }
@@ -105,6 +130,10 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
         </div>
       </div>
 
+      {spot.kind === "pushfold" && spot.icmScenario && (
+        <IcmBanner scenario={spot.icmScenario} />
+      )}
+
       <section className="rounded-lg border border-slate-800 bg-emerald-950/40 p-6">
         <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2 text-sm">
           <div className="text-slate-300">
@@ -115,7 +144,11 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
             <span className="font-semibold text-white">{spot.effectiveBB} BB</span>
           </div>
           <div className="text-xs uppercase tracking-wide text-slate-500">
-            chipEV (sem ICM)
+            {spot.kind === "pushfold" && spot.icmContext === "bubble"
+              ? "Bolha (ICM)"
+              : spot.kind === "pushfold" && spot.icmContext === "finalTable"
+                ? "Final Table (ICM)"
+                : "chipEV (sem ICM)"}
           </div>
         </div>
 

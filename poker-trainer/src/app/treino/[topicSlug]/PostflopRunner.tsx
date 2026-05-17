@@ -12,6 +12,7 @@ import {
   scorePostflop,
   type PostflopScoreResult,
 } from "@/engine/postflop";
+import { eventKey } from "@/lib/keyboardShortcuts";
 import { loadProgress, saveAttempt } from "@/storage/localProgress";
 import { Board } from "@/components/Board";
 import { HoleCards } from "@/components/HoleCards";
@@ -74,6 +75,35 @@ export function PostflopRunner({ topicId, spots, targetAttempts }: Props) {
   function handleNext() {
     setState({ phase: "asking", spot: samplePostflop(spots) });
   }
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const key = eventKey(e);
+      if (!key || !state) return;
+      if (state.phase === "feedback") {
+        if (key === "SPACE" || key === "ENTER") {
+          e.preventDefault();
+          handleNext();
+        }
+        return;
+      }
+      const legal = state.spot.legalActions;
+      const match = legal.find((a) => {
+        if (key === "F") return a.kind === "fold";
+        if (key === "C") return a.kind === "call" || a.kind === "check";
+        if (key === "R") return a.kind === "raise";
+        if (key === "J") return a.kind === "jam";
+        return false;
+      });
+      if (match) {
+        e.preventDefault();
+        handleChoose(match);
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
 
   if (!state) return <div className="text-slate-400">Carregando…</div>;
 
@@ -139,23 +169,45 @@ export function PostflopRunner({ topicId, spots, targetAttempts }: Props) {
       </section>
 
       {state.phase === "asking" ? (
-        <section className="space-y-3">
+        <section className="space-y-2">
           <div className="text-center text-sm text-slate-400">O que você faz?</div>
           <div className="flex flex-wrap justify-center gap-3">
-            {spot.legalActions.map((a, i) => (
-              <button
-                type="button"
-                key={`${a.kind}-${i}`}
-                onClick={() => handleChoose(a)}
-                className={cn(
-                  "min-w-[120px] rounded-md px-5 py-3 font-semibold text-white shadow transition-colors",
-                  KIND_VARIANT[a.kind] ?? "bg-slate-700",
-                )}
-              >
-                {labelForAction(a, spot.potBB)}
-              </button>
-            ))}
+            {spot.legalActions.map((a, i) => {
+              const hint =
+                a.kind === "check" || a.kind === "call"
+                  ? "C"
+                  : a.kind === "raise"
+                    ? "R"
+                    : a.kind === "jam"
+                      ? "J"
+                      : a.kind === "fold"
+                        ? "F"
+                        : null;
+              return (
+                <button
+                  type="button"
+                  key={`${a.kind}-${i}`}
+                  onClick={() => handleChoose(a)}
+                  className={cn(
+                    "min-w-[120px] rounded-md px-5 py-3 font-semibold text-white shadow transition-colors",
+                    KIND_VARIANT[a.kind] ?? "bg-slate-700",
+                  )}
+                >
+                  <span>{labelForAction(a, spot.potBB)}</span>
+                  {hint && (
+                    <span className="ml-2 rounded bg-black/30 px-1.5 py-0.5 text-xs font-mono">
+                      {hint}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
+          <p className="text-center text-xs text-slate-500">
+            Atalhos: <kbd className="font-mono">C</kbd> ·{" "}
+            <kbd className="font-mono">R</kbd> · <kbd className="font-mono">J</kbd> ·{" "}
+            <kbd className="font-mono">Espaço</kbd> próxima
+          </p>
         </section>
       ) : (
         <PostflopFeedback
