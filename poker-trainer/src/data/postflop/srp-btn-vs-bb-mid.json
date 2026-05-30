@@ -1,0 +1,160 @@
+{
+  "topicId": "postflop-srp-btn-vs-bb-mid",
+  "spots": [
+    {
+      "id": "srp-btn-vs-bb-T92r-AA",
+      "street": "flop",
+      "board": ["Tc", "9h", "2d"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Ah", "As"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — Tx, 99, 22, 87s, 76s, 65s, J8s, J7s, broadways falhados",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.15,
+            "evBB": 0.38
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 2.5 },
+            "frequency": 0.85,
+            "evBB": 0.58
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 2.5 },
+        "explanation_ptBR": "AA em T92 rainbow é overpair premium mas o board é conectado o suficiente para preocupar. Villain tem Tx (KT, QT, JT, T9, T8s), 99 (set), 87s (OESD), 76s, J8s (gutshot). C-bet 50% é forte: você carrega todo o AA enquanto villain só tem Tx e draws. Proteger agora é crucial — turn 8, 7, ou J fecha straight draws e torna sua mão muito menos valiosa. Check 15% do tempo para balancear sua range de slow-plays, mas com AA prefira construir o pot.",
+        "sourceNote": "BTN vs BB SRP 25BB. AA em board médio conectado: protection + value = c-bet 50% dominante."
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-J73r-KK",
+      "street": "flop",
+      "board": ["Jh", "7d", "3c"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Kc", "Ks"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — Jx (QJ, JT, J9, J8s, J7s, J3s), 77, 33, pares médios e baixos",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.28,
+            "evBB": 0.26
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 1.65 },
+            "frequency": 0.72,
+            "evBB": 0.32
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 1.65 },
+        "explanation_ptBR": "KK em J73 rainbow tem overpair mas o J conecta bem com villain. Mesmo assim, c-bet 33% é o padrão — board J-baixo favorece o BTN porque você abre toda a range de JJ e Jx forte enquanto villain tem range mais desconectada. Bet pequeno extrai de 88-22 (underpairs que não vão foldar), QT, Q9, T8 (gutshots), e bluffs. Checkar 28% do tempo com KK parece contra-intuitivo mas protege sua range de check atrás (que seria muito fraca sem slow-plays).",
+        "sourceNote": "BTN vs BB SRP 25BB. KK em board J-baixo: range advantage para BTN, c-bet 33% dominante."
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-987r-AK",
+      "street": "flop",
+      "board": ["9h", "8c", "7d"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Ac", "Kc"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — range ampla conectando fort: T9, T6, 76, 65, 86, 97, 98, dois pares, sets",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.72,
+            "evBB": 0.12
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 1.65 },
+            "frequency": 0.28,
+            "evBB": 0.08
+          }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "AK em 987 rainbow sem par é um dos piores cenários para o agressor: board ultra-conectado que acerta muito mais o range de BB. Villain tem T6, T9, 87, 76, 65, 86, 98, 97 — dois pares e straights em alta frequência. AK tem apenas backdoor flush draw em paus e overcards sem equity real (o par de A ou K não salva contra straights e dois pares). Check atrás 72% para realizar equity de graça. Bet 28% como bluff ocasional com fold equity, mas contra uma range de BB que conecta tanto, prefira ver o turn de graça.",
+        "sourceNote": "BTN vs BB SRP 25BB. AK sem par em board ultra-coordenado = check dominante. Villain equity advantage."
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-T84r-QQ",
+      "street": "flop",
+      "board": ["Td", "8h", "4c"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Qc", "Qs"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — Tx (KT, QT, JT, T9, T8s), 88, 44, 87s, 97s, 65s",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.3,
+            "evBB": 0.21
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 2.5 },
+            "frequency": 0.7,
+            "evBB": 0.31
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 2.5 },
+        "explanation_ptBR": "QQ em T84 rainbow é overpair de qualidade: você bate todo o Tx que villain tem (KT, QT, JT, T9, T8s) e underpairs. C-bet 50% é forte porque o board tem potencial de draw — 87, 65, 97 têm gutshots e OESDs que vão pagar com draws. Proteger agora é inteligente: turn 9, J, 7, 6 fecha draws e dificulta sua posição. Diferente de KK em board K-alto, aqui você está acima da maioria do range de villain. Checar 30% do tempo com QQ para balance é aceitável.",
+        "sourceNote": "BTN vs BB SRP 25BB. QQ em board médio-baixo: overpair sólido, c-bet 50% para proteção e valor."
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-876r-JJ",
+      "street": "flop",
+      "board": ["8h", "7c", "6d"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Jc", "Jd"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — T9, T5, 95, 98, 87, 76, 54, pares médios. Board hit villain forte.",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.55,
+            "evBB": 0.14
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 1.65 },
+            "frequency": 0.45,
+            "evBB": 0.13
+          }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "JJ em 876 rainbow é o spot mais difícil desse tópico: board ultra-coordenado que destrói sua vantagem. Villain tem T9 (straight), T5, 95 (straight), 98 (dois pares), 87 (dois pares), 76 (dois pares), 54 (OESD)... O pot equity de villain é muito alto. Check é levemente melhor (55%) — você realiza equity de graça e evita bloqueio de potes que não consegue ganhar. C-bet 33% (45%) tem algum fold equity contra underpairs de villain que não conectaram (22, 33, 44, 55) mas é mixing. Nunca c-bete grande aqui.",
+        "sourceNote": "BTN vs BB SRP 25BB. Overpair em board ultra-conectado baixo: villain equity advantage, mix check/bet pequeno."
+      }
+    }
+  ]
+}

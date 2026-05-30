@@ -180,6 +180,33 @@
     "targetAttempts": 20
   },
   {
+    "id": "postflop-srp-btn-vs-bb-kxx",
+    "slug": "postflop-srp-btn-vs-bb-kxx",
+    "title": "Pós-flop SRP BTN vs BB — flops Kx",
+    "description": "Após open BTN 2.2BB + call BB. Flops com K no board: overpairs, draws e mãos de showdown value.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 25
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-mid",
+    "slug": "postflop-srp-btn-vs-bb-mid",
+    "title": "Pós-flop SRP BTN vs BB — boards médios",
+    "description": "Boards T/9/8 e coordenados. Proteção de overpairs, semi-bluffs e pot control em texturas conectadas.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 25
+  },
+  {
+    "id": "postflop-3bet-btn-vs-co",
+    "slug": "postflop-3bet-btn-vs-co",
+    "title": "Pós-flop Pote de 3-bet BTN vs CO",
+    "description": "BTN 3-bettou CO, CO chamou. Stacks ~25BB. Decisões de c-bet em boards secos e médios no pote de 3-bet.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
     "id": "icm-bubble-sb-jam-15bb",
     "slug": "icm-bubble-sb-jam-15bb",
     "title": "Bolha — SB jam 15BB",

@@ -29,6 +29,9 @@ import icmBubbleSbJam15bb from "./ranges/icm-bubble-sb-jam-15bb.json";
 import icmBubbleBbCallSbJam15bb from "./ranges/icm-bubble-bb-call-sb-jam-15bb.json";
 import icmFtCoJam10bb from "./ranges/icm-ft-co-jam-10bb.json";
 import srpBtnVsBbAxx from "./postflop/srp-btn-vs-bb-axx.json";
+import srpBtnVsBbKxx from "./postflop/srp-btn-vs-bb-kxx.json";
+import srpBtnVsBbMid from "./postflop/srp-btn-vs-bb-mid.json";
+import threeBetBtnVsCo from "./postflop/3bet-pot-btn-vs-co.json";
 
 export const TOPICS: Topic[] = topicsJson as Topic[];
 export const SPOTS: PreflopSpot[] = spotsJson as PreflopSpot[];
@@ -180,6 +183,15 @@ function compilePostflopSpot(raw: {
 
 const POSTFLOP_SETS: Record<string, PostflopSpot[]> = {
   [srpBtnVsBbAxx.topicId]: (srpBtnVsBbAxx.spots as Parameters<typeof compilePostflopSpot>[0][]).map(
+    compilePostflopSpot,
+  ),
+  [srpBtnVsBbKxx.topicId]: (srpBtnVsBbKxx.spots as Parameters<typeof compilePostflopSpot>[0][]).map(
+    compilePostflopSpot,
+  ),
+  [srpBtnVsBbMid.topicId]: (srpBtnVsBbMid.spots as Parameters<typeof compilePostflopSpot>[0][]).map(
+    compilePostflopSpot,
+  ),
+  [threeBetBtnVsCo.topicId]: (threeBetBtnVsCo.spots as Parameters<typeof compilePostflopSpot>[0][]).map(
     compilePostflopSpot,
   ),
 };
