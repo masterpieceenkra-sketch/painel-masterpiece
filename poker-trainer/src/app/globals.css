@@ -15,3 +15,41 @@ body {
     "Segoe UI",
     sans-serif;
 }
+
+/* Poker felt — emerald radial gradient resembling a real card-room table. */
+.poker-felt {
+  background:
+    radial-gradient(
+      ellipse at center,
+      #047857 0%,
+      #065f46 45%,
+      #064e3b 75%,
+      #022c22 100%
+    );
+}
+
+/* Hero seat glow — gentle emerald pulse to draw the eye. */
+@keyframes poker-glow-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(52, 211, 153, 0.0),
+      0 0 18px 2px rgba(52, 211, 153, 0.35);
+  }
+  50% {
+    box-shadow:
+      0 0 0 4px rgba(52, 211, 153, 0.15),
+      0 0 28px 6px rgba(52, 211, 153, 0.55);
+  }
+}
+
+.poker-glow-pulse {
+  animation: poker-glow-pulse 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poker-glow-pulse {
+    animation: none;
+    box-shadow: 0 0 18px 2px rgba(52, 211, 153, 0.35);
+  }
+}
