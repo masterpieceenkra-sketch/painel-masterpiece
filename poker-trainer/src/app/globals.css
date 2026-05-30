@@ -76,6 +76,18 @@ body {
 }
 
 /* ============================================================
+   Card hover lift
+   ============================================================ */
+.card-tilt {
+  transition: transform 180ms ease;
+  will-change: transform;
+}
+
+.card-tilt:hover {
+  transform: translateY(-2px);
+}
+
+/* ============================================================
    Keyframes — poker motion vocabulary
    ============================================================ */
 @keyframes deal-in {
@@ -154,5 +166,17 @@ body {
 
   .animate-fade-up {
     animation: fade-up-stagger 260ms ease-out both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-deal-in {
+    animation: none;
+  }
+  .card-tilt {
+    transition: none;
+  }
+  .card-tilt:hover {
+    transform: none;
   }
 }
