@@ -1,6 +1,6 @@
 import type { Action } from "@/domain/cards";
 
-export type ShortcutKey = "F" | "C" | "R" | "J" | "SPACE" | "ENTER";
+export type ShortcutKey = "F" | "C" | "R" | "B" | "J" | "SPACE" | "ENTER";
 
 export function shortcutForAction(action: Action): ShortcutKey | null {
   switch (action.kind) {
@@ -23,7 +23,7 @@ export function eventKey(e: KeyboardEvent): ShortcutKey | null {
     return null;
   }
   const k = e.key.toUpperCase();
-  if (k === "F" || k === "C" || k === "R" || k === "J") return k as ShortcutKey;
+  if (k === "F" || k === "C" || k === "R" || k === "B" || k === "J") return k as ShortcutKey;
   if (e.key === " ") return "SPACE";
   if (e.key === "Enter") return "ENTER";
   return null;

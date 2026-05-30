@@ -1,7 +1,7 @@
-import type { ActionKind, Card, Position, Rank, Suit } from "@/domain/cards";
+import type { Action, ActionKind, Card, HandCode, Position, Rank, Suit } from "@/domain/cards";
 import type { PostflopSpot } from "@/domain/postflop";
 import type { FrequencyMix, PreflopRange, RangeSource } from "@/domain/range";
-import type { PreflopSpot } from "@/domain/spots";
+import type { IcmContext, PreflopSpot } from "@/domain/spots";
 import type { Topic } from "@/domain/topics";
 import { expandTokens } from "@/engine/rangeCompiler";
 import topicsJson from "./topics.json";
@@ -61,19 +61,35 @@ const RANGE_SOURCES: RangeSource[] = [
 function compile(source: RangeSource): PreflopRange {
   const cells: Record<string, FrequencyMix> = {};
 
+  // Track which action originally claimed each hand in compactCells.
+  // If the same hand appears under two action keys we throw — a 50/50 silent
+  // mix is never what an author intended. Use `cells` for explicit mixes.
+  const compactOwner = new Map<HandCode, ActionKind>();
+
   if (source.compactCells) {
     for (const [action, tokens] of Object.entries(source.compactCells)) {
       if (!tokens) continue;
       const hands = expandTokens(tokens);
       for (const hand of hands) {
+        const prev = compactOwner.get(hand);
+        if (prev && prev !== action) {
+          throw new Error(
+            `Range "${source.id}": mão ${hand} aparece em compactCells.${prev} e compactCells.${action}. ` +
+              `Para mix de frequência use o campo "cells" com valores explícitos.`,
+          );
+        }
+        compactOwner.set(hand, action as ActionKind);
         cells[hand] = { ...(cells[hand] ?? {}), [action as ActionKind]: 1 };
       }
     }
   }
 
+  // `cells` MERGES on top of compactCells. To express a 70/30 mix, the author
+  // can leave the hand listed in one compactCells action AND supply a partial
+  // override here — the explicit mix wins, but other actions persist.
   if (source.cells) {
     for (const [hand, mix] of Object.entries(source.cells)) {
-      cells[hand] = { ...mix };
+      cells[hand] = { ...(cells[hand] ?? {}), ...mix };
     }
   }
 
@@ -88,9 +104,14 @@ function compile(source: RangeSource): PreflopRange {
   };
 }
 
-const RANGES: Record<string, PreflopRange> = Object.fromEntries(
-  RANGE_SOURCES.map((src) => [src.id, compile(src)]),
-);
+const RANGES: Record<string, PreflopRange> = {};
+for (const src of RANGE_SOURCES) {
+  try {
+    RANGES[src.id] = compile(src);
+  } catch (err) {
+    console.error(`[poker-trainer] Falha ao compilar range ${src.id}:`, err);
+  }
+}
 
 function parseCard(s: string): Card {
   return { rank: s[0] as Rank, suit: s[1] as Suit };
@@ -112,12 +133,23 @@ function compilePostflopSpot(raw: {
     sourceNote: string;
   };
 }): PostflopSpot {
-  const legalActions = [
-    { kind: "check" } as const,
-    ...raw.solution.actions
-      .filter((a) => a.action.kind === "raise")
-      .map((a) => ({ kind: "raise" as const, sizeBB: a.action.sizeBB ?? 0 })),
-  ];
+  function parseAction(a: { kind: string; sizeBB?: number }): Action {
+    if (a.kind === "raise") {
+      if (typeof a.sizeBB !== "number" || !Number.isFinite(a.sizeBB)) {
+        throw new Error(`Spot ${raw.id}: raise sem sizeBB válido`);
+      }
+      return { kind: "raise", sizeBB: a.sizeBB };
+    }
+    if (a.kind === "fold" || a.kind === "call" || a.kind === "check" || a.kind === "jam") {
+      return { kind: a.kind };
+    }
+    throw new Error(`Spot ${raw.id}: ação desconhecida "${a.kind}"`);
+  }
+
+  // legalActions é derivado diretamente das ações do solver — sem hardcode.
+  // Se o autor quer expor "Check" como botão, precisa incluir uma entrada
+  // {kind:"check"} em solution.actions (mesmo com frequência 0 não-pura).
+  const legalActions: Action[] = raw.solution.actions.map((a) => parseAction(a.action));
   return {
     kind: "postflop",
     id: raw.id,
@@ -135,17 +167,11 @@ function compilePostflopSpot(raw: {
     legalActions,
     solution: {
       actions: raw.solution.actions.map((a) => ({
-        action:
-          a.action.kind === "raise"
-            ? { kind: "raise", sizeBB: a.action.sizeBB ?? 0 }
-            : (a.action as PostflopSpot["solution"]["actions"][number]["action"]),
+        action: parseAction(a.action),
         frequency: a.frequency,
         evBB: a.evBB,
       })),
-      bestAction:
-        raw.solution.bestAction.kind === "raise"
-          ? { kind: "raise", sizeBB: raw.solution.bestAction.sizeBB ?? 0 }
-          : (raw.solution.bestAction as PostflopSpot["solution"]["bestAction"]),
+      bestAction: parseAction(raw.solution.bestAction),
       explanation_ptBR: raw.solution.explanation_ptBR,
       sourceNote: raw.solution.sourceNote,
     },
@@ -180,29 +206,32 @@ export type TopicMatrixEntry = {
   node: ActionNode;
   heroPos: Position | "ANY";
   effectiveBB: number | null;
+  // null = chipEV (no ICM pressure). Anything else surfaces in the ICM tab
+  // AND in the entry's native node tab with a visual flag.
+  icmStage: Exclude<IcmContext, "chipEV"> | null;
 };
 
 export function topicMatrixEntry(topic: Topic): TopicMatrixEntry | null {
   if (topic.drillType === "postflop") {
-    return { topic, node: "postflop", heroPos: "ANY", effectiveBB: null };
+    return { topic, node: "postflop", heroPos: "ANY", effectiveBB: null, icmStage: null };
   }
   const spot = getSpot(topic.spotIds[0]);
   if (!spot) return null;
+  const icmStage =
+    spot.kind === "pushfold" && spot.icmContext !== "chipEV" ? spot.icmContext : null;
   if (spot.kind === "pushfold") {
-    if (spot.icmContext !== "chipEV") {
-      return { topic, node: "icm", heroPos: spot.heroPos, effectiveBB: spot.effectiveBB };
-    }
     return {
       topic,
       node: spot.heroRole === "caller" ? "push-fold-call" : "push-fold-jam",
       heroPos: spot.heroPos,
       effectiveBB: spot.effectiveBB,
+      icmStage,
     };
   }
   if (spot.kind === "open") {
-    return { topic, node: "open", heroPos: spot.heroPos, effectiveBB: spot.effectiveBB };
+    return { topic, node: "open", heroPos: spot.heroPos, effectiveBB: spot.effectiveBB, icmStage: null };
   }
-  return { topic, node: "3bet", heroPos: spot.heroPos, effectiveBB: spot.effectiveBB };
+  return { topic, node: "3bet", heroPos: spot.heroPos, effectiveBB: spot.effectiveBB, icmStage: null };
 }
 
 export function getTopic(slug: string): Topic | undefined {

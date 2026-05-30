@@ -39,10 +39,14 @@ export function legalActions(spot: PreflopSpot): Action[] {
     return [{ kind: "fold" }, { kind: "jam" }];
   }
   if (spot.kind === "open") {
+    // Nenhuma das ranges de open no seed atual contém frequência de jam,
+    // então oferecer um botão de all-in pune o usuário por uma ação que o
+    // solver não modela. Se um spot de short-stack open com jam mix for
+    // adicionado no futuro, ele deve ser representado como pushfold ou ter
+    // legalActions explicitas no próprio spot.
     return [
       { kind: "fold" },
       { kind: "raise", sizeBB: spot.defaultOpenSizeBB },
-      { kind: "jam" },
     ];
   }
   return [

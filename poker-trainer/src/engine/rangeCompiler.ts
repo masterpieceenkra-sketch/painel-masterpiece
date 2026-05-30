@@ -67,6 +67,12 @@ function expandSingleOrPlus(token: string): HandCode[] {
       throw new Error(`Primeira carta deve ser maior que a segunda: ${token}`);
     }
     if (!hasPlus) return [`${hi}${lo}${sf}`];
+    if (RANK_INDEX[hi] - RANK_INDEX[lo] === 1) {
+      throw new Error(
+        `Token "${token}": cartas adjacentes (gap 1); o '+' não adiciona nenhuma mão nova ao kicker. ` +
+          `Para connector ladder (ex.: T9s, JTs, QJs, KQs, AKs) liste explicitamente — esse formato compacto não é suportado.`,
+      );
+    }
     const out: HandCode[] = [];
     for (let i = RANK_INDEX[lo]; i < RANK_INDEX[hi]; i++) {
       out.push(`${hi}${RANKS[i]}${sf}`);

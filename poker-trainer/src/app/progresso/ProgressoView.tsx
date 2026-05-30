@@ -39,7 +39,9 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
   const [rows, setRows] = useState<Row[]>([]);
   const [now, setNow] = useState(Date.now());
   const [message, setMessage] = useState<string | null>(null);
+  const [importMode, setImportMode] = useState<"merge" | "replace">("merge");
   const fileRef = useRef<HTMLInputElement>(null);
+  const importingRef = useRef(false);
 
   function refresh() {
     const next: Row[] = topics.map((topic) => {
@@ -60,6 +62,22 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
 
   useEffect(() => {
     refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Tick `now` every 30s and on tab focus so relative "Última" timestamps
+  // don't drift when the page sits open.
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 30_000);
+    function onFocus() {
+      setNow(Date.now());
+      refresh();
+    }
+    window.addEventListener("focus", onFocus);
+    return () => {
+      clearInterval(id);
+      window.removeEventListener("focus", onFocus);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -89,16 +107,24 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
   }
 
   async function handleImport(file: File) {
+    if (importingRef.current) {
+      setMessage("Aguarde — já há um import em andamento.");
+      return;
+    }
+    importingRef.current = true;
     try {
       const text = await file.text();
       const parsed = JSON.parse(text);
-      const result = importAll(parsed);
+      const result = importAll(parsed, importMode);
+      const modeLabel = importMode === "merge" ? "mesclados" : "substituídos";
       setMessage(
-        `Importados ${result.imported} tópicos.${result.errors.length ? " Avisos: " + result.errors.join("; ") : ""}`,
+        `Importados ${result.imported} tópicos (${modeLabel}).${result.errors.length ? " Avisos: " + result.errors.join("; ") : ""}`,
       );
       refresh();
     } catch (e) {
       setMessage(`Erro: ${e instanceof Error ? e.message : "JSON inválido"}`);
+    } finally {
+      importingRef.current = false;
     }
   }
 
@@ -238,7 +264,7 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
 
       <section className="space-y-3 rounded-lg border border-slate-800 bg-slate-900/40 p-4">
         <h2 className="text-lg font-semibold text-white">Backup</h2>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <button
             type="button"
             onClick={handleExport}
@@ -246,6 +272,30 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
           >
             Exportar JSON
           </button>
+          <div className="flex items-center gap-2 text-xs text-slate-400">
+            <label className="inline-flex items-center gap-1">
+              <input
+                type="radio"
+                name="import-mode"
+                value="merge"
+                checked={importMode === "merge"}
+                onChange={() => setImportMode("merge")}
+                className="accent-emerald-500"
+              />
+              Mesclar
+            </label>
+            <label className="inline-flex items-center gap-1">
+              <input
+                type="radio"
+                name="import-mode"
+                value="replace"
+                checked={importMode === "replace"}
+                onChange={() => setImportMode("replace")}
+                className="accent-rose-500"
+              />
+              Substituir
+            </label>
+          </div>
           <button
             type="button"
             onClick={() => fileRef.current?.click()}
@@ -260,7 +310,18 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
             className="hidden"
             onChange={(e) => {
               const f = e.target.files?.[0];
-              if (f) handleImport(f);
+              if (f) {
+                if (
+                  importMode === "replace" &&
+                  !confirm(
+                    "Modo Substituir vai apagar o progresso local de cada tópico presente no arquivo. Continuar?",
+                  )
+                ) {
+                  e.target.value = "";
+                  return;
+                }
+                handleImport(f);
+              }
               e.target.value = "";
             }}
           />
@@ -272,6 +333,11 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
             Apagar tudo
           </button>
         </div>
+        <p className="text-xs text-slate-500">
+          <strong>Mesclar</strong> adiciona apenas tentativas novas (dedupe por
+          timestamp+spot+mão). <strong>Substituir</strong> apaga o que estiver local pra esses
+          tópicos e usa só o arquivo. Default: Mesclar.
+        </p>
         {message && <p className="text-xs text-slate-400">{message}</p>}
       </section>
     </div>

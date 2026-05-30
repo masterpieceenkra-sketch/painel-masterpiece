@@ -11,6 +11,8 @@ export type ScoreResult = {
   bucket: EvBucket;
   bestAction: ActionKind;
   bestRaiseSizeBB?: number;
+  chosenRaiseSizeBB?: number;
+  sizingMiss: boolean;
   mix: { kind: ActionKind; freq: number }[];
   reasoning: string;
 };
@@ -36,15 +38,43 @@ export function scorePreflop(
   const chosenKind: ActionKind = chosen.kind;
   const chosenFreq = mix[chosenKind] ?? 0;
 
-  let correct = chosenFreq >= MIX_TOLERANCE;
-  if (correct && chosen.kind === "raise" && defaultRaiseSizeBB != null) {
-    if (Math.abs(chosen.sizeBB - defaultRaiseSizeBB) > RAISE_SIZING_TOLERANCE_BB) {
-      correct = false;
+  const actionInMix = chosenFreq >= MIX_TOLERANCE;
+  let sizingMiss = false;
+  let sizingOvershootBB = 0;
+  if (
+    actionInMix &&
+    chosen.kind === "raise" &&
+    defaultRaiseSizeBB != null
+  ) {
+    sizingOvershootBB = Math.abs(chosen.sizeBB - defaultRaiseSizeBB);
+    if (sizingOvershootBB > RAISE_SIZING_TOLERANCE_BB) {
+      sizingMiss = true;
     }
   }
 
-  const evLossBB = estimateEvLoss(mix, chosenKind, correct);
-  const reasoning = explain(range, hand, mix, best, chosenKind, correct);
+  // Acertou a ação mas errou só o sizing: não é "errou" pleno — penalidade
+  // pequena proporcional ao overshoot, sem inflar o bucket pra "major".
+  const correct = actionInMix && !sizingMiss;
+  let evLossBB: number;
+  if (sizingMiss) {
+    evLossBB = Math.min(
+      0.18,
+      0.04 + (sizingOvershootBB - RAISE_SIZING_TOLERANCE_BB) * 0.08,
+    );
+  } else {
+    evLossBB = estimateEvLoss(mix, chosenKind, correct);
+  }
+  const reasoning = explain({
+    range,
+    hand,
+    mix,
+    best,
+    chosenKind,
+    chosen,
+    correct,
+    sizingMiss,
+    defaultRaiseSizeBB,
+  });
 
   return {
     correct,
@@ -52,6 +82,8 @@ export function scorePreflop(
     bucket: bucketOf(evLossBB),
     bestAction: best,
     bestRaiseSizeBB: best === "raise" ? defaultRaiseSizeBB : undefined,
+    chosenRaiseSizeBB: chosen.kind === "raise" ? chosen.sizeBB : undefined,
+    sizingMiss,
     mix: mixEntries.map(([kind, freq]) => ({ kind, freq })),
     reasoning,
   };
@@ -63,7 +95,9 @@ function estimateEvLoss(
   correct: boolean,
 ): number {
   if (correct) return 0;
-  const bestFreq = Math.max(...Object.values(mix).map((v) => v ?? 0));
+  const freqs = Object.values(mix).map((v) => v ?? 0);
+  if (freqs.length === 0) return 0.3;
+  const bestFreq = Math.max(...freqs);
   const chosenFreq = mix[chosenKind] ?? 0;
   const gap = bestFreq - chosenFreq;
   if (gap > 0.8) return 1.0;
@@ -71,24 +105,34 @@ function estimateEvLoss(
   return 0.3;
 }
 
-function explain(
-  range: PreflopRange,
-  hand: HandCode,
-  mix: Record<string, number | undefined>,
-  best: ActionKind,
-  chosen: ActionKind,
-  correct: boolean,
-): string {
+function explain(args: {
+  range: PreflopRange;
+  hand: HandCode;
+  mix: Record<string, number | undefined>;
+  best: ActionKind;
+  chosenKind: ActionKind;
+  chosen: Action;
+  correct: boolean;
+  sizingMiss: boolean;
+  defaultRaiseSizeBB?: number;
+}): string {
+  const { range, hand, mix, best, chosenKind, chosen, correct, sizingMiss, defaultRaiseSizeBB } = args;
   const bestFreq = Math.round((mix[best] ?? 0) * 100);
+  if (sizingMiss && chosen.kind === "raise" && defaultRaiseSizeBB != null) {
+    return `${hand}: ação certa (raise), mas sizing ${chosen.sizeBB}BB está fora da banda ±${RAISE_SIZING_TOLERANCE_BB}BB do padrão ${defaultRaiseSizeBB}BB. ${range.label}.`;
+  }
   if (correct) {
+    if (chosen.kind === "raise" && defaultRaiseSizeBB != null && Math.abs(chosen.sizeBB - defaultRaiseSizeBB) > 0.05) {
+      return `Boa. ${hand}: raise ${chosen.sizeBB}BB dentro da tolerância (padrão ${defaultRaiseSizeBB}BB). ${range.label}.`;
+    }
     if (bestFreq >= 95) {
       return `Boa. Com ${hand}, esta range é ${best} puro (${bestFreq}%). ${range.label}.`;
     }
     return `Bem jogado. ${hand} faz parte da mix: melhor é ${best} (${bestFreq}%). Variar é correto aqui.`;
   }
-  const chosenFreq = Math.round((mix[chosen] ?? 0) * 100);
+  const chosenFreq = Math.round((mix[chosenKind] ?? 0) * 100);
   if (chosenFreq > 0) {
-    return `${hand} faz ${chosen} só em ${chosenFreq}% das vezes — o GTO prefere ${best} (${bestFreq}%). ${range.label}.`;
+    return `${hand} faz ${chosenKind} só em ${chosenFreq}% das vezes — o GTO prefere ${best} (${bestFreq}%). ${range.label}.`;
   }
-  return `${hand} não joga ${chosen} aqui. A range correta é ${best} (${bestFreq}%). ${range.label}.`;
+  return `${hand} não joga ${chosenKind} aqui. A range correta é ${best} (${bestFreq}%). ${range.label}.`;
 }

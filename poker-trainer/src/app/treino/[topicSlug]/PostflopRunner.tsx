@@ -88,13 +88,13 @@ export function PostflopRunner({ topicId, spots, targetAttempts }: Props) {
         return;
       }
       const legal = state.spot.legalActions;
-      const match = legal.find((a) => {
-        if (key === "F") return a.kind === "fold";
-        if (key === "C") return a.kind === "call" || a.kind === "check";
-        if (key === "R") return a.kind === "raise";
-        if (key === "J") return a.kind === "jam";
-        return false;
-      });
+      const raises = legal.filter((a) => a.kind === "raise");
+      let match: typeof legal[number] | undefined;
+      if (key === "F") match = legal.find((a) => a.kind === "fold");
+      else if (key === "C") match = legal.find((a) => a.kind === "call" || a.kind === "check");
+      else if (key === "R") match = raises[0];
+      else if (key === "B") match = raises[1] ?? raises[0];
+      else if (key === "J") match = legal.find((a) => a.kind === "jam");
       if (match) {
         e.preventDefault();
         handleChoose(match);
@@ -169,46 +169,56 @@ export function PostflopRunner({ topicId, spots, targetAttempts }: Props) {
       </section>
 
       {state.phase === "asking" ? (
-        <section className="space-y-2">
-          <div className="text-center text-sm text-slate-400">O que você faz?</div>
-          <div className="flex flex-wrap justify-center gap-3">
-            {spot.legalActions.map((a, i) => {
-              const hint =
-                a.kind === "check" || a.kind === "call"
-                  ? "C"
-                  : a.kind === "raise"
-                    ? "R"
-                    : a.kind === "jam"
-                      ? "J"
-                      : a.kind === "fold"
-                        ? "F"
-                        : null;
-              return (
-                <button
-                  type="button"
-                  key={`${a.kind}-${i}`}
-                  onClick={() => handleChoose(a)}
-                  className={cn(
-                    "min-w-[120px] rounded-md px-5 py-3 font-semibold text-white shadow transition-colors",
-                    KIND_VARIANT[a.kind] ?? "bg-slate-700",
-                  )}
-                >
-                  <span>{labelForAction(a, spot.potBB)}</span>
-                  {hint && (
-                    <span className="ml-2 rounded bg-black/30 px-1.5 py-0.5 text-xs font-mono">
-                      {hint}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-          <p className="text-center text-xs text-slate-500">
-            Atalhos: <kbd className="font-mono">C</kbd> ·{" "}
-            <kbd className="font-mono">R</kbd> · <kbd className="font-mono">J</kbd> ·{" "}
-            <kbd className="font-mono">Espaço</kbd> próxima
-          </p>
-        </section>
+        (() => {
+          let raiseIdx = 0;
+          const raiseCount = spot.legalActions.filter((a) => a.kind === "raise").length;
+          return (
+            <section className="space-y-2">
+              <div className="text-center text-sm text-slate-400">O que você faz?</div>
+              <div className="flex flex-wrap justify-center gap-3">
+                {spot.legalActions.map((a, i) => {
+                  let hint: string | null = null;
+                  if (a.kind === "check" || a.kind === "call") hint = "C";
+                  else if (a.kind === "raise") {
+                    hint = raiseIdx === 0 ? "R" : raiseIdx === 1 ? "B" : null;
+                    raiseIdx++;
+                  } else if (a.kind === "jam") hint = "J";
+                  else if (a.kind === "fold") hint = "F";
+                  return (
+                    <button
+                      type="button"
+                      key={`${a.kind}-${i}`}
+                      onClick={() => handleChoose(a)}
+                      className={cn(
+                        "min-w-[120px] rounded-md px-5 py-3 font-semibold text-white shadow transition-colors",
+                        KIND_VARIANT[a.kind] ?? "bg-slate-700",
+                      )}
+                    >
+                      <span>{labelForAction(a, spot.potBB)}</span>
+                      {hint && (
+                        <span className="ml-2 rounded bg-black/30 px-1.5 py-0.5 text-xs font-mono">
+                          {hint}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-center text-xs text-slate-500">
+                Atalhos: <kbd className="font-mono">C</kbd> ·{" "}
+                <kbd className="font-mono">R</kbd>
+                {raiseCount > 1 && (
+                  <>
+                    {" "}
+                    · <kbd className="font-mono">B</kbd> (bet maior)
+                  </>
+                )}{" "}
+                · <kbd className="font-mono">J</kbd> ·{" "}
+                <kbd className="font-mono">Espaço</kbd> próxima
+              </p>
+            </section>
+          );
+        })()
       ) : (
         <PostflopFeedback
           result={state.result}
