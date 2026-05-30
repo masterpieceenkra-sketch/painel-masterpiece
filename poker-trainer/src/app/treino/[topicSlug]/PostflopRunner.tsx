@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Action } from "@/domain/cards";
 import { POSITION_LABEL_PT } from "@/domain/cards";
-import type { PostflopSpot } from "@/domain/postflop";
+import type { PostflopSpot, Street } from "@/domain/postflop";
 import { summarize } from "@/domain/progress";
 import { handCodeOf } from "@/engine/handCode";
 import {
@@ -15,6 +15,7 @@ import {
 import { eventKey } from "@/lib/keyboardShortcuts";
 import { loadProgress, saveAttempt } from "@/storage/localProgress";
 import { Board } from "@/components/Board";
+import { Card } from "@/components/Card";
 import { HoleCards } from "@/components/HoleCards";
 import { ProgressBadge } from "@/components/ProgressBadge";
 import { PostflopFeedback } from "@/components/PostflopFeedback";
@@ -38,6 +39,64 @@ const KIND_VARIANT: Record<string, string> = {
   fold: "bg-slate-700 hover:bg-slate-600",
   call: "bg-sky-700 hover:bg-sky-600",
 };
+
+const STREETS: Street[] = ["flop", "turn", "river"];
+const STREET_LABEL: Record<Street, string> = {
+  flop: "FLOP",
+  turn: "TURN",
+  river: "RIVER",
+};
+
+// Felt surface: emerald radial gradient + subtle dot-grid texture overlay.
+// Defined inline so this unit stays self-contained (does not depend on
+// shared globals.css additions from sibling units).
+const FELT_STYLE: React.CSSProperties = {
+  backgroundImage: [
+    "radial-gradient(circle, rgba(16,185,129,0.06) 1px, transparent 1px)",
+    "radial-gradient(ellipse at center, #064e3b 0%, #022c22 100%)",
+  ].join(", "),
+  backgroundSize: "14px 14px, 100% 100%",
+  backgroundPosition: "0 0, center",
+};
+
+function DealerButton() {
+  return (
+    <span
+      aria-label="Botão do dealer"
+      title="Dealer"
+      className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-amber-200 text-[10px] font-bold leading-none text-slate-900 shadow ring-1 ring-amber-500/60"
+    >
+      D
+    </span>
+  );
+}
+
+function StreetBreadcrumb({ current }: { current: Street }) {
+  return (
+    <nav
+      aria-label="Street atual"
+      className="flex items-center gap-1 rounded-full border border-slate-800 bg-slate-950/60 p-1"
+    >
+      {STREETS.map((s) => {
+        const active = s === current;
+        return (
+          <span
+            key={s}
+            aria-current={active ? "step" : undefined}
+            className={cn(
+              "inline-flex min-h-[32px] min-w-[56px] items-center justify-center rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide outline-none transition-colors",
+              "focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950",
+              "motion-reduce:transition-none",
+              active ? "bg-emerald-600 text-white shadow" : "text-slate-400",
+            )}
+          >
+            {STREET_LABEL[s]}
+          </span>
+        );
+      })}
+    </nav>
+  );
+}
 
 export function PostflopRunner({ topicId, spots, targetAttempts }: Props) {
   const [state, setState] = useState<State | null>(null);
@@ -108,6 +167,10 @@ export function PostflopRunner({ topicId, spots, targetAttempts }: Props) {
   if (!state) return <div className="text-slate-400">Carregando…</div>;
 
   const { spot } = state;
+  const heroPosLabel = POSITION_LABEL_PT[spot.preflop.heroPos];
+  const villainPosLabel = POSITION_LABEL_PT[spot.preflop.villainPos];
+  const heroIsButton = spot.preflop.heroPos === "BTN";
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -124,49 +187,64 @@ export function PostflopRunner({ topicId, spots, targetAttempts }: Props) {
         </div>
       </div>
 
-      <section className="rounded-lg border border-slate-800 bg-emerald-950/40 p-6">
-        <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3 text-sm">
-          <div className="text-slate-300">
-            <span className="font-semibold text-emerald-300">
-              {POSITION_LABEL_PT[spot.preflop.heroPos]}
-            </span>{" "}
-            vs{" "}
-            <span className="font-semibold text-slate-200">
-              {POSITION_LABEL_PT[spot.preflop.villainPos]}
-            </span>{" "}
-            · Pot:{" "}
-            <span className="font-semibold text-white">{spot.potBB} BB</span> · Stack:{" "}
-            <span className="font-semibold text-white">{spot.heroStackBB} BB</span>
-          </div>
-          <div className="text-xs uppercase tracking-wide text-slate-500">
-            {spot.street === "flop" ? "FLOP" : spot.street === "turn" ? "TURN" : "RIVER"} · chipEV
-          </div>
-        </div>
-
-        <p className="text-sm text-slate-400">
-          Pré-flop: {POSITION_LABEL_PT[spot.preflop.heroPos]} abre {spot.preflop.openSizeBB}BB,{" "}
-          {POSITION_LABEL_PT[spot.preflop.villainPos]} paga. {POSITION_LABEL_PT[spot.preflop.villainPos]}{" "}
-          mesa no flop.
-        </p>
-        <p className="mt-1 text-xs text-slate-500">
-          Range de villain: {spot.villainRangeLabel}
-        </p>
-
-        <div className="mt-5 flex flex-col items-center gap-4">
-          <div>
-            <div className="mb-1 text-center text-xs uppercase tracking-wide text-slate-500">
-              Board
+      <section
+        aria-label="Mesa de poker"
+        className="overflow-hidden rounded-2xl border border-emerald-900/60 shadow-xl"
+        style={FELT_STYLE}
+      >
+        <div className="flex flex-col items-stretch gap-6 px-4 py-6 sm:px-8 sm:py-8">
+          {/* Villain seat (top) */}
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <span className="rounded-full bg-amber-900/30 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-200 ring-1 ring-amber-700/40">
+                {villainPosLabel}
+              </span>
+              <span
+                className="max-w-[18rem] truncate rounded-full bg-amber-900/30 px-3 py-1 text-xs text-amber-100/90 ring-1 ring-amber-700/30"
+                title={spot.villainRangeLabel}
+              >
+                {spot.villainRangeLabel}
+              </span>
             </div>
-            <Board cards={spot.board} />
-          </div>
-          <div>
-            <div className="mb-1 text-center text-xs uppercase tracking-wide text-slate-500">
-              Sua mão
+            <div className="flex gap-2" aria-label="Cartas do vilão (viradas)">
+              <Card card="back" size="sm" />
+              <Card card="back" size="sm" />
             </div>
-            <HoleCards cards={spot.heroHand} />
+          </div>
+
+          {/* Felt center: pot + board */}
+          <div className="flex flex-col items-center gap-3">
+            <div className="rounded-full bg-slate-950/60 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-200 ring-1 ring-emerald-700/40">
+              Pot: <span className="font-mono text-white">{spot.potBB} BB</span>
+            </div>
+            <div className="flex justify-center">
+              <Board cards={spot.board} />
+            </div>
+          </div>
+
+          {/* Hero seat (bottom) */}
+          <div className="flex flex-col items-center gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <span className="inline-flex min-h-[32px] items-center gap-2 rounded-full bg-emerald-900/60 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-100 ring-1 ring-emerald-500/40">
+                {heroIsButton && <DealerButton />}
+                <span>
+                  {heroPosLabel} ·{" "}
+                  <span className="font-mono text-white">{spot.heroStackBB} BB</span>
+                </span>
+              </span>
+              <StreetBreadcrumb current={spot.street} />
+            </div>
+            <div className="flex justify-center">
+              <HoleCards cards={spot.heroHand} />
+            </div>
           </div>
         </div>
       </section>
+
+      <p className="text-xs text-slate-400">
+        Pré-flop: {heroPosLabel} abre {spot.preflop.openSizeBB}BB, {villainPosLabel} paga.{" "}
+        {villainPosLabel} mesa no {spot.street}. · chipEV
+      </p>
 
       {state.phase === "asking" ? (
         (() => {
@@ -190,7 +268,7 @@ export function PostflopRunner({ topicId, spots, targetAttempts }: Props) {
                       key={`${a.kind}-${i}`}
                       onClick={() => handleChoose(a)}
                       className={cn(
-                        "min-w-[120px] rounded-md px-5 py-3 font-semibold text-white shadow transition-colors",
+                        "min-h-[44px] min-w-[120px] rounded-md px-5 py-3 font-semibold text-white shadow transition-colors",
                         KIND_VARIANT[a.kind] ?? "bg-slate-700",
                       )}
                     >
