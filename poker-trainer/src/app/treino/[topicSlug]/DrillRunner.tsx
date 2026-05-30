@@ -18,6 +18,7 @@ import { HoleCards } from "@/components/HoleCards";
 import { IcmBanner } from "@/components/IcmBanner";
 import { ProgressBadge } from "@/components/ProgressBadge";
 import { SizingSlider } from "@/components/SizingSlider";
+import { PokerTable } from "@/components/table/PokerTable";
 import { formatBB, formatPct } from "@/lib/format";
 
 type Props = {
@@ -134,8 +135,11 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
         <IcmBanner scenario={spot.icmScenario} />
       )}
 
-      <section className="rounded-lg border border-slate-800 bg-emerald-950/40 p-6">
-        <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2 text-sm">
+      <section
+        aria-label="Mesa atual"
+        className="space-y-3"
+      >
+        <div className="flex flex-wrap items-baseline justify-between gap-2 text-sm">
           <div className="text-slate-300">
             <span className="font-semibold text-emerald-300">
               {POSITION_LABEL_PT[spot.heroPos]}
@@ -152,11 +156,25 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
           </div>
         </div>
 
-        <ActionHistoryLine prior={spot.prior} heroPos={spot.heroPos} />
+        <PokerTable
+          heroPos={spot.heroPos}
+          heroStackBB={spot.effectiveBB}
+          effectiveBB={spot.effectiveBB}
+          prior={spot.prior}
+          villainPos={spot.kind === "defense" ? spot.villainPos : undefined}
+          centerSlot={
+            <div className="flex flex-col items-center gap-2">
+              <HoleCards cards={question.heroCards} />
+              <span className="rounded-full bg-slate-950/70 px-2 py-0.5 text-[10px] uppercase tracking-wide text-slate-300 ring-1 ring-slate-700">
+                Sua mão
+              </span>
+            </div>
+          }
+        />
 
-        <div className="mt-6 flex flex-col items-center gap-4">
-          <HoleCards cards={question.heroCards} />
-          <div className="text-xs text-slate-500">Sua mão</div>
+        {/* Screen-reader / fallback narrative of action so far. */}
+        <div className="sr-only">
+          <ActionHistoryLine prior={spot.prior} heroPos={spot.heroPos} />
         </div>
       </section>
 
