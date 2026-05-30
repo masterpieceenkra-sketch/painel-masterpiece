@@ -1,3 +1,6 @@
+"use client";
+
+import { useMemo } from "react";
 import type { IcmScenario } from "@/domain/spots";
 import { icmEquity } from "@/engine/icm";
 import { cn } from "@/lib/cn";
@@ -20,17 +23,36 @@ const STAGE_TONE: Record<IcmScenario["stage"], { bg: string; border: string; tex
 
 export function IcmBanner({ scenario }: { scenario: IcmScenario }) {
   const tone = STAGE_TONE[scenario.stage];
-  const stacks = scenario.stacks.map((s) => s.stackBB);
-  const equity = icmEquity(stacks, scenario.payoutsPct);
-  const totalPct = scenario.payoutsPct.reduce((a, b) => a + b, 0);
   const heroIdx = scenario.stacks.findIndex((s) => s.isHero);
+
+  const { equity, effectivePoolPct, fullPoolPct, truncated } = useMemo(() => {
+    const stacks = scenario.stacks.map((s) => s.stackBB);
+    const considered = scenario.payoutsPct.slice(0, stacks.length);
+    return {
+      equity: icmEquity(stacks, scenario.payoutsPct),
+      effectivePoolPct: considered.reduce((a, b) => a + b, 0),
+      fullPoolPct: scenario.payoutsPct.reduce((a, b) => a + b, 0),
+      truncated: scenario.payoutsPct.length > stacks.length,
+    };
+  }, [scenario]);
+
   return (
     <div className={cn("rounded-lg border p-4", tone.bg, tone.border)}>
       <div className="mb-2 flex items-baseline justify-between gap-2">
         <h3 className={cn("text-sm font-semibold uppercase tracking-wide", tone.text)}>
           {tone.label} · {scenario.label}
         </h3>
-        <span className="text-xs text-slate-400">Pool premiação: {totalPct}%</span>
+        <span className="text-xs text-slate-400">
+          {truncated ? (
+            <>
+              Equity desta mesa:{" "}
+              <span className="text-slate-300">{effectivePoolPct}%</span> do pool{" "}
+              <span className="opacity-60">(total {fullPoolPct}%)</span>
+            </>
+          ) : (
+            <>Pool premiação: {effectivePoolPct}%</>
+          )}
+        </span>
       </div>
       <p className="mb-3 text-sm text-slate-300">{scenario.description}</p>
 
@@ -72,7 +94,7 @@ export function IcmBanner({ scenario }: { scenario: IcmScenario }) {
           <span className="font-mono font-semibold text-white">
             {equity[heroIdx].toFixed(2)}%
           </span>{" "}
-          do pool. Bustar zera; preservar mantém. Range tighter que chipEV por esse motivo.
+          do pool {truncated && <>(considerando apenas as {scenario.stacks.length} cadeiras desta mesa)</>}. Bustar zera; preservar mantém. Range tighter que chipEV por esse motivo.
         </p>
       )}
     </div>
