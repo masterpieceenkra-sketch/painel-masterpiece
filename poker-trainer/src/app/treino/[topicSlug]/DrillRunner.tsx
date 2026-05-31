@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Action } from "@/domain/cards";
 import { POSITION_LABEL_PT } from "@/domain/cards";
+import type { Attempt } from "@/domain/progress";
 import { summarize } from "@/domain/progress";
 import type { PreflopRange } from "@/domain/range";
 import type { PreflopSpot } from "@/domain/spots";
@@ -26,15 +27,19 @@ type Props = {
   spot: PreflopSpot;
   range: PreflopRange;
   targetAttempts: number;
+  onAttempt?: (attempt: Attempt) => void;
 };
 
 type State =
   | { phase: "asking"; question: DrillQuestion }
   | { phase: "feedback"; question: DrillQuestion; result: ScoreResult; hand: string };
 
-export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
+export function DrillRunner({ topicId, spot, range, targetAttempts, onAttempt }: Props) {
   const [state, setState] = useState<State | null>(null);
   const [stats, setStats] = useState({ total: 0, correctPct: 0, avgEvLossBB: 0 });
+  // Keep latest attempts in a ref so spaced-repetition sampling can read them
+  // synchronously inside handleNext without re-loading from localStorage.
+  const attemptsRef = useRef<Attempt[]>([]);
 
   const baseActions = useMemo(() => legalActions(spot), [spot]);
   const baseRaiseSize = defaultRaiseSize(spot);
@@ -49,8 +54,9 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
   );
 
   useEffect(() => {
-    setState({ phase: "asking", question: newQuestion(spot, range) });
     const p = loadProgress(topicId);
+    attemptsRef.current = p.attempts;
+    setState({ phase: "asking", question: newQuestion(spot, range, p.attempts) });
     const s = summarize(p);
     setStats({ total: s.total, correctPct: s.correctPct, avgEvLossBB: s.avgEvLossBB });
     if (baseRaiseSize != null) setRaiseSize(baseRaiseSize);
@@ -60,7 +66,7 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
     if (!state || state.phase !== "asking") return;
     const result = evaluate(state.question, action);
     const hand = handCodeOf(state.question.heroCards[0], state.question.heroCards[1]);
-    const updated = saveAttempt(topicId, {
+    const newAttempt: Attempt = {
       spotId: spot.id,
       hand,
       chosen: action,
@@ -68,14 +74,20 @@ export function DrillRunner({ topicId, spot, range, targetAttempts }: Props) {
       evLossBB: result.evLossBB,
       bucket: result.bucket,
       timestampMs: Date.now(),
-    });
+    };
+    const updated = saveAttempt(topicId, newAttempt);
+    attemptsRef.current = updated.attempts;
+    onAttempt?.(newAttempt);
     const s = summarize(updated);
     setStats({ total: s.total, correctPct: s.correctPct, avgEvLossBB: s.avgEvLossBB });
     setState({ phase: "feedback", question: state.question, result, hand });
   }
 
   function handleNext() {
-    setState({ phase: "asking", question: newQuestion(spot, range) });
+    setState({
+      phase: "asking",
+      question: newQuestion(spot, range, attemptsRef.current),
+    });
     if (baseRaiseSize != null) setRaiseSize(baseRaiseSize);
   }
 

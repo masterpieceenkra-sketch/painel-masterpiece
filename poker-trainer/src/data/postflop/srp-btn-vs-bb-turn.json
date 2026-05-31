@@ -1,0 +1,160 @@
+{
+  "topicId": "postflop-srp-btn-vs-bb-turn",
+  "spots": [
+    {
+      "id": "turn-btn-vs-bb-Kh7d2c-9s-call-AK",
+      "street": "turn",
+      "board": ["Kh", "7d", "2c", "9s"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Ac", "Kc"],
+      "heroStackBB": 20.0,
+      "potBB": 9,
+      "villainRangeLabel": "BB call flop c-bet 33% — Kx fraco (K9-K3), pares baixos (88-33), suited connectors, gutshots",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.15,
+            "evBB": 0.55
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 6.0 },
+            "frequency": 0.85,
+            "evBB": 0.78
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 6.0 },
+        "explanation_ptBR": "AK em K729 board: você tem TPTK no turn depois que villain chamou seu c-bet do flop. O 9 do turn não muda muito — villain ainda tem Kx fraco que vai pagar duas streets, underpairs (88, 77, 66, 55, 44), e draws novos (T8 com 4 outs). Barrel 66% pot (85%) é dominante: extrai duas ruas claras de Kx-fraco, protege contra QJ/JT gutshots, e mantém pressure. Checar 15% para balance, mas com TPTK quase sempre você quer o segundo barrel.",
+        "sourceNote": "Turn BTN vs BB SRP. TPTK no turn brick: barrel 66% padrão para value + protection."
+      }
+    },
+    {
+      "id": "turn-btn-vs-bb-As8s3c-7s-flush-draw",
+      "street": "turn",
+      "board": ["As", "8s", "3c", "7s"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Kh", "Qs"],
+      "heroStackBB": 20.0,
+      "potBB": 9,
+      "villainRangeLabel": "BB call flop — Ax-weak, 88, 33, pares médios, flush draw em espadas",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.35,
+            "evBB": 0.18
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 5.5 },
+            "frequency": 0.65,
+            "evBB": 0.32
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 5.5 },
+        "explanation_ptBR": "KQss em A83-7s: você tem nut flush draw (Q de espadas é sua) + gutshot ao Broadway (J completa AKQJT) + dois overcards à parte do A. Equity total ~35-40% contra range de villain que chamou o flop. Bet 60% (65%) aplica fold equity contra 88-33 (que vão foldar para segunda barrel grande), 8x-fraco, e gutshots de villain. Quando chamado, você tem 9 outs ao flush + 4 ao straight no river. Check (35%) é viável para realizar equity grátis, mas a fold equity inicial favorece o barrel.",
+        "sourceNote": "Turn BTN vs BB. Nut flush draw + gutshot = semi-bluff 60% pot. Equity alta + fold equity decente."
+      }
+    },
+    {
+      "id": "turn-btn-vs-bb-Td8h4c-2d-overpair",
+      "street": "turn",
+      "board": ["Td", "8h", "4c", "2d"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Jc", "Jd"],
+      "heroStackBB": 20.0,
+      "potBB": 9,
+      "villainRangeLabel": "BB call flop — Tx (KT, QT, JT, T9, T8s), 88, 44, 22, 87s, 97s, 65s straights",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.55,
+            "evBB": 0.28
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 4.5 },
+            "frequency": 0.45,
+            "evBB": 0.24
+          }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "JJ em T842 board (turn brick): overpair acima de Tx, mas villain chamou o c-bet do flop com range que inclui Tx (KT, QT, JT, T9), 88 (sets), 65s (straight draws acertando turn ocasional). Check (55%) é o movimento padrão: você não quer construir pot quando enfrenta Tx confortavelmente, e mantém range de check balanceada. Bet 50% (45%) também é OK para extrair de 88, 87s, 97s underpairs, mas Tx vai pagar todas as ruas dificultando seu river. Pot control é a chave.",
+        "sourceNote": "Turn BTN vs BB. Overpair entre Tx e bricks: pot control vs thin value, mix 55/45."
+      }
+    },
+    {
+      "id": "turn-btn-vs-bb-Qh7d2c-Qs-trips",
+      "street": "turn",
+      "board": ["Qh", "7d", "2c", "Qs"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Ah", "Jh"],
+      "heroStackBB": 20.0,
+      "potBB": 9,
+      "villainRangeLabel": "BB call flop — Qx (KQ, JQ, Q9), pares médios, ass-baixos, J/T gutshots",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.7,
+            "evBB": 0.42
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 5.5 },
+            "frequency": 0.3,
+            "evBB": 0.35
+          }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "AJh em Q72-Qs (turn pairing): você tem A-high com backdoor nut flush draw (Q de copas no board), gutshot ao Broadway (K = KQJTA), e dois overcards. Quando o board pareia, villain vai foldar a maioria do range que não tem Q — checkar (70%) realiza equity de graça (você tem ~25% de outs limpos) e captura situações onde villain bluffa no river. Bet 50% (30%) tem alguma fold equity mas isola contra Qx que sempre paga e te coloca em situação difícil. Pot control + ver river é o jogo certo.",
+        "sourceNote": "Turn BTN vs BB. Board pareando + backdoor draws: check dominante para realizar equity."
+      }
+    },
+    {
+      "id": "turn-btn-vs-bb-987r-2c-overpair-board",
+      "street": "turn",
+      "board": ["9h", "8c", "7d", "2c"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Ah", "Ac"],
+      "heroStackBB": 20.0,
+      "potBB": 9,
+      "villainRangeLabel": "BB call flop — T9, 87, 76, 98, 65, dois pares, sets, straights",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.65,
+            "evBB": 0.22
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 4.5 },
+            "frequency": 0.35,
+            "evBB": 0.18
+          }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "AA em 987-2 (turn brick em board conectado): você tem overpair mas villain chamou o c-bet em board onde conecta muito (T9, 87, 76 = dois pares; 65, T6, 96 = straight draws acertando). O 2 do turn não mudou nada — villain ainda tem range pesada de dois pares e straights. Check (65%) é correto: você não pode value-bet a maioria do range que paga (dois pares te batem), e ainda extrai bluffs do villain no river quando ele vê fraqueza. Bet pequeno (35%) é mixing para proteger contra raros draws. AA aqui é trickier do que parece.",
+        "sourceNote": "Turn BTN vs BB. Overpair em board ultra-conectado: check dominante, villain has equity advantage."
+      }
+    }
+  ]
+}

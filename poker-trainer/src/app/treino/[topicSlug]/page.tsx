@@ -14,12 +14,20 @@ export default async function TreinoPage({
   if (!topic) notFound();
 
   const header = (
-    <div>
-      <Link href="/" className="text-sm text-emerald-400 hover:text-emerald-300">
-        ← Voltar para tópicos
+    <div className="flex flex-wrap items-start justify-between gap-3">
+      <div>
+        <Link href="/" className="text-sm text-emerald-400 hover:text-emerald-300">
+          ← Voltar para tópicos
+        </Link>
+        <h1 className="mt-2 text-2xl font-bold text-white">{topic.title}</h1>
+        <p className="mt-1 text-sm text-slate-400">{topic.description}</p>
+      </div>
+      <Link
+        href={`/sessao/${topic.slug}`}
+        className="mt-6 inline-flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-emerald-500"
+      >
+        <span aria-hidden="true">⏱</span> Sessão de 10 mãos
       </Link>
-      <h1 className="mt-2 text-2xl font-bold text-white">{topic.title}</h1>
-      <p className="mt-1 text-sm text-slate-400">{topic.description}</p>
     </div>
   );
 

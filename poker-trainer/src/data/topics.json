@@ -207,6 +207,24 @@
     "targetAttempts": 20
   },
   {
+    "id": "postflop-srp-bb-vs-btn-cbet",
+    "slug": "postflop-srp-bb-vs-btn-cbet",
+    "title": "Pós-flop OOP — BB defende c-bet BTN",
+    "description": "Você é BB defendendo c-bet 33% do BTN no flop. Fold, call ou check-raise? Treina decisões OOP em SRP.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-turn",
+    "slug": "postflop-srp-btn-vs-bb-turn",
+    "title": "Pós-flop Turn BTN vs BB — segundo barrel",
+    "description": "BB chamou seu c-bet do flop. Agora no turn. Quando dobrar o barrel, quando dar check, quando fazer pot control?",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
     "id": "icm-bubble-sb-jam-15bb",
     "slug": "icm-bubble-sb-jam-15bb",
     "title": "Bolha — SB jam 15BB",

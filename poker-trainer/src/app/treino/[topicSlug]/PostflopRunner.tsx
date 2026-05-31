@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Action } from "@/domain/cards";
 import { POSITION_LABEL_PT } from "@/domain/cards";
 import type { PostflopSpot, Street } from "@/domain/postflop";
+import type { Attempt } from "@/domain/progress";
 import { summarize } from "@/domain/progress";
 import { handCodeOf } from "@/engine/handCode";
 import {
@@ -12,6 +13,7 @@ import {
   scorePostflop,
   type PostflopScoreResult,
 } from "@/engine/postflop";
+import { pickSpotWithSR } from "@/engine/sampling";
 import { eventKey } from "@/lib/keyboardShortcuts";
 import { loadProgress, saveAttempt } from "@/storage/localProgress";
 import { Board } from "@/components/Board";
@@ -26,6 +28,7 @@ type Props = {
   topicId: string;
   spots: PostflopSpot[];
   targetAttempts: number;
+  onAttempt?: (attempt: Attempt) => void;
 };
 
 type State =
@@ -98,13 +101,23 @@ function StreetBreadcrumb({ current }: { current: Street }) {
   );
 }
 
-export function PostflopRunner({ topicId, spots, targetAttempts }: Props) {
+export function PostflopRunner({ topicId, spots, targetAttempts, onAttempt }: Props) {
   const [state, setState] = useState<State | null>(null);
   const [stats, setStats] = useState({ total: 0, correctPct: 0, avgEvLossBB: 0 });
+  // Live ref to attempts so spaced-repetition can read the freshest state
+  // when picking the next spot without re-reading localStorage.
+  const attemptsRef = useRef<Attempt[]>([]);
 
   useEffect(() => {
-    setState({ phase: "asking", spot: samplePostflop(spots) });
     const p = loadProgress(topicId);
+    attemptsRef.current = p.attempts;
+    setState({
+      phase: "asking",
+      spot:
+        p.attempts.length > 0
+          ? pickSpotWithSR(spots, p.attempts)
+          : samplePostflop(spots),
+    });
     const s = summarize(p);
     setStats({ total: s.total, correctPct: s.correctPct, avgEvLossBB: s.avgEvLossBB });
   }, [topicId, spots]);
@@ -117,7 +130,7 @@ export function PostflopRunner({ topicId, spots, targetAttempts }: Props) {
   function handleChoose(action: Action) {
     if (!state || state.phase !== "asking") return;
     const result = scorePostflop(state.spot, action);
-    const updated = saveAttempt(topicId, {
+    const newAttempt: Attempt = {
       spotId: state.spot.id,
       hand: heroHandCode,
       chosen: action,
@@ -125,14 +138,20 @@ export function PostflopRunner({ topicId, spots, targetAttempts }: Props) {
       evLossBB: result.evLossBB,
       bucket: result.bucket,
       timestampMs: Date.now(),
-    });
+    };
+    const updated = saveAttempt(topicId, newAttempt);
+    attemptsRef.current = updated.attempts;
+    onAttempt?.(newAttempt);
     const s = summarize(updated);
     setStats({ total: s.total, correctPct: s.correctPct, avgEvLossBB: s.avgEvLossBB });
     setState({ phase: "feedback", spot: state.spot, result, chosen: action });
   }
 
   function handleNext() {
-    setState({ phase: "asking", spot: samplePostflop(spots) });
+    setState({
+      phase: "asking",
+      spot: pickSpotWithSR(spots, attemptsRef.current),
+    });
   }
 
   useEffect(() => {

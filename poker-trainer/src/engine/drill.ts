@@ -1,8 +1,9 @@
 import type { Action, Card } from "@/domain/cards";
+import type { Attempt } from "@/domain/progress";
 import type { PreflopRange } from "@/domain/range";
 import type { PreflopSpot } from "@/domain/spots";
 import { handCodeOf } from "./handCode";
-import { dealRandomHand } from "./sampling";
+import { dealHandWithSR, dealRandomHand } from "./sampling";
 import { scorePreflop, type ScoreResult } from "./scoring";
 
 export type DrillQuestion = {
@@ -14,9 +15,12 @@ export type DrillQuestion = {
 export function newQuestion(
   spot: PreflopSpot,
   range: PreflopRange,
+  attempts: Attempt[] = [],
   rand: () => number = Math.random,
 ): DrillQuestion {
-  return { spot, range, heroCards: dealRandomHand(rand) };
+  const heroCards =
+    attempts.length > 0 ? dealHandWithSR(attempts, rand) : dealRandomHand(rand);
+  return { spot, range, heroCards };
 }
 
 export function evaluate(question: DrillQuestion, chosen: Action): ScoreResult {
