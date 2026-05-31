@@ -22,6 +22,7 @@ export default function ProgressoPage() {
           title: t.title,
           slug: t.slug,
           targetAttempts: t.targetAttempts,
+          drillType: t.drillType,
         }))}
       />
     </div>

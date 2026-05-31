@@ -6,6 +6,7 @@ import type { ActionKind, Card as CardModel, Rank, Suit } from "@/domain/cards";
 import { ACTION_LABEL_PT } from "@/domain/cards";
 import type { Attempt, TopicProgress } from "@/domain/progress";
 import { summarize } from "@/domain/progress";
+import type { DrillType } from "@/domain/topics";
 import { Card } from "@/components/Card";
 import { exportAll, importAll } from "@/storage/exportImport";
 import { loadProgress, resetProgress } from "@/storage/localProgress";
@@ -18,6 +19,7 @@ type TopicMeta = {
   title: string;
   slug: string;
   targetAttempts: number;
+  drillType: DrillType;
 };
 
 type Row = {
@@ -37,6 +39,69 @@ type Weakness = {
 };
 
 type Tone = "muted" | "good" | "warn" | "bad";
+
+/* ─────────── category definitions ─────────── */
+
+type CategoryDef = {
+  id: string;
+  label: string;
+  description: string;
+  predicate: (t: TopicMeta) => boolean;
+};
+
+const CATEGORY_DEFS: CategoryDef[] = [
+  {
+    id: "pushfold",
+    label: "Push/Fold chipEV",
+    description: "Jam ou fold por stack sem pressão de payout",
+    predicate: (t) => t.drillType === "pushfold" && !t.id.startsWith("icm"),
+  },
+  {
+    id: "icm",
+    label: "Push/Fold ICM",
+    description: "Bolha e final table com saltos de payout em jogo",
+    predicate: (t) => t.id.startsWith("icm"),
+  },
+  {
+    id: "open",
+    label: "Abertura",
+    description: "Open-raise por posição com diferentes stacks",
+    predicate: (t) => t.drillType === "open",
+  },
+  {
+    id: "defense",
+    label: "Defesa / 3-bet",
+    description: "Resposta a abertura: call, 3-bet ou fold",
+    predicate: (t) => t.drillType === "defense",
+  },
+  {
+    id: "postflop",
+    label: "Pós-flop",
+    description: "C-bet, check, raise em spots SRP e pote de 3-bet",
+    predicate: (t) => t.drillType === "postflop",
+  },
+];
+
+type CategoryStats = {
+  def: CategoryDef;
+  topics: Row[];
+  totalAttempts: number;
+  correctPct: number;
+  avgEvLoss: number;
+  tone: Tone;
+};
+
+/* ─────────── hand-class type ─────────── */
+
+type HandClass = {
+  rank: string;
+  label: string;
+  totalEvLoss: number;
+  wrongCount: number;
+  totalCount: number;
+};
+
+/* ─────────── main component ─────────── */
 
 export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
   const [rows, setRows] = useState<Row[]>([]);
@@ -75,8 +140,6 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Tick `now` every 30s and on tab focus so relative "Última" timestamps
-  // don't drift when the page sits open.
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 30_000);
     function onFocus() {
@@ -92,7 +155,11 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const categoryStats = computeCategoryStats(rows, CATEGORY_DEFS);
+  const recommendation = bestRecommendation(rows);
   const weaknesses = computeWeaknesses(rows).slice(0, 5);
+  const handClasses = computeHandClasses(rows);
+
   const totals = rows.reduce(
     (acc, r) => {
       acc.attempts += r.total;
@@ -191,6 +258,14 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
 
       {!hasAnyData && <EmptyState />}
 
+      {/* Recommendation */}
+      {hasAnyData && recommendation && (
+        <RecommendationCard row={recommendation} />
+      )}
+
+      {/* Category breakdown */}
+      <CategoryBreakdown stats={categoryStats} hasData={hasAnyData} />
+
       {/* Per-topic */}
       <section>
         <h2 className="mb-3 text-lg font-semibold text-white">Por tópico</h2>
@@ -263,6 +338,11 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
           </div>
         </div>
       </section>
+
+      {/* Hand-class patterns */}
+      {totals.attempts >= 15 && handClasses.length > 0 && (
+        <HandClassPatterns classes={handClasses} />
+      )}
 
       {/* Fraquezas */}
       <section>
@@ -341,7 +421,6 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
           <p className="text-xs text-slate-500">Exportar/Importar JSON do seu progresso</p>
         </div>
 
-        {/* Row: export + import + segmented mode */}
         <div className="flex flex-wrap items-center gap-3">
           <button
             type="button"
@@ -400,7 +479,6 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
           apaga o que estiver local pra esses tópicos e usa só o arquivo. Default: Mesclar.
         </p>
 
-        {/* Confirmation banner */}
         <div
           aria-live="polite"
           className={cn(
@@ -420,7 +498,252 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
   );
 }
 
-/* ─────────── pieces ─────────── */
+/* ─────────── new sections ─────────── */
+
+function RecommendationCard({ row }: { row: Row }) {
+  const isWeakTopic = row.total >= 5 && (row.correctPct < 65 || row.avgEvLossBB > 0.2);
+  const isUnstarted = row.total === 0;
+  const label = isWeakTopic
+    ? "Maior gap identificado — treinar agora"
+    : isUnstarted
+      ? "Próxima área para explorar"
+      : "Próximo treino recomendado";
+
+  return (
+    <section
+      aria-label="Recomendação de treino"
+      className="rounded-xl border border-emerald-900/50 bg-gradient-to-r from-emerald-950/40 to-slate-900/20 p-5"
+    >
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0">
+          <div className="text-xs font-semibold uppercase tracking-wide text-emerald-400">
+            {label}
+          </div>
+          <div className="mt-1 text-lg font-bold text-white">{row.topic.title}</div>
+          {row.total > 0 ? (
+            <div className="mt-1 flex flex-wrap items-center gap-3 text-sm text-slate-400">
+              <span>{formatPct(row.correctPct)} acerto</span>
+              <span className="text-slate-600">·</span>
+              <span>EV {formatBB(row.avgEvLossBB)} perdido/mão</span>
+              <span className="text-slate-600">·</span>
+              <span>{row.total} tentativas</span>
+            </div>
+          ) : (
+            <div className="mt-1 text-sm text-slate-400">Ainda não iniciado</div>
+          )}
+        </div>
+        <div className="flex shrink-0 gap-2">
+          <Link
+            href={`/sessao/${row.topic.slug}`}
+            className="inline-flex min-h-10 items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+          >
+            <span aria-hidden="true">⏱</span> Sessão de 10 mãos
+          </Link>
+          <Link
+            href={`/treino/${row.topic.slug}`}
+            className="inline-flex min-h-10 items-center rounded-md border border-slate-700 bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-200 shadow hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+          >
+            Modo livre
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CategoryBreakdown({
+  stats,
+  hasData,
+}: {
+  stats: CategoryStats[];
+  hasData: boolean;
+}) {
+  return (
+    <section>
+      <h2 className="mb-3 text-lg font-semibold text-white">Por categoria</h2>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {stats.map((s) => (
+          <CategoryCard key={s.def.id} stats={s} hasData={hasData} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function CategoryCard({ stats, hasData }: { stats: CategoryStats; hasData: boolean }) {
+  const borderColor = {
+    muted: "border-slate-800",
+    good: "border-emerald-800/50",
+    warn: "border-amber-800/50",
+    bad: "border-rose-800/50",
+  }[stats.tone];
+  const bgColor = {
+    muted: "bg-slate-900/40",
+    good: "bg-emerald-950/20",
+    warn: "bg-amber-950/20",
+    bad: "bg-rose-950/20",
+  }[stats.tone];
+  const barColor = {
+    muted: "bg-slate-700",
+    good: "bg-emerald-500",
+    warn: "bg-amber-500",
+    bad: "bg-rose-500",
+  }[stats.tone];
+  const statusLabel =
+    stats.totalAttempts === 0
+      ? "Não iniciado"
+      : stats.tone === "good"
+        ? "Sólido"
+        : stats.tone === "warn"
+          ? "Em progresso"
+          : "Precisa trabalhar";
+  const statusColor = {
+    muted: "text-slate-500",
+    good: "text-emerald-400",
+    warn: "text-amber-400",
+    bad: "text-rose-400",
+  }[stats.tone];
+
+  // Best topic to drill in this category: among started topics, worst score;
+  // fallback to first unstarted, then first topic overall.
+  const bestTarget =
+    stats.topics
+      .filter((r) => r.total >= 3)
+      .sort(
+        (a, b) =>
+          (100 - a.correctPct + a.avgEvLossBB * 150) -
+          (100 - b.correctPct + b.avgEvLossBB * 150),
+      )
+      .at(-1) ??
+    stats.topics.find((r) => r.total === 0) ??
+    stats.topics[0];
+
+  return (
+    <div className={cn("rounded-lg border p-4 space-y-3", borderColor, bgColor)}>
+      <div className="flex items-start justify-between gap-2">
+        <div className="min-w-0">
+          <div className="text-sm font-semibold text-white">{stats.def.label}</div>
+          <div className="mt-0.5 text-xs text-slate-500">{stats.def.description}</div>
+        </div>
+        <span className={cn("shrink-0 text-xs font-semibold", statusColor)}>
+          {statusLabel}
+        </span>
+      </div>
+
+      {stats.totalAttempts > 0 ? (
+        <>
+          <div className="space-y-1">
+            <div className="flex justify-between text-xs text-slate-400">
+              <span>Acerto</span>
+              <span className="font-mono font-semibold text-white">
+                {formatPct(stats.correctPct)}
+              </span>
+            </div>
+            <div className="h-1.5 overflow-hidden rounded-full bg-slate-800">
+              <div
+                className={cn("h-full rounded-full transition-all duration-500 motion-reduce:transition-none", barColor)}
+                style={{ width: `${Math.min(100, stats.correctPct)}%` }}
+              />
+            </div>
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-slate-500">EV médio perdido</span>
+            <span
+              className={cn(
+                "font-mono",
+                stats.avgEvLoss < 0.1
+                  ? "text-emerald-300"
+                  : stats.avgEvLoss < 0.3
+                    ? "text-amber-300"
+                    : "text-rose-300",
+              )}
+            >
+              {formatBB(stats.avgEvLoss)}
+            </span>
+          </div>
+          <div className="text-xs text-slate-500">
+            {stats.totalAttempts} tentativas · {stats.topics.length} tópico
+            {stats.topics.length !== 1 ? "s" : ""}
+          </div>
+        </>
+      ) : (
+        <div className="text-xs text-slate-500">
+          {stats.topics.length} tópico{stats.topics.length !== 1 ? "s" : ""} disponível
+          {stats.topics.length !== 1 ? "s" : ""}
+        </div>
+      )}
+
+      {bestTarget && (
+        <Link
+          href={`/treino/${bestTarget.topic.slug}`}
+          className="inline-flex min-h-9 w-full items-center justify-center rounded border border-slate-700 bg-slate-800/60 px-3 text-xs font-semibold text-slate-200 transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 motion-reduce:transition-none"
+        >
+          {stats.totalAttempts === 0 ? "Começar →" : "Treinar →"}
+        </Link>
+      )}
+    </div>
+  );
+}
+
+function HandClassPatterns({ classes }: { classes: HandClass[] }) {
+  const top = classes.slice(0, 8);
+  const maxLoss = Math.max(...top.map((c) => c.totalEvLoss), 0.01);
+
+  return (
+    <section>
+      <h2 className="mb-1 text-lg font-semibold text-white">Padrões por classe de mão</h2>
+      <p className="mb-3 text-xs text-slate-500">
+        Agrupado pelo rank mais alto — mostra onde você sangra mais EV de forma sistemática.
+      </p>
+      <div className="overflow-hidden rounded-lg border border-slate-800">
+        {top.map((c, i) => {
+          const wrongPct = c.totalCount > 0 ? (c.wrongCount / c.totalCount) * 100 : 0;
+          const correctPct = 100 - wrongPct;
+          const barWidth = (c.totalEvLoss / maxLoss) * 100;
+          const tone: Tone =
+            correctPct >= 70 ? "good" : correctPct >= 50 ? "warn" : "bad";
+          const barColor = { good: "#10b981", warn: "#d97706", bad: "#e11d48" }[tone];
+          const accentClass = {
+            good: "text-emerald-300",
+            warn: "text-amber-300",
+            bad: "text-rose-300",
+            muted: "text-slate-400",
+          }[tone];
+          return (
+            <div
+              key={c.rank}
+              className={cn(
+                "relative flex items-center gap-3 px-4 py-3 text-sm",
+                i > 0 && "border-t border-slate-800",
+              )}
+            >
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 left-0 opacity-[0.08]"
+                style={{ width: `${barWidth}%`, background: barColor }}
+              />
+              <span className="relative w-6 shrink-0 font-mono text-base font-bold text-white">
+                {c.rank}
+              </span>
+              <span className="relative min-w-0 flex-1 truncate text-slate-300">{c.label}</span>
+              <span className={cn("relative shrink-0 text-xs font-semibold tabular-nums", accentClass)}>
+                {formatPct(correctPct)} acerto
+              </span>
+              <span className="relative w-14 shrink-0 text-right font-mono text-xs text-slate-400 tabular-nums">
+                {formatBB(c.totalEvLoss)}
+              </span>
+              <span className="relative w-14 shrink-0 text-right text-xs text-slate-500 tabular-nums">
+                {c.totalCount} mãos
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+/* ─────────── existing pieces ─────────── */
 
 function StatTile({
   label,
@@ -773,7 +1096,6 @@ function InfoIcon() {
 }
 
 function ChipsStackIllustration() {
-  // Scoped gradient IDs to avoid collisions if other SVGs on the page use the same names.
   const a = "progresso-chip-a";
   const b = "progresso-chip-b";
   const c = "progresso-chip-c";
@@ -793,24 +1115,99 @@ function ChipsStackIllustration() {
           <stop offset="1" stopColor="#9f1239" />
         </linearGradient>
       </defs>
-      {/* bottom chip */}
       <ellipse cx="36" cy="58" rx="22" ry="6" fill="#0f172a" />
       <ellipse cx="36" cy="55" rx="22" ry="6" fill={`url(#${c})`} />
       <ellipse cx="36" cy="53" rx="22" ry="6" fill="#1e293b" opacity="0.4" />
-      {/* middle chip */}
       <ellipse cx="36" cy="44" rx="20" ry="5.5" fill={`url(#${b})`} />
       <ellipse cx="36" cy="42" rx="20" ry="5.5" fill="#1e293b" opacity="0.35" />
-      {/* top chip */}
       <ellipse cx="36" cy="34" rx="18" ry="5" fill={`url(#${a})`} />
       <ellipse cx="36" cy="32" rx="18" ry="5" fill="#1e293b" opacity="0.3" />
       <ellipse cx="36" cy="30.5" rx="18" ry="5" fill={`url(#${a})`} />
-      {/* highlight */}
       <ellipse cx="30" cy="28.5" rx="6" ry="1.2" fill="#ffffff" opacity="0.25" />
     </svg>
   );
 }
 
 /* ─────────── helpers ─────────── */
+
+function computeCategoryStats(rows: Row[], defs: CategoryDef[]): CategoryStats[] {
+  return defs.map((def) => {
+    const topics = rows.filter((r) => def.predicate(r.topic));
+    const totalAttempts = topics.reduce((s, r) => s + r.total, 0);
+    const totalCorrect = topics.reduce(
+      (s, r) => s + Math.round((r.correctPct / 100) * r.total),
+      0,
+    );
+    const totalEvLoss = topics.reduce((s, r) => s + r.avgEvLossBB * r.total, 0);
+    const correctPct = totalAttempts > 0 ? (totalCorrect / totalAttempts) * 100 : 0;
+    const avgEvLoss = totalAttempts > 0 ? totalEvLoss / totalAttempts : 0;
+    const tone: Tone =
+      totalAttempts < 5
+        ? "muted"
+        : correctPct >= 70
+          ? "good"
+          : correctPct >= 50
+            ? "warn"
+            : "bad";
+    return { def, topics, totalAttempts, correctPct, avgEvLoss, tone };
+  });
+}
+
+function bestRecommendation(rows: Row[]): Row | null {
+  const withData = rows.filter((r) => r.total >= 5);
+  if (withData.length === 0) {
+    return rows.find((r) => r.total === 0) ?? rows[0] ?? null;
+  }
+  const scored = withData.map((r) => ({
+    row: r,
+    score: (100 - r.correctPct) * 0.6 + r.avgEvLossBB * 200 * 0.4,
+  }));
+  scored.sort((a, b) => b.score - a.score);
+  return scored[0]?.row ?? null;
+}
+
+const RANK_LABELS: Record<string, string> = {
+  A: "Ases (Ax)",
+  K: "Reis (Kx)",
+  Q: "Damas (Qx)",
+  J: "Valetes (Jx)",
+  T: "Dez (Tx)",
+  "9": "Noves",
+  "8": "Oitos",
+  "7": "Setes",
+  "6": "Seis",
+  "5": "Cincos",
+  "4": "Quatros",
+  "3": "Três",
+  "2": "Dois",
+};
+
+function computeHandClasses(rows: Row[]): HandClass[] {
+  const byRank = new Map<string, HandClass>();
+  for (const r of rows) {
+    for (const a of r.progress.attempts) {
+      const rank = a.hand[0];
+      if (!rank || !RANK_LABELS[rank]) continue;
+      const existing = byRank.get(rank);
+      if (existing) {
+        existing.totalEvLoss += a.evLossBB;
+        existing.totalCount++;
+        if (!a.correct) existing.wrongCount++;
+      } else {
+        byRank.set(rank, {
+          rank,
+          label: RANK_LABELS[rank]!,
+          totalEvLoss: a.evLossBB,
+          wrongCount: a.correct ? 0 : 1,
+          totalCount: 1,
+        });
+      }
+    }
+  }
+  return [...byRank.values()]
+    .filter((c) => c.totalCount >= 3)
+    .sort((a, b) => b.totalEvLoss - a.totalEvLoss);
+}
 
 function toneFromCorrect(correctPct: number, total: number): Tone {
   if (total === 0) return "muted";
@@ -822,30 +1219,20 @@ function toneFromCorrect(correctPct: number, total: number): Tone {
 function toneCopy(tone: Tone, kind: "acerto" | "ev"): string {
   if (kind === "acerto") {
     switch (tone) {
-      case "good":
-        return "Sólido — segue assim";
-      case "warn":
-        return "Tem espaço pra apertar";
-      case "bad":
-        return "Foco aqui";
-      default:
-        return "Início da sessão";
+      case "good": return "Sólido — segue assim";
+      case "warn": return "Tem espaço pra apertar";
+      case "bad": return "Foco aqui";
+      default: return "Início da sessão";
     }
   }
   switch (tone) {
-    case "good":
-      return "Vazamento mínimo";
-    case "warn":
-      return "Vazamento moderado";
-    case "bad":
-      return "Vazamento alto";
-    default:
-      return "Início da sessão";
+    case "good": return "Vazamento mínimo";
+    case "warn": return "Vazamento moderado";
+    case "bad": return "Vazamento alto";
+    default: return "Início da sessão";
   }
 }
 
-// Parse "pf-sb-vs-bb-10bb-base", "open-btn-25bb-base", "icm-bubble-sb-jam-15bb-base"
-// to extract a position label and a stack label.
 function parseTopicMeta(id: string): { position: string | null; stack: string | null } | null {
   if (!id) return null;
   const POS = ["utg1", "utg", "mp", "lj", "hj", "co", "btn", "sb", "bb"];
@@ -865,7 +1252,6 @@ function parseTopicMeta(id: string): { position: string | null; stack: string | 
   return { position, stack };
 }
 
-// Map a hand code (e.g., "AKs", "AKo", "AA", "T9s") to up to 2 sample cards.
 function handToSampleCards(hand: string): CardModel[] | null {
   if (!hand || hand.length < 2 || hand.length > 3) return null;
   const r1 = hand[0] as Rank;
