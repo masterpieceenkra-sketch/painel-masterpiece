@@ -18,6 +18,7 @@ type NavLink = {
 const NAV_LINKS: NavLink[] = [
   { href: "/", label: "Treinar", match: "exact" },
   { href: "/ranges", label: "Ranges", match: "prefix" },
+  { href: "/analisar", label: "Analisar", match: "prefix" },
   { href: "/progresso", label: "Progresso", match: "prefix" },
 ];
 

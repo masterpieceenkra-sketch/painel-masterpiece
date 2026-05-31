@@ -16,7 +16,9 @@ const TOPIC_TITLES: Record<string, string> = Object.fromEntries(
 const SECTION_LABEL: Record<string, string> = {
   treino: "Treinar",
   ranges: "Ranges",
+  analisar: "Analisar",
   progresso: "Progresso",
+  sessao: "Sessão",
 };
 
 // Top-level sections whose first segment is itself the destination link.
@@ -25,7 +27,9 @@ const SECTION_LABEL: Record<string, string> = {
 const SECTION_HREF: Record<string, string> = {
   treino: "/",
   ranges: "/ranges",
+  analisar: "/analisar",
   progresso: "/progresso",
+  sessao: "/",
 };
 
 type Crumb = { label: string; href?: string };

@@ -264,7 +264,7 @@ export function ProgressoView({ topics }: { topics: TopicMeta[] }) {
       )}
 
       {/* Category breakdown */}
-      <CategoryBreakdown stats={categoryStats} hasData={hasAnyData} />
+      <CategoryBreakdown stats={categoryStats} />
 
       {/* Per-topic */}
       <section>
@@ -551,26 +551,20 @@ function RecommendationCard({ row }: { row: Row }) {
   );
 }
 
-function CategoryBreakdown({
-  stats,
-  hasData,
-}: {
-  stats: CategoryStats[];
-  hasData: boolean;
-}) {
+function CategoryBreakdown({ stats }: { stats: CategoryStats[] }) {
   return (
     <section>
       <h2 className="mb-3 text-lg font-semibold text-white">Por categoria</h2>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {stats.map((s) => (
-          <CategoryCard key={s.def.id} stats={s} hasData={hasData} />
+          <CategoryCard key={s.def.id} stats={s} />
         ))}
       </div>
     </section>
   );
 }
 
-function CategoryCard({ stats, hasData }: { stats: CategoryStats; hasData: boolean }) {
+function CategoryCard({ stats }: { stats: CategoryStats }) {
   const borderColor = {
     muted: "border-slate-800",
     good: "border-emerald-800/50",
