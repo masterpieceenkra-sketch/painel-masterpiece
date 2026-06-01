@@ -250,5 +250,41 @@
     "drillType": "pushfold",
     "spotIds": ["icm-ft-co-jam-10bb-base"],
     "targetAttempts": 25
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-paired",
+    "slug": "postflop-srp-btn-vs-bb-paired",
+    "title": "Pós-flop SRP BTN vs BB — boards pareados",
+    "description": "Boards com par na mesa (772, KK4, 883, QQ7, AA5). Overpairs, underpairs, air e semi-bluffs em texturas pareadas — range advantage vs pot control.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-wet",
+    "slug": "postflop-srp-btn-vs-bb-wet",
+    "title": "Pós-flop SRP BTN vs BB — boards molhados",
+    "description": "Boards conectados e com flush draws (JT8, 987, QJs, T92hh). Combo draws, overpairs em perigo, semi-bluffs com equity alta.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-draws",
+    "slug": "postflop-srp-btn-vs-bb-draws",
+    "title": "Pós-flop SRP BTN vs BB — semi-bluffs e draws",
+    "description": "Flush draws, OESDs, gutshots e combo draws. Quando apostar como semi-bluff, qual tamanho usar e como equilibrar com a range de valor.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-river",
+    "slug": "postflop-srp-btn-vs-bb-river",
+    "title": "Pós-flop SRP BTN vs BB — decisões de river",
+    "description": "Runouts completos (5 cartas). Value bet thin, bluff com blocker, showdown value vs overbet bluff, e extração máxima com flush no river.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
   }
 ]
