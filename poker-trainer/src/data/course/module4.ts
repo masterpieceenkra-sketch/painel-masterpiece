@@ -59,7 +59,8 @@ export const MODULE_4: CourseModule = {
             "É um processo de eliminação combinatória, não adivinhação. Posição define o início; cada call, bet e sizing descarta pedaços; no river a range virou uma lista finita.",
         },
         {
-          q: "O vilão pagou seu c-bet num flop K♠8♦3♣. Qual mão ele quase certamente NÃO tem?",
+          q: "O vilão pagou seu c-bet neste flop. Qual mão ele quase certamente NÃO tem?",
+          scene: { board: ["Ks", "8d", "3c"], potBB: 6.5 },
           options: ["K♥T♥", "8♣7♣", "5♦5♥", "A♠Q♦ (sem par)"],
           correct: 3,
           explain:
@@ -79,6 +80,7 @@ export const MODULE_4: CourseModule = {
         },
         {
           q: "No river você conta: 20 combos de valor e 10 de bluff na range do vilão, que apostou pote (você precisa de 33%). Call ou fold com seu bluff-catcher?",
+          scene: { potBB: 10, betBB: 10 },
           options: [
             "Fold — ele tem valor 2x mais vezes",
             "Call: você ganha 10 de 30 = 33%, exatamente o preço — indiferente pela conta, qualquer info extra decide",
@@ -251,6 +253,7 @@ export const MODULE_4: CourseModule = {
         },
         {
           q: "Bolha: você (stack médio) tem A♠Q♠ e estima 55% contra o jam do chip leader. Em chipEV é call. E por ICM?",
+          scene: { hero: ["As", "Qs"], potBB: 2.5, betBB: 18 },
           options: [
             "Call — 55% é 55%",
             "Frequentemente FOLD: o risco de bustar sem prêmio vale mais que as fichas extras dos 55%",

@@ -75,6 +75,7 @@ export const MODULE_2: CourseModule = {
         },
         {
           q: "Você segura A♠K♠. Quantos combos de AA restam para o vilão?",
+          scene: { hero: ["As", "Ks"] },
           options: ["6", "4", "3", "1"],
           correct: 2,
           explain:
@@ -161,6 +162,7 @@ export const MODULE_2: CourseModule = {
         },
         {
           q: "Você abre 2.2BB no HJ com A♦J♦ e todos foldam. O que você ganhou?",
+          scene: { hero: ["Ad", "Jd"], potBB: 1.5 },
           options: [
             "Nada — ninguém pagou",
             "1.5BB (SB + BB) sem ver flop",
@@ -241,6 +243,7 @@ export const MODULE_2: CourseModule = {
         },
         {
           q: "Você 3-beta do BB e o agressor original dá 4-bet. Você tem 7♠7♥. Regra geral?",
+          scene: { hero: ["7s", "7h"], potBB: 12, betBB: 13 },
           options: [
             "Call sempre — par é par",
             "Fold na maioria dos casos: pares baixos jogam mal contra range de 4-bet",
@@ -323,6 +326,7 @@ export const MODULE_2: CourseModule = {
         },
         {
           q: "SB jama 12BB. Você no BB com A♣8♣. Por que a decisão de CALL é mais apertada que a de jam seria?",
+          scene: { hero: ["Ac", "8c"], potBB: 1.5, betBB: 12 },
           options: [
             "Não é — call e jam usam a mesma range",
             "Porque o caller não tem fold equity: só ganha no showdown, então precisa de mais equity bruta",

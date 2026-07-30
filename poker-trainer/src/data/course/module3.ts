@@ -62,7 +62,8 @@ export const MODULE_3: CourseModule = {
       ],
       quiz: [
         {
-          q: "Flop K♦7♣2♠ (rainbow). Você abriu do BTN, BB pagou. Por que essa textura é ótima para c-bet?",
+          q: "Flop rainbow. Você abriu do BTN, BB pagou. Por que essa textura é ótima para c-bet?",
+          scene: { board: ["Kd", "7c", "2s"], potBB: 5 },
           options: [
             "Porque K é carta bonita",
             "Sua range de abertura tem muito mais Kx/overpairs que a defesa do BB, e não há draws para ele continuar",
@@ -82,6 +83,7 @@ export const MODULE_3: CourseModule = {
         },
         {
           q: "Num board monotone (3 cartas do mesmo naipe), por que os sizings tendem a ser pequenos?",
+          scene: { board: ["Ah", "9h", "4h"], potBB: 5 },
           options: [
             "Porque ninguém aposta em monotone",
             "O valor das mãos comprime: sem o flush, mãos fortes viram médias — potes grandes só se justificam com flushes, que são raros nas duas ranges",
@@ -93,7 +95,13 @@ export const MODULE_3: CourseModule = {
             "Top pair em board monotone é bluff-catcher; sets temem o 4º naipe. Com valor comprimido nas duas ranges, apostar grande só polariza contra flushes — daí o padrão de bets pequenos.",
         },
         {
-          q: "Board pareado Q♦Q♠5♥. Você defendeu o BB com 5♣4♣ (par de 5). Contra c-bet pequeno do BTN, sua situação é:",
+          q: "Board pareado. Você defendeu o BB com 5♣4♣ (par de 5). Contra c-bet pequeno do BTN, sua situação é:",
+          scene: {
+            board: ["Qd", "Qs", "5h"],
+            hero: ["5c", "4c"],
+            potBB: 5,
+            betBB: 1.65,
+          },
           options: [
             "Desesperadora — fold direto",
             "Razoável: par de 5 ganha de todos os overcards que não têm Q, e o c-bet pequeno dá ótimo preço",
@@ -170,7 +178,8 @@ export const MODULE_3: CourseModule = {
             "Board seco a seu favor → range bet pequeno com tudo. Board molhado/neutro → polariza: forte e draws apostam grande, o meio checa. A mão específica só escolhe em qual balde você está.",
         },
         {
-          q: "Você abriu BTN com A♠K♠, BB pagou. Flop: 8♦7♦6♣. Melhor linha padrão?",
+          q: "Você abriu BTN com A♠K♠, BB pagou e checou o flop. Melhor linha padrão?",
+          scene: { board: ["8d", "7d", "6c"], hero: ["As", "Ks"], potBB: 5 },
           options: [
             "C-bet 75% — AK é mão premium",
             "Check: o board conecta com a defesa do BB, e AK sem equity direta prefere pot control",
@@ -183,6 +192,7 @@ export const MODULE_3: CourseModule = {
         },
         {
           q: "Por que o c-bet de 33% funciona mesmo com mãos que erraram o flop?",
+          scene: { potBB: 5, betBB: 1.65 },
           options: [
             "Porque é barato demais para dar errado",
             "Preço: o vilão precisa defender ~70%+ da range para não ser explorado, e ninguém conecta tanto assim — os folds pagam a aposta",
@@ -262,7 +272,8 @@ export const MODULE_3: CourseModule = {
             "Fold equity (agora) + equity real (nas cartas que faltam). É a soma que torna lucrativas apostas que, como blefe puro OU como aposta de valor, perderiam dinheiro.",
         },
         {
-          q: "Flop K♠7♠5♥, você com A♠4♠ (nut flush draw). Por que BET supera check/call?",
+          q: "Nut flush draw no flop. Por que BET supera check/call?",
+          scene: { board: ["Ks", "7s", "5h"], hero: ["As", "4s"], potBB: 5 },
           options: [
             "Não supera — draws pagam barato",
             "Bet adiciona fold equity à sua equity de ~36%: você pode levar o pote sem completar, e infla o pote para quando completar",
@@ -274,7 +285,13 @@ export const MODULE_3: CourseModule = {
             "Check/call só ganha completando (~36%). Bet ganha por fold OU completando — e quando o flush bate, o pote que você inflou paga o triplo. Agressão transforma draw bom em máquina de EV.",
         },
         {
-          q: "Você tem 6♣5♣ (gutshot seco, 4 outs) num board A♦8♠7♥ contra aposta de 75% do pote. Melhor linha?",
+          q: "Gutshot seco (4 outs) contra aposta de 75% do pote. Melhor linha?",
+          scene: {
+            board: ["Ad", "8s", "7h"],
+            hero: ["6c", "5c"],
+            potBB: 6,
+            betBB: 4.5,
+          },
           options: [
             "Raise semi-bluff — sempre agredir",
             "Call — draws pagam",
@@ -286,7 +303,14 @@ export const MODULE_3: CourseModule = {
             "Gutshot é o draw que mais queima dinheiro quando tratado como flush draw. Sem odds para call, sem fold equity para raise (board de A favorece o apostador) → fold é a jogada forte.",
         },
         {
-          q: "Combo draw (flush draw + OESD) no flop contra top pair. Quem é o favorito?",
+          q: "Combo draw (flush draw + OESD) contra top pair, all-in no flop. Quem é o favorito?",
+          scene: {
+            board: ["9h", "8c", "2h"],
+            hero: ["Jh", "Th"],
+            villain: ["Ad", "9d"],
+            villainLabel: "Top pair",
+            heroLabel: "Combo draw (você)",
+          },
           options: [
             "Top pair — mão feita ganha de draw",
             "O combo draw, com ~54% de equity",
@@ -358,7 +382,12 @@ export const MODULE_3: CourseModule = {
             "Valor = ser pago por piores. Se só melhores pagam e piores foldam, a aposta perde dinheiro dos dois lados — o erro silencioso mais comum do pós-flop.",
         },
         {
-          q: "River K♠7♦2♣4♥T♦, você com K♥Q♣ (top pair, kicker Q). Linha padrão?",
+          q: "River. Você tem top pair com kicker Q e o vilão checou. Linha padrão?",
+          scene: {
+            board: ["Ks", "7d", "2c", "4h", "Td"],
+            hero: ["Kh", "Qc"],
+            potBB: 12,
+          },
           options: [
             "Check — 'só pago se ele apostar'",
             "Bet 33-50%: KJ/KT/K9/T9/88 pagam — thin value consistente",
@@ -448,13 +477,15 @@ export const MODULE_3: CourseModule = {
       quiz: [
         {
           q: "Você blefa 50% do pote no river. Quantas vezes o vilão precisa foldar para o bluff ser lucrativo?",
+          scene: { potBB: 10, betBB: 5 },
           options: ["50%", "25%", "Mais de 33%", "75%"],
           correct: 2,
           explain:
             "B/(B+P) = 0.5/1.5 = 33%. Foldando mais de 1 vez em 3, seu bluff imprime. Repare como o número é MENOR do que a intuição sugere — bluffs baratos precisam funcionar pouco.",
         },
         {
-          q: "Por que blefar com A♦K♠ num river que completou flush de ouros é melhor que blefar com K♠Q♠?",
+          q: "Por que blefar com A♦K♠ neste river (flush de ouros completou) é melhor que blefar com K♠Q♠?",
+          scene: { board: ["Qh", "Jd", "4s", "6d", "9d"], hero: ["Ad", "Ks"] },
           options: [
             "Porque AK é mão mais bonita",
             "O A♦ bloqueia o nut flush — a principal mão que pagaria — tornando o fold do vilão mais provável",

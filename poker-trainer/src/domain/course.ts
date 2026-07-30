@@ -18,12 +18,31 @@ export type LessonBlock =
   | { type: "handrank" }
   | { type: "positions" };
 
+/**
+ * Cena de mesa renderizada junto com a pergunta — transforma o quiz numa
+ * situação de jogo visual (board, mãos, pote) em vez de texto puro.
+ */
+export type QuizScene = {
+  /** Cartas comunitárias na mesa. */
+  board?: string[];
+  /** Sua mão (embaixo, como no jogo). */
+  hero?: string[];
+  /** Mão revelada do oponente (em cima) — para perguntas de showdown. */
+  villain?: string[];
+  heroLabel?: string;
+  villainLabel?: string;
+  potBB?: number;
+  /** Aposta a pagar em BB — renderizada como ficha na mesa. */
+  betBB?: number;
+};
+
 export type QuizQuestion = {
   q: string;
   options: string[];
   /** Índice da opção correta. */
   correct: number;
   explain: string;
+  scene?: QuizScene;
 };
 
 export type Lesson = {

@@ -51,7 +51,14 @@ export const MODULE_1: CourseModule = {
       ],
       quiz: [
         {
-          q: "Board: K♠ 9♥ 5♦ 2♣ 8♠. Jogador A tem K♥Q♦, Jogador B tem 9♣9♦. Quem vence?",
+          q: "Showdown! Você (Jogador A) tem K♥Q♦; o oponente mostra 9♣9♦. Quem vence?",
+          scene: {
+            board: ["Ks", "9h", "5d", "2c", "8s"],
+            hero: ["Kh", "Qd"],
+            villain: ["9c", "9d"],
+            heroLabel: "Jogador A (você)",
+            villainLabel: "Jogador B",
+          },
           options: [
             "Jogador A — par de K é o par mais alto",
             "Jogador B — trinca de 9 vence par de K",
@@ -75,7 +82,11 @@ export const MODULE_1: CourseModule = {
             "Flush > sequência, sempre. A ordem é: straight flush > quadra > full house > flush > sequência > trinca > dois pares > par > carta alta.",
         },
         {
-          q: "Você tem A♥3♥. Board: A♠ K♦ K♣ 7♠ 2♥. Qual é a sua mão final?",
+          q: "Qual é a sua mão final?",
+          scene: {
+            board: ["As", "Kd", "Kc", "7s", "2h"],
+            hero: ["Ah", "3h"],
+          },
           options: [
             "Par de Ases",
             "Dois pares (A e K) com kicker 7",
@@ -87,7 +98,14 @@ export const MODULE_1: CourseModule = {
             "Suas 5 melhores cartas: A-A-K-K-7. O par de K vem do board, e o kicker é o 7 do board — melhor que o seu 3. Suas duas cartas não são obrigatórias.",
         },
         {
-          q: "Dois jogadores chegam ao showdown. Board: Q-J-T-9-8 sem flush possível. A tem A♣2♦, B tem 7♥7♠. Quem leva?",
+          q: "Showdown, sem flush possível. Você (A) tem A♣2♦; o oponente (B) mostra 7♥7♠. Quem leva?",
+          scene: {
+            board: ["Qc", "Jd", "Th", "9s", "8d"],
+            hero: ["Ac", "2d"],
+            villain: ["7h", "7s"],
+            heroLabel: "Jogador A (você)",
+            villainLabel: "Jogador B",
+          },
           options: [
             "A — carta alta A",
             "B — par de 7",
@@ -173,6 +191,7 @@ export const MODULE_1: CourseModule = {
         },
         {
           q: "Mesma mão, K♦T♦. Em qual cenário ela é claramente um open raise?",
+          scene: { hero: ["Kd", "Td"] },
           options: [
             "UTG numa mesa de 6 jogadores",
             "No BTN, todos foldaram",
@@ -226,13 +245,15 @@ export const MODULE_1: CourseModule = {
       ],
       quiz: [
         {
-          q: "Pote de 12BB, vilão aposta 6BB (metade do pote). Quanta equity você precisa para o call?",
+          q: "O vilão aposta 6BB num pote de 12BB (metade do pote). Quanta equity você precisa para o call?",
+          scene: { potBB: 12, betBB: 6 },
           options: ["50%", "33%", "25%", "20%"],
           correct: 2,
           explain: "Call de 6 para um pote final de 24 (12 + 6 + 6). 6/24 = 25%. Aposta de meio pote SEMPRE exige 25%.",
         },
         {
-          q: "Vilão aposta o pote completo no river. Você estima que sua mão ganha 40% das vezes. Qual a jogada?",
+          q: "River: vilão aposta o pote completo (10BB em pote de 10BB). Você estima que sua mão ganha 40% das vezes. Qual a jogada?",
+          scene: { potBB: 10, betBB: 10 },
           options: [
             "Fold — 40% é menos da metade",
             "Call — precisa de 33% e você tem 40%",
@@ -257,6 +278,7 @@ export const MODULE_1: CourseModule = {
         },
         {
           q: "Pote 8BB, vilão all-in de 16BB (2x pote). Sua equity estimada: 35%. Call ou fold?",
+          scene: { potBB: 8, betBB: 16 },
           options: [
             "Call — 35% é bastante",
             "Fold — overbet de 2x pote exige 40%",
@@ -321,13 +343,20 @@ export const MODULE_1: CourseModule = {
       ],
       quiz: [
         {
-          q: "Você tem 8♠7♠ no flop K♠5♠2♦ (flush draw, 9 outs). Qual sua equity aproximada até o river?",
+          q: "Flush draw no flop (9 outs). Qual sua equity aproximada até o river?",
+          scene: { board: ["Ks", "5s", "2d"], hero: ["8s", "7s"] },
           options: ["~18%", "~36%", "~50%", "~9%"],
           correct: 1,
           explain: "Regra do 4: no flop, 9 outs × 4 = 36%. (O valor exato é 35% — a regra é uma aproximação excelente.)",
         },
         {
           q: "Turn. Você tem OESD (8 outs). Vilão aposta metade do pote. Call correto?",
+          scene: {
+            board: ["9c", "8d", "2s", "Kh"],
+            hero: ["Jh", "Th"],
+            potBB: 8,
+            betBB: 4,
+          },
           options: [
             "Sim — draws sempre pagam",
             "Não — 8 outs × 2 = 16% de equity, e meio pote exige 25%",
@@ -346,7 +375,13 @@ export const MODULE_1: CourseModule = {
             "9 do flush + 8 da sequência − 2 que contam duas vezes (as duas cartas que completam ambos) = 15 outs. No flop: 15 × 4 = ~54% — favorito contra top pair!",
         },
         {
-          q: "Flop. Você tem gutshot (4 outs). Vilão aposta 33% do pote. A conta fecha?",
+          q: "Flop. Você tem gutshot (4 outs — só o 7 completa). Vilão aposta 33% do pote. A conta fecha?",
+          scene: {
+            board: ["Kd", "8c", "6s"],
+            hero: ["Th", "9h"],
+            potBB: 9,
+            betBB: 3,
+          },
           options: [
             "Não — gutshot nunca paga",
             "Sim — 4 × 4 = 16%… não, 16% < 20%, fold apertado",
