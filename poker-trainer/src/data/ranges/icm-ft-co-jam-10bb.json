@@ -1,0 +1,11 @@
+{
+  "id": "icm-ft-co-jam-10bb",
+  "label": "Final Table ICM — CO jam 10BB",
+  "description": "5 jogadores no FT, payouts skewed (1º 40%, 5º 10%). Você CO 10BB, BB e BTN cobrem.",
+  "effectiveBB": 10,
+  "sourceNote": "Ajuste ICM final table. Range ~24% vs chipEV ~36%. Pressão menor que bolha mas existente porque saltos de payout pesam.",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "jam": "33+, A5s+, A8o+, K9s+, KJo+, Q9s+, QTo+, JTs, T9s"
+  }
+}

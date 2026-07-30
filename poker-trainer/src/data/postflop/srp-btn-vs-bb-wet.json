@@ -1,0 +1,101 @@
+{
+  "topicId": "postflop-srp-btn-vs-bb-wet",
+  "spots": [
+    {
+      "id": "srp-btn-vs-bb-wet-01",
+      "street": "flop",
+      "board": ["Jc", "Tc", "8s"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Ac", "Qc"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.25, "evBB": 2.5 },
+          { "action": { "kind": "raise", "sizeBB": 2.5 }, "frequency": 0.75, "evBB": 3.2 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 2.5 },
+        "explanation_ptBR": "AcQc em JT8 com dois paus: bet 50% pot (75%). Combo draw excepcional — flush draw de nuts (9 paus para o nut flush) + gutshot para o K (K completa K-Q-J-T-9 straight — wait, K-Q faz straight com J-T). Você tem ~50% de equity contra top pair. Bet grande constrói o pote antes de completar e aplica pressão máxima. Combo draws jogam como semi-bluff de valor; check seria desperdiçar enorme equity.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, JT8ss combo draw nut FD"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-wet-02",
+      "street": "flop",
+      "board": ["9d", "8d", "7c"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Kd", "Kh"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x (defende muitas mãos conectadas)",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.55, "evBB": 2.3 },
+          { "action": { "kind": "raise", "sizeBB": 2.5 }, "frequency": 0.45, "evBB": 2.4 }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "KK em 987 arco-íris: check ligeiramente dominante (55%). Textura muito perigosa — o BB defende pré com T6s, T8s, J6s, 65s, 56s, J9s que completam straights aqui. Além disso, o BB tem mais sets (77, 88, 99) relativamente ao BTN nessa faixa de board. KK é um overpair mas não está confortável apostando grande. Check/call é a linha mais segura; bet 50% existe mas com frequência menor.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, 987 connected — overpair danger"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-wet-03",
+      "street": "flop",
+      "board": ["Qs", "Js", "5h"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Ts", "9s"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.20, "evBB": 2.8 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.50, "evBB": 3.1 },
+          { "action": { "kind": "raise", "sizeBB": 2.5 }, "frequency": 0.30, "evBB": 3.0 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 1.65 },
+        "explanation_ptBR": "Ts9s em QJs com dois espadas: bet 80% do tempo (split entre 33% e 50%). OESD (K ou 8 completa a straight) + flush draw de espadas — combo draw com ~50% de equity. É a mão de semi-bluff perfeita: você ganha imediato com fold equity ou tem muita equity quando chamado. Bet 33% é levemente preferido sobre 50% porque o villain tem dificuldade de defender contra range polarizada barata.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, QJs OESD+FD combo draw"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-wet-04",
+      "street": "flop",
+      "board": ["8h", "7h", "4d"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Ah", "2h"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x (favorecido em boards baixos conectados)",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.60, "evBB": 1.3 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.40, "evBB": 1.4 }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "Ah2h em 874 com dois copas: check 60%, bet 33% 40%. Você tem nut flush draw mas zero made hand nessa textura baixa conectada onde o BB é range-favorecido (65s, 56s, 97s, sets de 8/7/4). Semi-bluffar é válido 40% das vezes — você tem 9 outs para o flush — mas checar é preferido para não sobrebluffar num board em que o villain chama com frequência alta com draws e pares feitos.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, 874hh nut flush draw OOP range-unfavorable"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-wet-05",
+      "street": "flop",
+      "board": ["Th", "9h", "2s"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Jh", "Jd"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.40, "evBB": 2.6 },
+          { "action": { "kind": "raise", "sizeBB": 2.5 }, "frequency": 0.60, "evBB": 2.9 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 2.5 },
+        "explanation_ptBR": "JJ em T92 com dois copas: bet 50% pot (60%). Overpair em board vulnerável — qualquer 8, J, K, Q ou copa cria problemas. Bet 50% aplica pressão máxima nos draws do villain enquanto extrai valor de Tx, 9x, pares médios. Se você der check, o villain vê turn de graça com draws. JJ aqui prefere construir o pote e aplicar pressão agora; no turn você pode precisar fazer uma decisão difícil grátis.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, T92hh overpair wet board protection"
+      }
+    }
+  ]
+}

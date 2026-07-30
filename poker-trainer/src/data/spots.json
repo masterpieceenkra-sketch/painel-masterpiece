@@ -1,0 +1,364 @@
+[
+  {
+    "kind": "pushfold",
+    "id": "pf-sb-vs-bb-10bb-base",
+    "effectiveBB": 10,
+    "heroPos": "SB",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-10bb-sb-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-co-15bb-base",
+    "effectiveBB": 15,
+    "heroPos": "CO",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-15bb-co-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-bb-vs-sb-jam-12bb-base",
+    "effectiveBB": 12,
+    "heroPos": "BB",
+    "villainPos": "SB",
+    "heroRole": "caller",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "fold" } },
+      { "position": "SB", "action": { "kind": "jam" } }
+    ],
+    "solutionRangeId": "nash-12bb-bb-call",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-btn-7bb-base",
+    "effectiveBB": 7,
+    "heroPos": "BTN",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-7bb-btn-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-btn-10bb-base",
+    "effectiveBB": 10,
+    "heroPos": "BTN",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-10bb-btn-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-btn-15bb-base",
+    "effectiveBB": 15,
+    "heroPos": "BTN",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-15bb-btn-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-co-10bb-base",
+    "effectiveBB": 10,
+    "heroPos": "CO",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-10bb-co-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-sb-15bb-base",
+    "effectiveBB": 15,
+    "heroPos": "SB",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-15bb-sb-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-sb-20bb-base",
+    "effectiveBB": 20,
+    "heroPos": "SB",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-20bb-sb-jam",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "pushfold",
+    "id": "pf-bb-vs-btn-jam-10bb-base",
+    "effectiveBB": 10,
+    "heroPos": "BB",
+    "villainPos": "BTN",
+    "heroRole": "caller",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "jam" } },
+      { "position": "SB", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "nash-10bb-bb-call-btn",
+    "icmContext": "chipEV"
+  },
+  {
+    "kind": "open",
+    "id": "open-btn-25bb-base",
+    "effectiveBB": 25,
+    "heroPos": "BTN",
+    "defaultOpenSizeBB": 2.2,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "open-btn-25bb"
+  },
+  {
+    "kind": "open",
+    "id": "open-btn-50bb-base",
+    "effectiveBB": 50,
+    "heroPos": "BTN",
+    "defaultOpenSizeBB": 2.0,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "open-btn-50bb"
+  },
+  {
+    "kind": "open",
+    "id": "open-co-25bb-base",
+    "effectiveBB": 25,
+    "heroPos": "CO",
+    "defaultOpenSizeBB": 2.2,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "open-co-25bb"
+  },
+  {
+    "kind": "open",
+    "id": "open-hj-25bb-base",
+    "effectiveBB": 25,
+    "heroPos": "HJ",
+    "defaultOpenSizeBB": 2.3,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "open-hj-25bb"
+  },
+  {
+    "kind": "open",
+    "id": "open-hj-40bb-base",
+    "effectiveBB": 40,
+    "heroPos": "HJ",
+    "defaultOpenSizeBB": 2.3,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "open-hj-40bb"
+  },
+  {
+    "kind": "open",
+    "id": "open-utg-30bb-base",
+    "effectiveBB": 30,
+    "heroPos": "UTG",
+    "defaultOpenSizeBB": 2.3,
+    "prior": [],
+    "solutionRangeId": "open-utg-30bb"
+  },
+  {
+    "kind": "defense",
+    "id": "def-bb-vs-btn-25bb-base",
+    "effectiveBB": 25,
+    "heroPos": "BB",
+    "villainPos": "BTN",
+    "villainAction": { "kind": "raise", "sizeBB": 2.2 },
+    "default3betSizeBB": 9,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "raise", "sizeBB": 2.2 } },
+      { "position": "SB", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "def-bb-vs-btn-25bb"
+  },
+  {
+    "kind": "defense",
+    "id": "3bet-bb-vs-co-50bb-base",
+    "effectiveBB": 50,
+    "heroPos": "BB",
+    "villainPos": "CO",
+    "villainAction": { "kind": "raise", "sizeBB": 2.3 },
+    "default3betSizeBB": 10,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "raise", "sizeBB": 2.3 } },
+      { "position": "BTN", "action": { "kind": "fold" } },
+      { "position": "SB", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "3bet-bb-vs-co-50bb"
+  },
+  {
+    "kind": "defense",
+    "id": "3bet-sb-vs-btn-25bb-base",
+    "effectiveBB": 25,
+    "heroPos": "SB",
+    "villainPos": "BTN",
+    "villainAction": { "kind": "raise", "sizeBB": 2.2 },
+    "default3betSizeBB": 8,
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "raise", "sizeBB": 2.2 } }
+    ],
+    "solutionRangeId": "3bet-sb-vs-btn-25bb"
+  },
+  {
+    "kind": "pushfold",
+    "id": "icm-bubble-sb-jam-15bb-base",
+    "effectiveBB": 15,
+    "heroPos": "SB",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "icm-bubble-sb-jam-15bb",
+    "icmContext": "bubble",
+    "icmScenario": {
+      "stage": "bubble",
+      "label": "Bolha — 10 jogadores, 9 pagam",
+      "description": "Estamos a uma eliminação do dinheiro. Bust = $0. Cada hand fraca jamada queima equity ICM.",
+      "stacks": [
+        { "label": "Short", "stackBB": 8 },
+        { "label": "Médio", "stackBB": 12 },
+        { "label": "Você (SB)", "stackBB": 15, "isHero": true },
+        { "label": "BB", "stackBB": 18 },
+        { "label": "Outros", "stackBB": 22 },
+        { "label": "Chip leader", "stackBB": 35 }
+      ],
+      "payoutsPct": [22, 16, 12, 9, 7, 6, 5, 4, 3]
+    }
+  },
+  {
+    "kind": "pushfold",
+    "id": "icm-bubble-bb-call-sb-jam-15bb-base",
+    "effectiveBB": 15,
+    "heroPos": "BB",
+    "villainPos": "SB",
+    "heroRole": "caller",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } },
+      { "position": "CO", "action": { "kind": "fold" } },
+      { "position": "BTN", "action": { "kind": "fold" } },
+      { "position": "SB", "action": { "kind": "jam" } }
+    ],
+    "solutionRangeId": "icm-bubble-bb-call-sb-jam-15bb",
+    "icmContext": "bubble",
+    "icmScenario": {
+      "stage": "bubble",
+      "label": "Bolha — defendendo do BB",
+      "description": "SB jamou 15BB. Você na BB com 15BB. Bust = $0, fold preserva. Calling com hand fraca destrói EV.",
+      "stacks": [
+        { "label": "Short", "stackBB": 8 },
+        { "label": "Médio", "stackBB": 12 },
+        { "label": "SB", "stackBB": 15 },
+        { "label": "Você (BB)", "stackBB": 15, "isHero": true },
+        { "label": "Outros", "stackBB": 22 },
+        { "label": "Chip leader", "stackBB": 35 }
+      ],
+      "payoutsPct": [22, 16, 12, 9, 7, 6, 5, 4, 3]
+    }
+  },
+  {
+    "kind": "pushfold",
+    "id": "icm-ft-co-jam-10bb-base",
+    "effectiveBB": 10,
+    "heroPos": "CO",
+    "villainPos": "BB",
+    "heroRole": "jammer",
+    "prior": [
+      { "position": "UTG", "action": { "kind": "fold" } },
+      { "position": "HJ", "action": { "kind": "fold" } }
+    ],
+    "solutionRangeId": "icm-ft-co-jam-10bb",
+    "icmContext": "finalTable",
+    "icmScenario": {
+      "stage": "finalTable",
+      "label": "Final Table 5-handed",
+      "description": "FT com 5 jogadores. Payouts skewed pra 1º (40%). Cada salto vale muito $$ — range tightens vs chipEV.",
+      "stacks": [
+        { "label": "Você (CO)", "stackBB": 10, "isHero": true },
+        { "label": "BTN", "stackBB": 22 },
+        { "label": "SB", "stackBB": 18 },
+        { "label": "BB", "stackBB": 28 },
+        { "label": "Chip leader", "stackBB": 32 }
+      ],
+      "payoutsPct": [40, 25, 16, 12, 7]
+    }
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "id": "open-utg-30bb",
+  "label": "UTG Open 30BB",
+  "description": "UTG (primeira posição) com 30BB effective. Open-raise 2.3BB ou fold.",
+  "effectiveBB": 30,
+  "sourceNote": "GTO aproximação tight (~13% range). MTT chipEV.",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "raise": "77+, ATs+, AJo+, KTs+, KQo, QTs+, JTs, T9s, 98s"
+  }
+}

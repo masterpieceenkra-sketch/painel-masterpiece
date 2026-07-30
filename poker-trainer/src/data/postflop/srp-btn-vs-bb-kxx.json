@@ -1,0 +1,160 @@
+{
+  "topicId": "postflop-srp-btn-vs-bb-kxx",
+  "spots": [
+    {
+      "id": "srp-btn-vs-bb-K72r-QQ",
+      "street": "flop",
+      "board": ["Kh", "7d", "2c"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Qc", "Qs"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — inclui Kx (K2s+, K5o+, KTo+), pares médios, suited connectors",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.42,
+            "evBB": 0.19
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 1.65 },
+            "frequency": 0.58,
+            "evBB": 0.25
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 1.65 },
+        "explanation_ptBR": "QQ em K72 rainbow é um spot de mix entre check e c-bet 33%. O K no board é o perigo — villain tem Kx (K8s, KT, KJ etc.) que te dominam. Mesmo assim, c-bet 33% tem EV levemente positivo: extrai de JJ, TT, 99, 88 (underpairs), missed broadways (QJ, QT, JT), e combos com gutshots. Não aposta grande — isolar contra Kx é suicídio. Solver mistura ~58% bet, ~42% check. Ambas as escolhas são corretas em frequência.",
+        "sourceNote": "BTN vs BB SRP 25BB, aproximação solver (PIO-style). QQ em board K-alto é clássico spot de overpair vulnerável."
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-K84r-AK",
+      "street": "flop",
+      "board": ["Kd", "8h", "4c"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Ac", "Ks"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — Kx fraco (K7, K6, K5, K3), pares baixos (77-33), suited connectors",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.2,
+            "evBB": 0.31
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 2.5 },
+            "frequency": 0.8,
+            "evBB": 0.52
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 2.5 },
+        "explanation_ptBR": "AK em K84 rainbow é top pair top kicker num board super seco — c-bet 50% é o padrão. Board favorece o BTN: você tem todo o AK, KQ, KJ enquanto villain tem Kx fraco sem kicker (K7, K6, K5). Apostando 50%, você extrai duas ruas de valor de Kx-fraco (K7, K6), underpairs (77, 66, 55, 44, 33), e protege contra draws remotos (T9s, 87s com 6 outs). Checkar 20% do tempo mantém range balanceado — mas com essa mão você prefere construir o pot.",
+        "sourceNote": "BTN vs BB SRP 25BB. TPTK em board seco: c-bet 50% dominant, extrai duas ruas."
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-K93r-TT",
+      "street": "flop",
+      "board": ["Ks", "9d", "3h"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Tc", "Td"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — Kx (KJ, KT, K9, K8s), 99, 33, pares médios e baixos",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.68,
+            "evBB": 0.16
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 1.65 },
+            "frequency": 0.32,
+            "evBB": 0.14
+          }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "TT em K93r é um spot difícil: você tem second overpair mas o K no board é terrível. Villain tem Kx em boa frequência — KJ, KT, K9, K8s que te batem no flop. Check é o melhor movimento: realiza equity barato, evita ser checkraised por Kx, e mantém pot pequeno onde você tem showdown value contra pares menores (88, 77, 66, 55, 44, 33, 22, 9x-fraco). C-bet 33% às vezes (32%) para extratir de 88 e QJ, mas é mixing — check é a ação dominante.",
+        "sourceNote": "BTN vs BB SRP 25BB. Overpair em board K-alto: pot control é standard quando K conecta bem com villain range."
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-KT4r-QJ",
+      "street": "flop",
+      "board": ["Kd", "Tc", "4h"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Qh", "Jh"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — Kx, Tx, pares, QJ, 87s, 76s conectores",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.25,
+            "evBB": 0.22
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 3.3 },
+            "frequency": 0.75,
+            "evBB": 0.41
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 3.3 },
+        "explanation_ptBR": "QhJh em KT4 rainbow tem OESD ao Broadway: A completa AKQJT e 9 completa KQJT9 — 8 outs limpos! Também tem backdoor flush draw em copas. Com dois overs (Q e J viram par também em alguns runouts) e forte fold equity, semi-bluff 66% do pot é o movimento certo. Villain vai foldar pares médios (88, 77, 66, 55), suited connectors falhados, e Ax-missed. Quando for chamado, você tem muitos outs para virar. Só faz sentido checar com essa mão se quiser variation no range.",
+        "sourceNote": "BTN vs BB SRP 25BB. QJ em KTx = OESD forte + backdoor flush → semi-bluff dominante."
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-K72r-66",
+      "street": "flop",
+      "board": ["Ks", "7h", "2d"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "BB",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["6d", "6c"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — Kx, 77, 22, pares médios (88-33), conectores falhados",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.88,
+            "evBB": 0.08
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 1.65 },
+            "frequency": 0.12,
+            "evBB": 0.06
+          }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "66 em K72 rainbow é uma situação simples: você tem underpair num board K-alto e precisa realizar equity o mais barato possível. Check atrás 88% do tempo — você não quer construir um pot grande com uma mão que perde para Kx (40%+ do range de villain) e empata/perde para 77 e 22. O pouco de valor que você extrai ao apostar 33% (de missed conectores como QJ, T9, 98) não compensa o risco de checkraise. Checar e rua de decisão no turn com mais informação.",
+        "sourceNote": "BTN vs BB SRP 25BB. Underpair em board K-alto = pot control quase sempre. Showdown value existe, mas pequeno."
+      }
+    }
+  ]
+}

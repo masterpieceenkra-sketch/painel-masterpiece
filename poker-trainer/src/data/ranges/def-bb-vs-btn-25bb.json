@@ -1,0 +1,15 @@
+{
+  "id": "def-bb-vs-btn-25bb",
+  "label": "BB Defense vs BTN 2.2x — 25BB",
+  "description": "BTN abriu para 2.2BB. Você está na BB com 25BB effective. 3-bet, call ou fold?",
+  "effectiveBB": 25,
+  "sourceNote": "GTO aproximação. 3-bet alvo 9BB. Inclui célula mista (A5s ~ 40% 3-bet bluff).",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "raise": "TT+, AJs+, AQo+, KQs",
+    "call": "22-99, A2s-ATs, A6o-AJo, K2s-KJs, K9o-KQo, Q2s-QTs, Q9o-QJo, J6s-JTs, JTo, T7s-T9s, T9o, 97s-98s, 87s, 76s, 65s, 54s"
+  },
+  "cells": {
+    "A5s": { "raise": 0.4, "call": 0.6 }
+  }
+}

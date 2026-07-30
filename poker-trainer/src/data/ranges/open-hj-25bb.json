@@ -1,0 +1,11 @@
+{
+  "id": "open-hj-25bb",
+  "label": "HJ Open 25BB",
+  "description": "HJ com 25BB, UTG foldou. Open 2.3x ou fold.",
+  "effectiveBB": 25,
+  "sourceNote": "GTO aproximação (~16% range). Sizing padrão 2.3BB.",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "raise": "33+, A8s+, A9o+, K9s+, KJo+, QTs+, QJo, JTs, T9s, 98s, 87s, 76s"
+  }
+}

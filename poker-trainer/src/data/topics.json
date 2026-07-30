@@ -1,0 +1,290 @@
+[
+  {
+    "id": "pf-sb-vs-bb-10bb",
+    "slug": "pf-sb-vs-bb-10bb",
+    "title": "Push/Fold 10BB SB vs BB",
+    "description": "Small Blind com 10BB effective, todos foldaram até você. Decida: jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-sb-vs-bb-10bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "pf-co-15bb",
+    "slug": "pf-co-15bb",
+    "title": "Push/Fold 15BB CO (open jam)",
+    "description": "CO com 15BB, UTG e HJ foldaram. Open-jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-co-15bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "pf-bb-vs-sb-jam-12bb",
+    "slug": "pf-bb-vs-sb-jam-12bb",
+    "title": "BB call vs SB jam 12BB",
+    "description": "SB deu all-in com 12BB effective. Você está na BB. Calling ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-bb-vs-sb-jam-12bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "pf-btn-7bb",
+    "slug": "pf-btn-7bb",
+    "title": "Push/Fold 7BB BTN",
+    "description": "BTN com 7BB, folded to BTN. Push jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-btn-7bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "pf-btn-10bb",
+    "slug": "pf-btn-10bb",
+    "title": "Push/Fold 10BB BTN",
+    "description": "BTN com 10BB, folded to BTN. Jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-btn-10bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "pf-btn-15bb",
+    "slug": "pf-btn-15bb",
+    "title": "Push/Fold 15BB BTN",
+    "description": "BTN com 15BB, folded to BTN. A 15BB open standard ainda é melhor — drill foca em quando jam é EV+.",
+    "drillType": "pushfold",
+    "spotIds": ["pf-btn-15bb-base"],
+    "targetAttempts": 15
+  },
+  {
+    "id": "pf-co-10bb",
+    "slug": "pf-co-10bb",
+    "title": "Push/Fold 10BB CO",
+    "description": "CO com 10BB, UTG/HJ foldaram. Jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-co-10bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "pf-sb-15bb",
+    "slug": "pf-sb-15bb",
+    "title": "Push/Fold 15BB SB",
+    "description": "SB com 15BB, folded to SB. Jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-sb-15bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "pf-sb-20bb",
+    "slug": "pf-sb-20bb",
+    "title": "Push/Fold 20BB SB",
+    "description": "SB com 20BB. A 20BB+ open 2.5x já é preferível, drill mostra quando jam ainda paga.",
+    "drillType": "pushfold",
+    "spotIds": ["pf-sb-20bb-base"],
+    "targetAttempts": 15
+  },
+  {
+    "id": "pf-bb-vs-btn-jam-10bb",
+    "slug": "pf-bb-vs-btn-jam-10bb",
+    "title": "BB call vs BTN jam 10BB",
+    "description": "BTN deu all-in com 10BB. Você na BB com odds excelentes. Call ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["pf-bb-vs-btn-jam-10bb-base"],
+    "targetAttempts": 20
+  },
+  {
+    "id": "open-btn-25bb",
+    "slug": "open-btn-25bb",
+    "title": "Abertura BTN 25BB",
+    "description": "BTN com 25BB, todos foldaram. Open-raise (2.2BB) ou fold?",
+    "drillType": "open",
+    "spotIds": ["open-btn-25bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "open-btn-50bb",
+    "slug": "open-btn-50bb",
+    "title": "Abertura BTN 50BB",
+    "description": "BTN com 50BB, todos foldaram. Open-raise (2.0BB) ou fold?",
+    "drillType": "open",
+    "spotIds": ["open-btn-50bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "open-co-25bb",
+    "slug": "open-co-25bb",
+    "title": "Abertura CO 25BB",
+    "description": "CO com 25BB, UTG/HJ foldaram. Open-raise (2.2BB) ou fold?",
+    "drillType": "open",
+    "spotIds": ["open-co-25bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "open-hj-25bb",
+    "slug": "open-hj-25bb",
+    "title": "Abertura HJ 25BB",
+    "description": "HJ com 25BB, UTG foldou. Open-raise (2.3BB) ou fold?",
+    "drillType": "open",
+    "spotIds": ["open-hj-25bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "open-hj-40bb",
+    "slug": "open-hj-40bb",
+    "title": "Abertura HJ 40BB",
+    "description": "HJ com 40BB, UTG foldou. Open-raise (2.3BB) ou fold?",
+    "drillType": "open",
+    "spotIds": ["open-hj-40bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "open-utg-30bb",
+    "slug": "open-utg-30bb",
+    "title": "Abertura UTG 30BB",
+    "description": "UTG (primeira posição) com 30BB. Range tight: open ou fold?",
+    "drillType": "open",
+    "spotIds": ["open-utg-30bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "def-bb-vs-btn-25bb",
+    "slug": "def-bb-vs-btn-25bb",
+    "title": "Defesa BB vs BTN 25BB",
+    "description": "BTN abriu para 2.2BB. Você na BB. 3-bet (9BB), call ou fold?",
+    "drillType": "defense",
+    "spotIds": ["def-bb-vs-btn-25bb-base"],
+    "targetAttempts": 30
+  },
+  {
+    "id": "3bet-bb-vs-co-50bb",
+    "slug": "3bet-bb-vs-co-50bb",
+    "title": "BB 3-bet vs CO open 50BB",
+    "description": "CO abriu 2.3BB. Você na BB com 50BB. 3-bet (10BB), call ou fold?",
+    "drillType": "defense",
+    "spotIds": ["3bet-bb-vs-co-50bb-base"],
+    "targetAttempts": 30
+  },
+  {
+    "id": "3bet-sb-vs-btn-25bb",
+    "slug": "3bet-sb-vs-btn-25bb",
+    "title": "SB 3-bet vs BTN open 25BB",
+    "description": "BTN abriu 2.2BB. Você no SB (OOP) com 25BB. 3-bet (8BB), call ou fold?",
+    "drillType": "defense",
+    "spotIds": ["3bet-sb-vs-btn-25bb-base"],
+    "targetAttempts": 30
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-axx",
+    "slug": "postflop-srp-btn-vs-bb-axx",
+    "title": "Pós-flop SRP BTN vs BB — flops Ax",
+    "description": "Após open BTN 2.2BB + call BB. Você é BTN no flop com Ax na board. C-bet, check ou bet grande?",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-kxx",
+    "slug": "postflop-srp-btn-vs-bb-kxx",
+    "title": "Pós-flop SRP BTN vs BB — flops Kx",
+    "description": "Após open BTN 2.2BB + call BB. Flops com K no board: overpairs, draws e mãos de showdown value.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 25
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-mid",
+    "slug": "postflop-srp-btn-vs-bb-mid",
+    "title": "Pós-flop SRP BTN vs BB — boards médios",
+    "description": "Boards T/9/8 e coordenados. Proteção de overpairs, semi-bluffs e pot control em texturas conectadas.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 25
+  },
+  {
+    "id": "postflop-3bet-btn-vs-co",
+    "slug": "postflop-3bet-btn-vs-co",
+    "title": "Pós-flop Pote de 3-bet BTN vs CO",
+    "description": "BTN 3-bettou CO, CO chamou. Stacks ~25BB. Decisões de c-bet em boards secos e médios no pote de 3-bet.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
+    "id": "postflop-srp-bb-vs-btn-cbet",
+    "slug": "postflop-srp-bb-vs-btn-cbet",
+    "title": "Pós-flop OOP — BB defende c-bet BTN",
+    "description": "Você é BB defendendo c-bet 33% do BTN no flop. Fold, call ou check-raise? Treina decisões OOP em SRP.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-turn",
+    "slug": "postflop-srp-btn-vs-bb-turn",
+    "title": "Pós-flop Turn BTN vs BB — segundo barrel",
+    "description": "BB chamou seu c-bet do flop. Agora no turn. Quando dobrar o barrel, quando dar check, quando fazer pot control?",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
+    "id": "icm-bubble-sb-jam-15bb",
+    "slug": "icm-bubble-sb-jam-15bb",
+    "title": "Bolha — SB jam 15BB",
+    "description": "Bolha (10 left, 9 pagam). SB com 15BB. Range tighter por ICM. Jam ou fold?",
+    "drillType": "pushfold",
+    "spotIds": ["icm-bubble-sb-jam-15bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "icm-bubble-bb-call-sb-jam-15bb",
+    "slug": "icm-bubble-bb-call-sb-jam-15bb",
+    "title": "Bolha — BB call vs SB jam 15BB",
+    "description": "Bolha. SB jamou. Você na BB defendendo com ICM tight call range.",
+    "drillType": "pushfold",
+    "spotIds": ["icm-bubble-bb-call-sb-jam-15bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "icm-ft-co-jam-10bb",
+    "slug": "icm-ft-co-jam-10bb",
+    "title": "Final Table — CO jam 10BB",
+    "description": "FT 5-handed, payouts skewed. CO com 10BB enfrenta saltos de payout grandes.",
+    "drillType": "pushfold",
+    "spotIds": ["icm-ft-co-jam-10bb-base"],
+    "targetAttempts": 25
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-paired",
+    "slug": "postflop-srp-btn-vs-bb-paired",
+    "title": "Pós-flop SRP BTN vs BB — boards pareados",
+    "description": "Boards com par na mesa (772, KK4, 883, QQ7, AA5). Overpairs, underpairs, air e semi-bluffs em texturas pareadas — range advantage vs pot control.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-wet",
+    "slug": "postflop-srp-btn-vs-bb-wet",
+    "title": "Pós-flop SRP BTN vs BB — boards molhados",
+    "description": "Boards conectados e com flush draws (JT8, 987, QJs, T92hh). Combo draws, overpairs em perigo, semi-bluffs com equity alta.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-draws",
+    "slug": "postflop-srp-btn-vs-bb-draws",
+    "title": "Pós-flop SRP BTN vs BB — semi-bluffs e draws",
+    "description": "Flush draws, OESDs, gutshots e combo draws. Quando apostar como semi-bluff, qual tamanho usar e como equilibrar com a range de valor.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  },
+  {
+    "id": "postflop-srp-btn-vs-bb-river",
+    "slug": "postflop-srp-btn-vs-bb-river",
+    "title": "Pós-flop SRP BTN vs BB — decisões de river",
+    "description": "Runouts completos (5 cartas). Value bet thin, bluff com blocker, showdown value vs overbet bluff, e extração máxima com flush no river.",
+    "drillType": "postflop",
+    "spotIds": [],
+    "targetAttempts": 20
+  }
+]

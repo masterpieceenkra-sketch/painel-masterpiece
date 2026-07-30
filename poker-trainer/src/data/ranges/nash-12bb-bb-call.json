@@ -1,0 +1,11 @@
+{
+  "id": "nash-12bb-bb-call",
+  "label": "BB call vs SB jam 12BB",
+  "description": "SB deu all-in com 12BB effective. Você está na BB. Calling ou fold?",
+  "effectiveBB": 12,
+  "sourceNote": "Aproximação Nash chip-EV (~33% calling range vs SB Nash push).",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "call": "22+, A2s+, A5o+, K9s+, KJo+, Q9s+, QJo, J9s+, T9s, 98s"
+  }
+}

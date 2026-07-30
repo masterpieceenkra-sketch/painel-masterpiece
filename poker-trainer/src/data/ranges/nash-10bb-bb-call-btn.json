@@ -1,0 +1,11 @@
+{
+  "id": "nash-10bb-bb-call-btn",
+  "label": "BB call vs BTN jam 10BB",
+  "description": "BTN deu all-in com 10BB. Você na BB com odds 2-pra-1. Calling ou fold?",
+  "effectiveBB": 10,
+  "sourceNote": "Aproximação Nash chip-EV. BB chama amplo dado odds excelentes (~52% calling range vs jam wide do BTN).",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "call": "22+, A2s+, A2o+, K2s+, K7o+, Q5s+, Q9o+, J7s+, JTo, T7s+, T9o, 96s+, 97o, 86s+, 87o, 75s+, 65s, 54s, 43s"
+  }
+}

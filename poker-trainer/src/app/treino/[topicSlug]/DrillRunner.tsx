@@ -1,0 +1,218 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { Action } from "@/domain/cards";
+import { POSITION_LABEL_PT } from "@/domain/cards";
+import type { Attempt } from "@/domain/progress";
+import { summarize } from "@/domain/progress";
+import type { PreflopRange } from "@/domain/range";
+import type { PreflopSpot } from "@/domain/spots";
+import { evaluate, legalActions, newQuestion, defaultRaiseSize, type DrillQuestion } from "@/engine/drill";
+import { handCodeOf } from "@/engine/handCode";
+import type { ScoreResult } from "@/engine/scoring";
+import { eventKey } from "@/lib/keyboardShortcuts";
+import { loadProgress, saveAttempt } from "@/storage/localProgress";
+import { ActionButtons } from "@/components/ActionButtons";
+import { ActionHistoryLine } from "@/components/ActionHistoryLine";
+import { FeedbackPanel } from "@/components/FeedbackPanel";
+import { HoleCards } from "@/components/HoleCards";
+import { IcmBanner } from "@/components/IcmBanner";
+import { ProgressBadge } from "@/components/ProgressBadge";
+import { SizingSlider } from "@/components/SizingSlider";
+import { PokerTable } from "@/components/table/PokerTable";
+import { formatBB, formatPct } from "@/lib/format";
+
+type Props = {
+  topicId: string;
+  spot: PreflopSpot;
+  range: PreflopRange;
+  targetAttempts: number;
+  onAttempt?: (attempt: Attempt) => void;
+};
+
+type State =
+  | { phase: "asking"; question: DrillQuestion }
+  | { phase: "feedback"; question: DrillQuestion; result: ScoreResult; hand: string };
+
+export function DrillRunner({ topicId, spot, range, targetAttempts, onAttempt }: Props) {
+  const [state, setState] = useState<State | null>(null);
+  const [stats, setStats] = useState({ total: 0, correctPct: 0, avgEvLossBB: 0 });
+  // Keep latest attempts in a ref so spaced-repetition sampling can read them
+  // synchronously inside handleNext without re-loading from localStorage.
+  const attemptsRef = useRef<Attempt[]>([]);
+
+  const baseActions = useMemo(() => legalActions(spot), [spot]);
+  const baseRaiseSize = defaultRaiseSize(spot);
+  const [raiseSize, setRaiseSize] = useState<number>(baseRaiseSize ?? 0);
+
+  const actions: Action[] = useMemo(
+    () =>
+      baseActions.map((a) =>
+        a.kind === "raise" ? { kind: "raise", sizeBB: raiseSize } : a,
+      ),
+    [baseActions, raiseSize],
+  );
+
+  useEffect(() => {
+    const p = loadProgress(topicId);
+    attemptsRef.current = p.attempts;
+    setState({ phase: "asking", question: newQuestion(spot, range, p.attempts) });
+    const s = summarize(p);
+    setStats({ total: s.total, correctPct: s.correctPct, avgEvLossBB: s.avgEvLossBB });
+    if (baseRaiseSize != null) setRaiseSize(baseRaiseSize);
+  }, [topicId, spot, range, baseRaiseSize]);
+
+  function handleChoose(action: Action) {
+    if (!state || state.phase !== "asking") return;
+    const result = evaluate(state.question, action);
+    const hand = handCodeOf(state.question.heroCards[0], state.question.heroCards[1]);
+    const newAttempt: Attempt = {
+      spotId: spot.id,
+      hand,
+      chosen: action,
+      correct: result.correct,
+      evLossBB: result.evLossBB,
+      bucket: result.bucket,
+      timestampMs: Date.now(),
+    };
+    const updated = saveAttempt(topicId, newAttempt);
+    attemptsRef.current = updated.attempts;
+    onAttempt?.(newAttempt);
+    const s = summarize(updated);
+    setStats({ total: s.total, correctPct: s.correctPct, avgEvLossBB: s.avgEvLossBB });
+    setState({ phase: "feedback", question: state.question, result, hand });
+  }
+
+  function handleNext() {
+    setState({
+      phase: "asking",
+      question: newQuestion(spot, range, attemptsRef.current),
+    });
+    if (baseRaiseSize != null) setRaiseSize(baseRaiseSize);
+  }
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const key = eventKey(e);
+      if (!key) return;
+      if (!state) return;
+      if (state.phase === "feedback") {
+        if (key === "SPACE" || key === "ENTER") {
+          e.preventDefault();
+          handleNext();
+        }
+        return;
+      }
+      const match = actions.find((a) => {
+        if (key === "F") return a.kind === "fold";
+        if (key === "C") return a.kind === "call" || a.kind === "check";
+        if (key === "R") return a.kind === "raise";
+        if (key === "J") return a.kind === "jam";
+        return false;
+      });
+      if (match) {
+        e.preventDefault();
+        handleChoose(match);
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state, actions]);
+
+  if (!state) {
+    return <div className="text-slate-400">Carregando…</div>;
+  }
+
+  const { question } = state;
+  const hasRaise = baseActions.some((a) => a.kind === "raise");
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <ProgressBadge
+          attempts={stats.total}
+          target={targetAttempts}
+          correctPct={stats.correctPct}
+        />
+        <div className="text-xs text-slate-500">
+          EV médio perdido:{" "}
+          <span className="font-mono text-slate-300">{formatBB(stats.avgEvLossBB)}</span>{" "}
+          · Acerto:{" "}
+          <span className="font-mono text-slate-300">{formatPct(stats.correctPct)}</span>
+        </div>
+      </div>
+
+      {spot.kind === "pushfold" && spot.icmScenario && (
+        <IcmBanner scenario={spot.icmScenario} />
+      )}
+
+      <section
+        aria-label="Mesa atual"
+        className="space-y-3"
+      >
+        <div className="flex flex-wrap items-baseline justify-between gap-2 text-sm">
+          <div className="text-slate-300">
+            <span className="font-semibold text-emerald-300">
+              {POSITION_LABEL_PT[spot.heroPos]}
+            </span>{" "}
+            · Stack effective:{" "}
+            <span className="font-semibold text-white">{spot.effectiveBB} BB</span>
+          </div>
+          <div className="text-xs uppercase tracking-wide text-slate-500">
+            {spot.kind === "pushfold" && spot.icmContext === "bubble"
+              ? "Bolha (ICM)"
+              : spot.kind === "pushfold" && spot.icmContext === "finalTable"
+                ? "Final Table (ICM)"
+                : "chipEV (sem ICM)"}
+          </div>
+        </div>
+
+        <PokerTable
+          heroPos={spot.heroPos}
+          heroStackBB={spot.effectiveBB}
+          effectiveBB={spot.effectiveBB}
+          prior={spot.prior}
+          villainPos={spot.kind === "defense" ? spot.villainPos : undefined}
+          centerSlot={
+            <div className="flex flex-col items-center gap-2">
+              <HoleCards cards={question.heroCards} />
+              <span className="rounded-full bg-slate-950/70 px-2 py-0.5 text-[10px] uppercase tracking-wide text-slate-300 ring-1 ring-slate-700">
+                Sua mão
+              </span>
+            </div>
+          }
+        />
+
+        {/* Screen-reader / fallback narrative of action so far. */}
+        <div className="sr-only">
+          <ActionHistoryLine prior={spot.prior} heroPos={spot.heroPos} />
+        </div>
+      </section>
+
+      {state.phase === "asking" ? (
+        <section className="space-y-4">
+          {hasRaise && baseRaiseSize != null && (
+            <SizingSlider
+              minBB={Math.max(2, baseRaiseSize - 2)}
+              maxBB={Math.min(spot.effectiveBB, baseRaiseSize + 4)}
+              valueBB={raiseSize}
+              onChange={setRaiseSize}
+              label={spot.kind === "defense" ? "Tamanho 3-bet" : "Tamanho do raise"}
+            />
+          )}
+          <div className="text-center text-sm text-slate-400">O que você faz?</div>
+          <ActionButtons actions={actions} onChoose={handleChoose} />
+        </section>
+      ) : (
+        <FeedbackPanel
+          result={state.result}
+          rangeId={range.id}
+          rangeLabel={range.label}
+          hand={state.hand}
+          onNext={handleNext}
+        />
+      )}
+    </div>
+  );
+}

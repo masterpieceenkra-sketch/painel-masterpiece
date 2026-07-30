@@ -1,0 +1,100 @@
+{
+  "topicId": "postflop-srp-btn-vs-bb-paired",
+  "spots": [
+    {
+      "id": "srp-btn-vs-bb-paired-01",
+      "street": "flop",
+      "board": ["7h", "7d", "2c"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Qh", "Qd"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x (range ampla ~52%)",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.05, "evBB": 2.3 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.95, "evBB": 2.7 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 1.65 },
+        "explanation_ptBR": "QQ em 772 arco-íris: c-bet 33% quasi-puro (95%). O BTN tem enorme range advantage aqui — o villain raramente tem 7x (teria 3-bettado pré com 77 de valor). Você protege QQ de overcards (A, K) e extrai valor de pares médios (JJ, TT, 99, 88) e Ax. Bet 33% com toda a range de valor + bluffs frequentes é o padrão GTO em boards secos e pareados baixos.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, paired dry board 772r"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-paired-02",
+      "street": "flop",
+      "board": ["Ks", "Kd", "4h"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Th", "9h"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.55, "evBB": 1.4 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.45, "evBB": 1.5 }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "T9s em KK4 arco-íris: check levemente dominante (55%). T9s não tem valor aqui e como bluff você prefere mãos com A-blocker (AJ, AT, A9s) que reduzem as mãos Kx do villain. Com T9s, a linha de check realiza equity livre no turn — se vier J, Q ou 8, você ganha equity adicional. Reserve os bluffs nesse board para mãos que bloqueiam o topo da range adversária.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, KK4r — blocker theory"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-paired-03",
+      "street": "flop",
+      "board": ["8s", "8h", "3d"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["6c", "6d"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.80, "evBB": 1.2 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.20, "evBB": 1.25 }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "66 em 883 arco-íris: check dominante (80%). Underpair fraco sem equity residual — você perde para todo 8x, pares maiores (77-AA) e nem tem draws. Não é um bom bluff porque não tem equity de backup quando chamado. Checar e ir a showdown é o caminho; só aposta eventualmente quando o villain dá sinal de fraqueza no turn. Prefira bluffar aqui com T9s, J9s que têm gutshots e backdoors.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, 883r weak underpair"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-paired-04",
+      "street": "flop",
+      "board": ["Ah", "Ad", "5c"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Jd", "Td"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.65, "evBB": 1.5 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.35, "evBB": 1.55 }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "JTdd em AA5 arco-íris: check 65%, bet 33% 35%. JT tem backdoor flush draw de ouros e pode ir como bluff às vezes, mas o board AA5 é tricky — o villain também tem Ax na range de call do BB (A2s-A9s, AJo-ATo) que vira set/full. C-betamos muito aqui com AA, AK, AQ, KK mas com JT o check é leve preferido. Evite bluffar excessivamente num board que conecta bem com parte da range do villain.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, AA5r air with backdoor"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-paired-05",
+      "street": "flop",
+      "board": ["Qs", "Qc", "7h"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Ad", "Kc"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.35, "evBB": 2.0 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.65, "evBB": 2.2 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 1.65 },
+        "explanation_ptBR": "AKo em QQ7 arco-íris: bet 33% predominante (65%). AKo tem ~12% de equity (6 outs para top pair), mas o motivo principal do bet é a range advantage enorme do BTN — você tem QQ, KK, AA, AQ, KQ. AKo vai como semi-bluff aproveitando fold equity imediata contra Jx, Tx, 7x do villain. 65% do tempo você aposta, 35% você mistura com checks para balancear sua range.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, QQ7r overcards semi-bluff"
+      }
+    }
+  ]
+}

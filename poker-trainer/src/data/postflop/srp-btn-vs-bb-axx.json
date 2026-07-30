@@ -1,0 +1,82 @@
+{
+  "topicId": "postflop-srp-btn-vs-bb-axx",
+  "spots": [
+    {
+      "id": "srp-btn-vs-bb-A72r-99",
+      "street": "flop",
+      "board": ["As", "7h", "2d"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["9c", "9s"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — sem Ax forte (cap em A9, KQs+ slowplay raro)",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.55, "evBB": 0.22 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.45, "evBB": 0.22 }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "99 em A72 rainbow vs range de BB call (capada em A9) é fronteira clara entre check e c-bet pequeno. Com showdown value contra a parte fraca (KQ, KJ, QJ, 88-33 com underpair), checkar realiza equity ganhando barato. C-bet 33% também é lucrativo extraindo de Ax-fraco (A4-A9) e draws (QJ, T9s, gutshots), mas tamanho grande seria erro: você isola contra Ax e overpairs que te batem. Solver mistura 50/50 — qualquer escolha entre check e bet pequeno é correta.",
+        "sourceNote": "BTN vs BB SRP 25BB, aproximação solver (PIO-style). Variar é a resposta certa em mãos mistas."
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-AT5r-KhQh",
+      "street": "flop",
+      "board": ["Ac", "Td", "5h"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Kh", "Qh"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — range ampla com muitos Tx, Ax fraco, pares baixos",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.05, "evBB": 0.18 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.95, "evBB": 0.42 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 1.65 },
+        "explanation_ptBR": "KQs em ATx é c-bet 33% praticamente puro. Você tem gutshot a Broadway (J = K-Q-J-T-A) somando 4 outs claros, backdoor flush draw em copas, dois overs (K e Q) gerando ~6 outs de pair, e fold equity gigante contra a maioria do range de BB (pares baixos, suited connectors falhados, mãos fracas). EV de bet 33% (~+0.42BB) supera muito o check (~+0.18BB) porque a textura favorece o agressor e você precisa proteger equity contra cartas que matam (8, 6, 4) ao mesmo tempo que extrai value de Tx-fraco e draws piores.",
+        "sourceNote": "BTN vs BB SRP 25BB, aproximação solver. Texturas Ax altas favorecem c-bet pequeno alto frequência."
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-AhKh4c-66",
+      "street": "flop",
+      "board": ["Ah", "Kh", "4c"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["6d", "6s"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — inclui Ax e Kx fortes, pouco flush draw real",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.92, "evBB": 0.08 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.08, "evBB": -0.12 }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "66 em AhKh4c é check quase puro. A board atinge o range de BB em peso (Ax e Kx aparecem muito no defesa de BB call), você está dominado por overpairs e top pairs, não tem draw (sem flush, sem straight), e o flush draw de copas vem do range adversário também. Apostar 33% queima EV porque você não fold-equiteia Ax/Kx e ainda perde pra cartas turn (Q, J, T) que melhoram BB mais que você. Checkar realiza ~0.08BB ganhando vs hands tipo 55, 33, 22 e QJ/QT/JT-tipo whiffs.",
+        "sourceNote": "BTN vs BB SRP 25BB. Boards AKx com flush draw são exemplo clássico de range bet quebrar."
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-As8s3c-AhJd",
+      "street": "flop",
+      "board": ["As", "8s", "3c"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Ah", "Jd"],
+      "heroStackBB": 22.8,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x — Ax pode estar dominado, muitos pares baixos e draws",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.25, "evBB": 0.55 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.6, "evBB": 0.7 },
+          { "action": { "kind": "raise", "sizeBB": 3.75 }, "frequency": 0.15, "evBB": 0.68 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 1.65 },
+        "explanation_ptBR": "AJ em A83 com flush draw na board (spades) é top pair com kicker decente e desbloqueio do flush. C-bet 33% é a ação modal (~60%) porque você quer extrair de Ax-fraco (A2-A9), pares (88, 33, 22 com set), e draws de copas/clubes errados. C-bet maior (75%) tem mix pequena (15%) com hands fortes mas se confunde com bluffs — solver mistura. Checkar 25% também é OK pra balancear seu check-back range e proteger contra check-raises agressivos da BB em board de flush. Tudo tem EV positivo; bet 33% maximiza.",
+        "sourceNote": "BTN vs BB SRP 25BB. Top pair em board com flush draw é c-bet pequeno default."
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "nash-15bb-sb-jam",
+  "label": "SB jam 15BB vs BB",
+  "description": "Folded to SB com 15BB effective. Push ou fold?",
+  "effectiveBB": 15,
+  "sourceNote": "Aproximação Nash chip-EV (~40% range).",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "jam": "22+, A2s+, A4o+, K2s+, K8o+, Q4s+, QTo+, J7s+, JTo, T8s+, T9o, 96s+, 87s, 75s+, 65s, 54s"
+  }
+}

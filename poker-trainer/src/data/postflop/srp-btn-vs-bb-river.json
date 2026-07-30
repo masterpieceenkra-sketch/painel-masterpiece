@@ -1,0 +1,101 @@
+{
+  "topicId": "postflop-srp-btn-vs-bb-river",
+  "spots": [
+    {
+      "id": "srp-btn-vs-bb-river-01",
+      "street": "river",
+      "board": ["Ks", "7d", "2c", "4h", "Td"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Kh", "Qc"],
+      "heroStackBB": 16,
+      "potBB": 12,
+      "villainRangeLabel": "BB check-chamou flop e turn em K72-4",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.30, "evBB": 5.8 },
+          { "action": { "kind": "raise", "sizeBB": 4.0 }, "frequency": 0.55, "evBB": 6.5 },
+          { "action": { "kind": "raise", "sizeBB": 9.0 }, "frequency": 0.15, "evBB": 6.2 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 4.0 },
+        "explanation_ptBR": "KQ em K724-T (river T): bet 33% predominante (55%). Top pair top kicker é valor no river — o villain que check-chamou dois streets tem KJ, KT, K9, K8, sets menores, pares médios. O T no river é uma carta de valor: dá ao villain mais mãos que chamam (QT, JT, T9, sets de T). Bet 33% extrai de toda essa range ampla. Overbet (75%) também existe para polarizar contra Kx fraco e bluffs; check balanceia sua range.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, river thin value bet TPTK"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-river-02",
+      "street": "river",
+      "board": ["Ad", "Jc", "3s", "8h", "4c"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["9h", "8s"],
+      "heroStackBB": 20,
+      "potBB": 8,
+      "villainRangeLabel": "BB check-chamou flop, turn foi check-check em AJ3-8",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.65, "evBB": 1.8 },
+          { "action": { "kind": "raise", "sizeBB": 6.0 }, "frequency": 0.35, "evBB": 1.9 }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "98s em AJ384 (river 4): check 65%, bluff overbet 35%. 98 tem middle pair (pares de 8) — showdown value fraco que bate K-high, Q-high, 76, 65. Check preserva esse showdown value: o villain pode chegar no river com QJ, J9, KJ, KQ que você bate. O bluff de 35% acontece com overbet porque 4 é um blank e você pode forçar folds de Jx fraco. Mas a regra principal: se você tem showdown value, prefira realizá-la em vez de bluffar.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, river showdown vs bluff decision"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-river-03",
+      "street": "river",
+      "board": ["Ts", "9d", "2h", "6c", "7s"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Js", "Jh"],
+      "heroStackBB": 12,
+      "potBB": 16,
+      "villainRangeLabel": "BB check-chamou flop e turn em T92-6",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.75, "evBB": 6.0 },
+          { "action": { "kind": "raise", "sizeBB": 5.5 }, "frequency": 0.25, "evBB": 5.8 }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "JJ em T9267 (river 7): check 75%. O board chegou em T-9-2-6-7 — está muito coordenado. 7 completou draws: 86s, J8s, J8o, 85s viraram straights ou pares fortes. JJ virou uma mão de showdown value que não quer construir o pote. Check/call contra qualquer bet do villain: você ainda bate bluffs de draws perdidos (FDs que erraram). Apostar 25% é possível para extrair de 99, 88 mas é minoritário.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, river scare card on overpair showdown"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-river-04",
+      "street": "river",
+      "board": ["Qh", "Jd", "4s", "6d", "9d"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Ad", "Kd"],
+      "heroStackBB": 14,
+      "potBB": 10,
+      "villainRangeLabel": "BB check-chamou flop, turn check-check em QJ4-6",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.35, "evBB": 2.0 },
+          { "action": { "kind": "raise", "sizeBB": 8.0 }, "frequency": 0.65, "evBB": 2.5 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 8.0 },
+        "explanation_ptBR": "AdKd em QJ469d (river 9d, terceiro diamante): overbet bluff 80% pot (65%). Você perdeu o flush draw de nuts e tem zero showdown value (A-high). Mas você tem o AD — blocker do flush de nuts. Em bluffs de river com blockers, você nega ao villain a mão mais provável de te chamar. Overbet força folds de KJ, QT, Q9, pares médios que não têm flush. Check 35% balanceia: às vezes você checa bluffs para balancear sua range de check.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, river overbet bluff with Ace-nut blocker"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-river-05",
+      "street": "river",
+      "board": ["Kc", "8h", "5s", "3s", "As"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Qs", "Js"],
+      "heroStackBB": 14,
+      "potBB": 12,
+      "villainRangeLabel": "BB check-chamou flop e turn em K85-3",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.05, "evBB": 5.2 },
+          { "action": { "kind": "raise", "sizeBB": 10.0 }, "frequency": 0.95, "evBB": 6.8 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 10.0 },
+        "explanation_ptBR": "QsJs em K853-As (river As completando flush): overbet value quasi-puro (95%). Você tem Q-high flush (3ª nuts — só AsKs e AsXs onde X>Q batem). O villain pode ter flushs menores (Ts, 9s, 7s, 6s, 4s, 2s em mãos suited), Kx com A kicker, sets feitos no flop. Overbet quasi-all-in extrai máximo valor: você está na 3ª mão mais forte possível, e vai para um pote de ~32BB em stacks de ~14BB. Check seria um erro enorme de EV.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, river flush completed overbet value"
+      }
+    }
+  ]
+}

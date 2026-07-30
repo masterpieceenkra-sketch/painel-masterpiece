@@ -1,0 +1,11 @@
+{
+  "id": "open-btn-25bb",
+  "label": "BTN Open 25BB",
+  "description": "BTN com 25BB effective, todos foldaram. Open-raise para 2.2BB ou fold.",
+  "effectiveBB": 25,
+  "sourceNote": "GTO aproximação (~48% range). Sizing padrão 2.2BB. MTT chipEV.",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "raise": "22+, A2s+, A2o+, K2s+, K7o+, Q2s+, Q9o+, J5s+, J9o+, T7s+, T9o, 97s+, 98o, 86s+, 76s, 75s, 65s, 64s, 54s, 43s"
+  }
+}

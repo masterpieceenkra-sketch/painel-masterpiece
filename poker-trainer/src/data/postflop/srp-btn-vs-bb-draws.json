@@ -1,0 +1,101 @@
+{
+  "topicId": "postflop-srp-btn-vs-bb-draws",
+  "spots": [
+    {
+      "id": "srp-btn-vs-bb-draws-01",
+      "street": "flop",
+      "board": ["Kh", "7s", "5h"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Jh", "Th"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.30, "evBB": 1.5 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.55, "evBB": 1.9 },
+          { "action": { "kind": "raise", "sizeBB": 2.5 }, "frequency": 0.15, "evBB": 1.8 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 1.65 },
+        "explanation_ptBR": "JhTh em K75 com dois copas: bet 55% (mix de tamanhos). JhTh tem flush draw secundário (J-high flush) + gutshot para o Q (Q faz Q-J-T-9-8 — wait, 9 ou Q completa). Semi-bluff claro em K-high board onde BTN é range-favorecido. Bet 33% é preferido para maximizar fold equity barato. O villain tem dificuldade de defender range larga contra polarização; você extrai quando hits e ganha folds imediatos.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, K75hh flush draw + gutshot"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-draws-02",
+      "street": "flop",
+      "board": ["As", "6c", "4s"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["5s", "3s"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.20, "evBB": 2.6 },
+          { "action": { "kind": "raise", "sizeBB": 2.5 }, "frequency": 0.80, "evBB": 3.4 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 2.5 },
+        "explanation_ptBR": "5s3s em A64 com dois espadas: bet 50% pot quasi-puro (80%). Combo draw poderosa — OESD (2 ou 7 completam a straight) + flush draw de espadas. Com ~12 outs limpos você tem ~50% de equity contra top pair. Bet grande constrói o pote antes de completar. Bônus: 53s bloqueia 65s e 53o do villain, removendo mãos dele com equity similar à sua. Esse é o tipo de mão em que ir all-in em dois streets é matematicamente correto.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, A64ss OESD+flush combo draw"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-draws-03",
+      "street": "flop",
+      "board": ["Kd", "9c", "3s"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Qd", "Jd"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.45, "evBB": 1.7 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.55, "evBB": 1.85 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 1.65 },
+        "explanation_ptBR": "QJdd em K93 arco-íris: bet 33% (55%). QJ tem backdoor flush draw de ouros + dois overcards para o 9 e 3. Semi-bluff aproveitando range advantage do BTN em K-high boards — você tem muito mais KQ, KJ, K9 do que o villain. QJ mistura: aposta 55% pra ser parte dos bluffs balanceados junto com valor (KQ, KJ, 99, 33, K9). Check 45% evita sobreapostar num board em que o villain pode ter 2-pair+ com K9s.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, K93r overcards with backdoor"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-draws-04",
+      "street": "flop",
+      "board": ["Jc", "8s", "4h"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["9d", "7d"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.35, "evBB": 1.6 },
+          { "action": { "kind": "raise", "sizeBB": 1.65 }, "frequency": 0.65, "evBB": 1.85 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 1.65 },
+        "explanation_ptBR": "97o em J84 arco-íris: bet 33% (65%). 97 tem gutshot para o T (T completa J-T-9-8-7) e overcard para o 8 e 4. Semi-bluff claro — você não tem showdown value mas aproveita a range advantage do BTN em J-high boards. 65% do tempo aposta para aplicar pressão; o villain tem dificuldade de defender K-high e Q-high que não conectaram. Se vier T no turn, você pode continuar com straight feita.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, J84r gutshot no showdown value"
+      }
+    },
+    {
+      "id": "srp-btn-vs-bb-draws-05",
+      "street": "flop",
+      "board": ["5h", "4h", "2c"],
+      "preflop": { "heroPos": "BTN", "villainPos": "BB", "openSizeBB": 2.2 },
+      "heroHand": ["Ac", "3c"],
+      "heroStackBB": 25,
+      "potBB": 5,
+      "villainRangeLabel": "BB call vs BTN 2.2x",
+      "solution": {
+        "actions": [
+          { "action": { "kind": "check" }, "frequency": 0.10, "evBB": 2.5 },
+          { "action": { "kind": "raise", "sizeBB": 2.5 }, "frequency": 0.90, "evBB": 3.1 }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 2.5 },
+        "explanation_ptBR": "A3o em 542 arco-íris: bet 50% quasi-puro (90%). A3 fez a nut low straight (A-2-3-4-5)! Você tem valor puro aqui. O villain pode ter sets (22, 44, 55), dois pares (54s, 52s, 42s), e pares médios que pagam. Bet 50% constrói o pote eficientemente — com stacks de 25BB em pote de 5BB, um overbet seria muito óbvio. Extraia valor de toda range que chamou o flop; o villain não pode colocar você em 36 sempre.",
+        "sourceNote": "GTO Wizard SRP BTN vs BB, 542r wheel straight value bet"
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "nash-20bb-sb-jam",
+  "label": "SB jam 20BB vs BB",
+  "description": "Folded to SB com 20BB. Range tighter — a 20BB+ open standard é preferível em muitos casos.",
+  "effectiveBB": 20,
+  "sourceNote": "Aproximação Nash chip-EV (~24% range). A 20BB+ considere open standard 2.5x ao invés de jam.",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "jam": "33+, A2s+, ATo+, K9s+, KJo+, Q9s+, QJo, JTs, T9s, 98s, 87s"
+  }
+}

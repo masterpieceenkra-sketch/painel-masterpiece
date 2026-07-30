@@ -1,0 +1,170 @@
+{
+  "topicId": "postflop-srp-bb-vs-btn-cbet",
+  "spots": [
+    {
+      "id": "bb-vs-btn-cbet-K72r-AT-vs-cbet",
+      "street": "flop",
+      "board": ["Kh", "7d", "2c"],
+      "preflop": {
+        "heroPos": "BB",
+        "villainPos": "BTN",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Ah", "Td"],
+      "heroStackBB": 22.8,
+      "potBB": 6.65,
+      "villainRangeLabel": "BTN c-bet 33% pot vs BB check — range polarizada: Kx, overpair (AA-QQ), draws, bluffs (Q9s, JT, 87s)",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "fold" },
+            "frequency": 0.45,
+            "evBB": 0
+          },
+          {
+            "action": { "kind": "call" },
+            "frequency": 0.5,
+            "evBB": 0.18
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 7.5 },
+            "frequency": 0.05,
+            "evBB": -0.08
+          }
+        ],
+        "bestAction": { "kind": "call" },
+        "explanation_ptBR": "ATo em K72 rainbow contra c-bet 33% do BTN: você tem A-high com gutshot ao Broadway (Q dá QJTA... só sonho). Sem draw real, sem par, dois overcards fracos contra Kx. Call (50%) realiza equity da A no turn (3 outs limpos), evita ser bluff-foldado, e fecha o pot a 1 bet. Fold (45%) também é válido — você tem pouca equity e estará jogando OOP em runouts difíceis. Raise (5%) é raríssimo, só com leitura forte de villain over-bluffing. A escolha entre call e fold depende da tendência do villain.",
+        "sourceNote": "BB vs BTN c-bet 33% no flop. ATo é fronteira clara entre call e fold OOP."
+      }
+    },
+    {
+      "id": "bb-vs-btn-cbet-K72r-K9s-vs-cbet",
+      "street": "flop",
+      "board": ["Kh", "7d", "2c"],
+      "preflop": {
+        "heroPos": "BB",
+        "villainPos": "BTN",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Kc", "9c"],
+      "heroStackBB": 22.8,
+      "potBB": 6.65,
+      "villainRangeLabel": "BTN c-bet 33% pot — Kx (KQ+, AK), overpairs, draws, bluffs",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "call" },
+            "frequency": 0.65,
+            "evBB": 0.32
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 8.5 },
+            "frequency": 0.35,
+            "evBB": 0.28
+          }
+        ],
+        "bestAction": { "kind": "call" },
+        "explanation_ptBR": "K9 em K72 rainbow é top pair com kicker fraco contra c-bet do BTN — situação clássica de slow-play vs check-raise. Call (65%) é o padrão: você está acima da maioria do range (overpairs te batem, mas você bate Kx-fraco e todos os bluffs). Check-raise (35%) também é viável para extrair de overpairs (JJ, QQ que vão pagar dois ruas) e fazer fold de QJ, JT (bluffs com gutshot). Nunca fold com top pair contra c-bet único — você tem muita equity de showdown.",
+        "sourceNote": "BB vs BTN c-bet 33%. TP-weak kicker: call dominant, check-raise viável como mix."
+      }
+    },
+    {
+      "id": "bb-vs-btn-cbet-987r-T9-vs-cbet",
+      "street": "flop",
+      "board": ["9h", "8c", "7d"],
+      "preflop": {
+        "heroPos": "BB",
+        "villainPos": "BTN",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Tc", "9c"],
+      "heroStackBB": 22.8,
+      "potBB": 6.65,
+      "villainRangeLabel": "BTN c-bet 33% pot — Tx (TT, JT), overpairs, AK/AQ, dois pares menos prováveis",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "call" },
+            "frequency": 0.3,
+            "evBB": 0.45
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 8.5 },
+            "frequency": 0.7,
+            "evBB": 0.62
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 8.5 },
+        "explanation_ptBR": "T9 em 987 rainbow é monstro: top pair + OESD (J ou 6 completa Broadway/8 completa straight). Check-raise (70%) é dominante — você bloqueia JT (straights de villain), tem 14+ outs equity contra overpairs, e aplica pressão máxima num board ultra-conectado onde villain estará disposto a foldar muitos overcards. Call (30%) também é válido para manter range balanceado mas com essa mão prefira construir o pot agora.",
+        "sourceNote": "BB vs BTN c-bet 33% em board ultra-conectado. T9 top pair + OESD = check-raise dominante."
+      }
+    },
+    {
+      "id": "bb-vs-btn-cbet-A52r-22-vs-cbet",
+      "street": "flop",
+      "board": ["As", "5d", "2h"],
+      "preflop": {
+        "heroPos": "BB",
+        "villainPos": "BTN",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["2c", "2s"],
+      "heroStackBB": 22.8,
+      "potBB": 6.65,
+      "villainRangeLabel": "BTN c-bet 33% — Ax (AT+, ATs+ valor), overpairs, suited connectors com backdoor",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "call" },
+            "frequency": 0.35,
+            "evBB": 0.48
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 8.5 },
+            "frequency": 0.65,
+            "evBB": 0.58
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 8.5 },
+        "explanation_ptBR": "22 em A52 rainbow é set de baixo: a melhor mão possível num board onde villain raramente tem 55 (geralmente não estaria no range de open BTN) e nunca tem AA pré-flop (slowplays seriam raros). Check-raise (65%) constrói o pot enquanto villain tem AK/AQ/AJ que vai pagar para ver o turn. Call (35%) slow-play é viável em boards drier, mas A-baixo conectado pode dar problema no turn (4, 6, 7, 3 fecha straights). Bet big com top set + protection.",
+        "sourceNote": "BB vs BTN c-bet 33%. Set baixo em board A: check-raise para value extraction + protection."
+      }
+    },
+    {
+      "id": "bb-vs-btn-cbet-Q84r-65s-vs-cbet",
+      "street": "flop",
+      "board": ["Qh", "8d", "4c"],
+      "preflop": {
+        "heroPos": "BB",
+        "villainPos": "BTN",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["6c", "5c"],
+      "heroStackBB": 22.8,
+      "potBB": 6.65,
+      "villainRangeLabel": "BTN c-bet 33% — Qx, overpairs, draws, bluffs com backdoor",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "fold" },
+            "frequency": 0.55,
+            "evBB": 0
+          },
+          {
+            "action": { "kind": "call" },
+            "frequency": 0.3,
+            "evBB": -0.12
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 7.5 },
+            "frequency": 0.15,
+            "evBB": -0.05
+          }
+        ],
+        "bestAction": { "kind": "fold" },
+        "explanation_ptBR": "65s em Q84 rainbow: você tem gutshot ao 7 (apenas 4 outs) e backdoor flush em paus. Equity total ~12-15% contra range de c-bet. Sem fold equity real para raise (villain c-betando 70%+ tem muitos overcards e Qx). Fold (55%) é o melhor — você gasta 1 bet para ver turn de 1 carta com equity ruim. Call (30%) é defensivo para evitar over-folder a range completa. Raise como check-raise bluff (15%) precisa de equity backdoor + fold equity, mas é marginal aqui.",
+        "sourceNote": "BB vs BTN c-bet 33%. Gutshot puro sem backdoors fortes = fold dominante OOP."
+      }
+    }
+  ]
+}

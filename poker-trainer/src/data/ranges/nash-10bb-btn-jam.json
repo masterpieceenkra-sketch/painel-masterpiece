@@ -1,0 +1,11 @@
+{
+  "id": "nash-10bb-btn-jam",
+  "label": "BTN jam 10BB",
+  "description": "Folded to BTN com 10BB. Push ou fold?",
+  "effectiveBB": 10,
+  "sourceNote": "Aproximação Nash chip-EV (~52% range). MTT chipEV.",
+  "defaultFrequencies": { "fold": 1 },
+  "compactCells": {
+    "jam": "22+, A2s+, A2o+, K2s+, K5o+, Q2s+, Q8o+, J3s+, J9o+, T6s+, T9o, 95s+, 98o, 85s+, 74s+, 64s+, 53s+, 43s"
+  }
+}

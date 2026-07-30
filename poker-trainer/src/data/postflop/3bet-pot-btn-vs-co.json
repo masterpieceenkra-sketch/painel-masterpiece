@@ -1,0 +1,160 @@
+{
+  "topicId": "postflop-3bet-btn-vs-co",
+  "spots": [
+    {
+      "id": "3bet-btn-vs-co-A52r-KK",
+      "street": "flop",
+      "board": ["As", "5d", "2h"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "CO",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Kc", "Ks"],
+      "heroStackBB": 18.0,
+      "potBB": 15,
+      "villainRangeLabel": "CO call de 3-bet (~7BB) — range forte: TT-QQ, AJs+, KQs, AQo+. Sem AA/KK (teria 4-betado).",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.62,
+            "evBB": 0.44
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 4.5 },
+            "frequency": 0.38,
+            "evBB": 0.35
+          }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "KK em A52 rainbow num pote de 3-bet é uma mão delicada: villain CO chamou sua 3-bet e tem AJs, AQs, AQo que te dominam completamente no flop. Check é o movimento correto 62% — você precisa de informação. Se villain apostar, você enfrenta uma decisão clara (provavelmente fold no river sem improvement). Se villain checar, você pode apostar pequeno no turn para extrair de QQ, JJ, TT que também checaram. C-bet 30% (38%) como bluff ocasional funciona contra range de CO que inclui QQ/JJ/TT sem Ax, mas o Ás no board pune demais seu KK.",
+        "sourceNote": "3-bet pot BTN vs CO, 25BB efetivo. KK em board com A: pot control + informação > c-bet cega."
+      }
+    },
+    {
+      "id": "3bet-btn-vs-co-K94r-AQ",
+      "street": "flop",
+      "board": ["Kh", "9d", "4c"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "CO",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Ac", "Qc"],
+      "heroStackBB": 18.0,
+      "potBB": 15,
+      "villainRangeLabel": "CO call de 3-bet — TT-QQ, AJs+, KQs, AQo+. Tem Kx forte (KQ, KJ), AK (split range).",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.45,
+            "evBB": 0.28
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 4.5 },
+            "frequency": 0.55,
+            "evBB": 0.38
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 4.5 },
+        "explanation_ptBR": "AQcc em K94 no 3-bet pot: você tem overcards (A e Q) com backdoor nut flush draw em paus. C-bet 30% (55%) aplica pressão sobre QQ, JJ, TT de CO que não conectaram no board e vão foldar com frequência. Quando villain chama, você precisa de Q ou A no turn para continuar, mas a fold equity inicial justifica o bet. Check (45%) também é válido — você realiza equity sem gastar fichas contra Kx de villain. Spot de mixing genuíno: ambas as escolhas têm EV positivo, prefira c-bet para manter villain guessing.",
+        "sourceNote": "3-bet pot BTN vs CO, 25BB. AQ sem par em board K-alto: semi-bluff fold equity vs QQ/JJ/TT de villain."
+      }
+    },
+    {
+      "id": "3bet-btn-vs-co-872r-QQ",
+      "street": "flop",
+      "board": ["8d", "7c", "2h"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "CO",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Qc", "Qs"],
+      "heroStackBB": 18.0,
+      "potBB": 15,
+      "villainRangeLabel": "CO call de 3-bet — TT-QQ (espelhado), AJs+, KQs, AQo+. Board baixo não conecta com range forte.",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.18,
+            "evBB": 0.42
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 4.5 },
+            "frequency": 0.82,
+            "evBB": 0.61
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 4.5 },
+        "explanation_ptBR": "QQ em 872 rainbow no 3-bet pot é um dos melhores cenários possíveis. Board baixo não toca no range de CO (TT-QQ, AJs+, KQs, AQo+) — villain tem principalmente overcards (AK, AJ, AQ) ou underpairs (TT, JJ). Você tem overpair claro. C-bet 30% (82%) é dominante: extrai de TT e JJ que não foldarão barato, aplica pressão sobre AK/AQ (que vão foldar em boa frequência aqui). Em 3-bet pots, range bet small em boards desconectados é a estratégia padrão do 3-bettor IP. Stack-to-pot favorece jam no turn se villain chamar.",
+        "sourceNote": "3-bet pot BTN vs CO, 25BB. QQ em board baixo desconectado: range advantage massiça para BTN, c-bet dominante."
+      }
+    },
+    {
+      "id": "3bet-btn-vs-co-JT5r-AK",
+      "street": "flop",
+      "board": ["Jc", "Th", "5d"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "CO",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Ah", "Kh"],
+      "heroStackBB": 18.0,
+      "potBB": 15,
+      "villainRangeLabel": "CO call de 3-bet — TT-QQ, AJs+, KQs, AQo+. JJ/TT são sets aqui. KQ tem gutshot.",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.38,
+            "evBB": 0.31
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 5.0 },
+            "frequency": 0.62,
+            "evBB": 0.44
+          }
+        ],
+        "bestAction": { "kind": "raise", "sizeBB": 5.0 },
+        "explanation_ptBR": "AhKh em JT5 rainbow no 3-bet pot tem semi-bluff forte: gutshot ao Broadway (Q completa AKQJT — 4 outs), backdoor nut flush draw em copas, e dois overcards. C-bet 33% (62%) tem fold equity significativa — villain com QQ, AQ, AJ sem set vai dobrar. Quando chamado por TT/JJ (sets), você ainda tem ~12% de outs. Check (38%) também é válido para ver turn barato, especialmente se villain parece strong. Em 3-bet pots, AK com equity draw é c-bet na maioria dos boards.",
+        "sourceNote": "3-bet pot BTN vs CO, 25BB. AK em JTx com gutshot ao Broadway + backdoor flush: semi-bluff profitável."
+      }
+    },
+    {
+      "id": "3bet-btn-vs-co-Q73r-JJ",
+      "street": "flop",
+      "board": ["Qh", "7d", "3c"],
+      "preflop": {
+        "heroPos": "BTN",
+        "villainPos": "CO",
+        "openSizeBB": 2.2
+      },
+      "heroHand": ["Jc", "Jd"],
+      "heroStackBB": 18.0,
+      "potBB": 15,
+      "villainRangeLabel": "CO call de 3-bet — TT-QQ (QQ bate você), AJs+, KQs, AQo+. Q73 conecta com Qx de villain.",
+      "solution": {
+        "actions": [
+          {
+            "action": { "kind": "check" },
+            "frequency": 0.7,
+            "evBB": 0.18
+          },
+          {
+            "action": { "kind": "raise", "sizeBB": 3.75 },
+            "frequency": 0.3,
+            "evBB": 0.14
+          }
+        ],
+        "bestAction": { "kind": "check" },
+        "explanation_ptBR": "JJ em Q73 no 3-bet pot é uma das situações mais arriscadas: o Q no board pega direto em AQ, KQ, e QQ do range de CO — que chamou sua 3-bet com essas mãos. Você tem underpair com kicker abaixo do board. Check 70% é o movimento certo: você quer realizar equity de graça e ver a reação de villain. Se villain apostar, você provavelmente faz fold dependendo do tamanho. Se villain checar, você pode apostar pequeno no turn para extrair de TT. C-bet 25% (30%) tem alguma fold equity contra AK/AJ sem par, mas é arriscado quando villain tem Qx tão frequente no range dele.",
+        "sourceNote": "3-bet pot BTN vs CO, 25BB. JJ em board Q-alto: villain range conecta forte, pot control é necessário."
+      }
+    }
+  ]
+}
