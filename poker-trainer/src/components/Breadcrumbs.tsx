@@ -15,6 +15,7 @@ const TOPIC_TITLES: Record<string, string> = Object.fromEntries(
 
 const SECTION_LABEL: Record<string, string> = {
   treino: "Treinar",
+  jogar: "Jogar",
   ranges: "Ranges",
   analisar: "Analisar",
   progresso: "Progresso",
@@ -26,6 +27,7 @@ const SECTION_LABEL: Record<string, string> = {
 // container (its index lives at "/"), so it links home.
 const SECTION_HREF: Record<string, string> = {
   treino: "/",
+  jogar: "/jogar",
   ranges: "/ranges",
   analisar: "/analisar",
   progresso: "/progresso",
